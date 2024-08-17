@@ -1,0 +1,25 @@
+.header {
+  background-color: var(--brown-color);
+  color: var(--beige-color);
+}
+
+.header > h1 {
+  font-family: Parisienne, serif;
+  font-weight: normal;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  margin: 0;
+  padding: 0.5em;
+}
+
+@media (min-width: 900px) {
+  .header {
+    width: 200px;
+  }
+  
+  .header > h1 {
+    text-align: center;
+  }
+}
