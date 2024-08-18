@@ -1,0 +1,12 @@
+.navigation {
+  background-color: var(--light-brown-color);
+  display: flex;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.column {
+  flex-direction: column;
+}

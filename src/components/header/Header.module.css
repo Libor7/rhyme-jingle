@@ -1,6 +1,7 @@
 .header {
   background-color: var(--brown-color);
   color: var(--beige-color);
+  display: flex;
 }
 
 .header > h1 {
@@ -16,10 +17,8 @@
 
 @media (min-width: 900px) {
   .header {
-    width: 200px;
-  }
-  
-  .header > h1 {
+    flex-direction: column;
     text-align: center;
+    width: 200px;
   }
 }
