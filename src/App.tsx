@@ -4,7 +4,6 @@ import React from "react";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import MainContent from "./components/main-content/MainContent";
-import Navigation from "./components/navigation/Navigation";
 
 /** HOOKS */
 import useWindowSize from "./hooks/useWindowSize";
