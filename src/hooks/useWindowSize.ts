@@ -1,29 +1,17 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 const useWindowSize = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const windowResizeHandler = () => setWindowWidth(window.innerWidth);
 
-  const debounce = useCallback((callback: () => void, wait: number) => {
-    let timeoutId: number | undefined;
-    
-    return (...args: []) => {
-      window.clearTimeout(timeoutId);
-      timeoutId = window.setTimeout(() => {
-        callback.apply(null, args);
-      }, wait);
-    };
-  }, []);
-
   useEffect(() => {
-    const debouncedResizeHandler = debounce(windowResizeHandler, 100)
-    window.addEventListener("resize", debouncedResizeHandler);
+    window.addEventListener("resize", windowResizeHandler);
 
     return () => {
-      window.removeEventListener("resize", debouncedResizeHandler);
+      window.removeEventListener("resize", windowResizeHandler);
     };
-  }, [debounce]);
+  }, []);
 
   return windowWidth;
 };
