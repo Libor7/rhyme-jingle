@@ -1,5 +1,7 @@
-/** STYLES */
+/** LIBRARIES */
 import { FC } from "react";
+
+/** STYLES */
 import styles from "./Navigation.module.css";
 
 interface NavigationProps {
@@ -8,9 +10,10 @@ interface NavigationProps {
 
 const Navigation: FC<NavigationProps> = ({row}) => {
   const flexDirection = row ? styles.row : styles.column;
+  const classes = `${styles.navigation} ${flexDirection}`;
 
   return (
-    <nav className={`${styles.navigation} ${flexDirection}`}>
+    <nav className={classes}>
       <ul></ul>
     </nav>
   );

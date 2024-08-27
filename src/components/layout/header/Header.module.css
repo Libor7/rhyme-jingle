@@ -15,6 +15,12 @@
   padding: 0.5em;
 }
 
+@media (max-width: 480px) {
+  .header {
+    justify-content: space-between;
+  }
+}
+
 @media (min-width: 900px) {
   .header {
     flex-direction: column;
