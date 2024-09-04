@@ -59,7 +59,7 @@
   color: var(--brown-color);
 }
 
-.input::-ms-input-placeholder {
+.input:focus::-ms-input-placeholder {
   color: var(--brown-color);
 }
 
