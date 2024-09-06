@@ -1,0 +1,39 @@
+.btn {
+  background-color: var(--dark-brown-color);
+  border-radius: 25%;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.btn:active {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.16) 0px 1.5px 3px, rgba(0, 0, 0, 0.23) 0px 1.5px 3px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.16) 0px 1.5px 3px, rgba(0, 0, 0, 0.23) 0px 1.5px 3px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1.5px 3px, rgba(0, 0, 0, 0.23) 0px 1.5px 3px;
+  transform: scale(0.98);
+}
+
+.btn > a {
+  color: var(--beige-color);
+  display: block;
+  padding: 1em;
+}
+
+.menu-item {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.menu-item > a {
+  color: var(--brown-color);
+  display: block;
+  font-family: Parisienne, serif;
+  font-size: 1.5em;
+  padding: 0.5em;
+  text-decoration: none;
+}
+
+.menu-item > a:hover, .menu-item > a:active {
+  color: var(--dark-brown-color);
+  font-weight: 600;
+}

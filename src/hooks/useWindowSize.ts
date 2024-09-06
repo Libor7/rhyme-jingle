@@ -14,7 +14,11 @@ const useWindowSize = () => {
     };
   }, []);
 
-  return windowWidth;
+  return {
+    isSmall: windowWidth <= 480,
+    isMedium: windowWidth > 480 && windowWidth < 900,
+    isLarge: windowWidth >= 900,
+  };
 };
 
 export default useWindowSize;

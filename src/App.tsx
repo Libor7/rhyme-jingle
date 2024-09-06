@@ -9,19 +9,44 @@ import useWindowSize from "./hooks/useWindowSize";
 /** LIBRARIES */
 import React from "react";
 
+/** MODELS */
+import { LinkIcons } from "./models/icon";
+import { LinkLabels, LinkPaths, Links } from "./models/link";
+
 /** STYLES */
 import styles from "./App.module.css";
 
-function App() {
-  const windowWidth = useWindowSize();
+const LinkData: Links[] = [
+  {
+    icon: LinkIcons.SEARCH,
+    label: LinkLabels.SEARCH,
+    path: LinkPaths.SEARCH,
+  },
+  {
+    icon: LinkIcons.FAVORITE,
+    label: LinkLabels.FAVORITE,
+    path: LinkPaths.FAVORITE,
+  },
+  {
+    icon: LinkIcons.ARCHIVE,
+    label: LinkLabels.ARCHIVE,
+    path: LinkPaths.ARCHIVE,
+  },
+  {
+    icon: LinkIcons.SETTINGS,
+    label: LinkLabels.SETTINGS,
+    path: LinkPaths.SETTINGS,
+  },
+];
 
-  const isSmall = windowWidth <= 480;
+function App() {
+  const { isSmall } = useWindowSize();
 
   return (
-    <div className={styles['app-container']}>
-      <Header />
+    <div className={styles["app-container"]}>
+      <Header links={LinkData} />
       <MainContent />
-      {isSmall && <Footer />}
+      {isSmall && <Footer links={LinkData} />}
     </div>
   );
 }

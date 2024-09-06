@@ -5,26 +5,30 @@ import Navigation from "../../navigation/Navigation";
 /** HOOKS */
 import useWindowSize from "../../../hooks/useWindowSize";
 
+/** LIBRARIES */
+import { FC } from "react";
+
 /** MODELS */
 import { Headings } from "../../../models/common";
 import { HeaderIcons, IconStyles } from "../../../models/icon";
+import { Links } from "../../../models/link";
 
 /** STYLES */
 import styles from "./Header.module.css";
 
-const Header = () => {
-  const windowWidth = useWindowSize();
+interface HeaderProps {
+  links: Links[];
+}
 
-  const isSmall = windowWidth <= 480;
-  const isMedium = windowWidth > 480 && windowWidth < 900;
-  const isLarge = windowWidth >= 900;
+const Header: FC<HeaderProps> = ({links}) => {
+  const { isSmall, isMedium, isLarge } = useWindowSize();
   
   return (
     <header className={styles.header}>
       <h1>{Headings.APPLICATION_TITLE}</h1>
       {isSmall && <Icon iconClass={HeaderIcons.FEATHER} iconStyles={IconStyles.HEADER} />}
-      {isMedium && <Navigation row />}
-      {isLarge && <Navigation />}
+      {isMedium && <Navigation links={links} row />}
+      {isLarge && <Navigation links={links} />}
     </header>
   );
 };

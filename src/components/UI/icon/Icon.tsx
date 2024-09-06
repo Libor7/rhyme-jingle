@@ -1,12 +1,15 @@
 /** LIBRARIES */
 import { FC } from "react";
 
+/** MODELS */
+import { HeaderIcons, IconStyles, LinkIcons } from "../../../models/icon";
+
 /** STYLES */
 import styles from "./Icon.module.css";
 
 interface IconProps {
-  iconClass: string;
-  iconStyles: string;
+  iconClass: HeaderIcons | LinkIcons;
+  iconStyles: IconStyles;
 }
 
 const Icon: FC<IconProps> = ({iconClass, iconStyles}) => {

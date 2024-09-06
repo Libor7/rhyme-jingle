@@ -6,7 +6,6 @@ export enum HeaderIcons {
 
 export enum IconStyles {
   BUTTON = "button",
-  LINK = "link",
   HEADER = "header",
 }
 
