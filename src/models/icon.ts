@@ -7,6 +7,7 @@ export enum HeaderIcons {
 export enum IconStyles {
   BUTTON = "button",
   HEADER = "header",
+  ICON_BUTTON = "icon-button",
 }
 
 export enum LinkIcons {
@@ -14,4 +15,12 @@ export enum LinkIcons {
   FAVORITE = "fa-heart",
   SEARCH = "fa-search",
   SETTINGS = "fa-cog",
+}
+
+export enum UtilityIcons {
+  CHECK = "fa-check-circle",
+  CROSS = "fa-times",
+  DOTS_VERTICAL = "fa-ellipsis-v",
+  DOTS_HORIZONTAL = "fa-ellipsis-h",
+  RESET = "fa-undo",
 }

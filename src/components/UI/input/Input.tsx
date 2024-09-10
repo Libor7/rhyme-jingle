@@ -3,7 +3,7 @@ import { ChangeEvent, FC } from "react";
 
 /** MODELS */
 import { FlexDirections, FlexWrap, InputStyles, InputTypes } from "../../../models/input";
-import { LinkLabels } from "../../../models/link";
+import { SearchField } from "../../../models/common";
 
 /** STYLES */
 import styles from "./Input.module.css";
@@ -18,7 +18,7 @@ interface InputFieldProps {
   id: string;
   label?: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: LinkLabels;
+  placeholder?: SearchField;
   type?: InputTypes;
 }
 

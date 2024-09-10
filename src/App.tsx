@@ -7,7 +7,7 @@ import MainContent from "./components/layout/main-content/MainContent";
 import useWindowSize from "./hooks/useWindowSize";
 
 /** LIBRARIES */
-import React from "react";
+import { useLocation } from "react-router-dom";
 
 /** MODELS */
 import { LinkIcons } from "./models/icon";
@@ -40,13 +40,18 @@ const LinkData: Links[] = [
 ];
 
 function App() {
+  const location = useLocation();
   const { isSmall } = useWindowSize();
+
+  const nonactiveLinks = LinkData.filter(
+    (link) => link.path !== location.pathname
+  );
 
   return (
     <div className={styles["app-container"]}>
-      <Header links={LinkData} />
+      <Header links={nonactiveLinks} />
       <MainContent />
-      {isSmall && <Footer links={LinkData} />}
+      {isSmall && <Footer links={nonactiveLinks} />}
     </div>
   );
 }

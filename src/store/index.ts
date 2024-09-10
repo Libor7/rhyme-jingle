@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch } from 'react-redux';
 import archivedReducer from "./archived";
 import favoriteReducer from "./favorite";
 import searchedReducer from "./searched";
@@ -12,5 +13,9 @@ const store = configureStore({
     settings: settingsReducer,
   },
 });
+
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 
 export default store;

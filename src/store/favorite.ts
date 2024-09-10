@@ -1,11 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialFavoriteState = {};
+interface FavoriteState {
+  favoriteCandidates: string[];
+}
+
+const initialFavoriteState: FavoriteState = {
+  favoriteCandidates: [],
+};
 
 const favoriteSlice = createSlice({
-  name: 'favorite',
+  name: "favorite",
   initialState: initialFavoriteState,
-  reducers: {}
+  reducers: {
+    addFavoriteCandidate(state, action: PayloadAction<string>) {
+      return {
+        ...state,
+        favoriteCandidates: [...state.favoriteCandidates, action.payload],
+      };
+    },
+    removeFavoriteCandidate(state, action: PayloadAction<string>) {
+      return {
+        ...state,
+        favoriteCandidates: state.favoriteCandidates.filter(
+          (word) => word !== action.payload
+        ),
+      };
+    },
+    resetFavoriteCandidates(state) {
+      return {
+        ...state,
+        favoriteCandidates: [],
+      };
+    },
+  },
 });
 
 export const favoriteActions = favoriteSlice.actions;

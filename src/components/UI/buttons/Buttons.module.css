@@ -1,0 +1,11 @@
+.buttons {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0 0.5em;
+}
+
+.buttons > section {
+  display: flex;
+  flex-wrap: wrap;
+}

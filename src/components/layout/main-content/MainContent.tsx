@@ -5,7 +5,7 @@ import SearchPage from "../../pages/search/SearchPage";
 import SettingsPage from "../../pages/settings/SettingsPage";
 
 /** LIBRARIES */
-import { Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 /** MODELS */
 import { LinkPaths } from "../../../models/link";
@@ -16,18 +16,23 @@ import styles from "./MainContent.module.css";
 const MainContent = () => {
   return (
     <main className={styles.main}>
-      <Route path={LinkPaths.SEARCH}>
-        <SearchPage />
-      </Route>
-      <Route path={LinkPaths.FAVORITE}>
-        <FavoritePage />
-      </Route>
-      <Route path={LinkPaths.ARCHIVE}>
-        <ArchivePage />
-      </Route>
-      <Route path={LinkPaths.SETTINGS}>
-        <SettingsPage />
-      </Route>
+      <Switch>
+        <Route path={LinkPaths.SEARCH}>
+          <SearchPage />
+        </Route>
+        <Route path={LinkPaths.FAVORITE}>
+          <FavoritePage />
+        </Route>
+        <Route path={LinkPaths.ARCHIVE}>
+          <ArchivePage />
+        </Route>
+        <Route path={LinkPaths.SETTINGS}>
+          <SettingsPage />
+        </Route>
+        <Route path="*">
+          <Redirect to={LinkPaths.SEARCH} />
+        </Route>
+      </Switch>
     </main>
   );
 };

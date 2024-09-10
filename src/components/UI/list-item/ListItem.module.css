@@ -1,0 +1,27 @@
+.li {
+  align-items: center;
+  background-color: var(--brown-color);
+  color: var(--beige-color);
+  cursor: pointer;
+  display: flex;
+  font-size: 1.5em;
+  justify-content: space-between;
+  margin: 0.25em 0.5em;
+}
+
+.li > span {
+  font-family: Parisienne;
+  padding: 0.25em 0 0.25em 1em;
+}
+
+.li > i {
+  padding: 0.5em 0.75em 0.5em 0;
+}
+
+.li.marked-favorite > i {
+  background-color: var(--light-brown-color);
+}
+
+.marked-favorite {
+  background-color: var(--light-brown-color);
+}
