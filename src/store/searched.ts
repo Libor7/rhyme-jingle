@@ -109,6 +109,9 @@ const searchedSlice = createSlice({
         searchedText: action.payload,
       };
     },
+    setStateToInitial() {
+      return initialSearchedState;
+    }
   },
 });
 

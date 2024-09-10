@@ -28,13 +28,14 @@ const SearchPage = () => {
   useEffect(() => {
     appDispatch(searchedActions.resetWordLengthFilters());
     appDispatch(searchedActions.resetRemovedWords());
-
-    return () => {
-      // appDispatch(searchedActions.resetWordLengthFilters());
-      // appDispatch(searchedActions.resetRemovedWords());
-      // appDispatch(favoriteActions.resetFavoriteCandidates());
-    };
   }, [appDispatch, searchedText]);
+
+  useEffect(() => {
+    return () => {
+      appDispatch(searchedActions.setStateToInitial());
+      appDispatch(favoriteActions.resetFavoriteCandidates());
+    };
+  }, []);
 
   const wordsFilteredByText = filterByText(allWords, searchedText);
   const wordLengths = wordsToWordlengths(wordsFilteredByText);
@@ -56,7 +57,10 @@ const SearchPage = () => {
     <>
       <SearchField />
       {searchedText.length > 0 && <WordCount count={wordsToShow.length} />}
-      <Buttons labels={wordLengths} totalWordsFound={wordsFilteredByText.length} />
+      <Buttons
+        labels={wordLengths}
+        totalWordsFound={wordsFilteredByText.length}
+      />
       <List words={wordsToShow} />
     </>
   );
