@@ -5,8 +5,8 @@ import Input from "../input/Input";
 import { ChangeEvent } from "react";
 
 /** MODELS */
+import APP_CONTENT from "../../../models/constants";
 import { InputStyles } from "../../../models/input";
-import { SearchField as SearchFieldEnum } from "../../../models/common";
 
 /** OTHER */
 import { searchedActions } from "../../../store/searched";
@@ -17,7 +17,7 @@ import styles from "./SearchField.module.css";
 
 const SearchField = () => {
   const appDispatch = useAppDispatch();
-  
+
   return (
     <section className={styles.container}>
       <Input
@@ -25,7 +25,7 @@ const SearchField = () => {
         fieldProps={{
           id: "all-words",
           className: InputStyles.SEARCH,
-          placeholder: SearchFieldEnum.PLACEHOLDER,
+          placeholder: APP_CONTENT.SEARCHFIELD.PLACEHOLDER.SEARCHED,
           onChange: (event: ChangeEvent<HTMLInputElement>) =>
             appDispatch(
               searchedActions.setSearchedText(event.currentTarget.value)

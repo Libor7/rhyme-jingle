@@ -1,9 +1,6 @@
-export enum Headings {
-  APPLICATION_TITLE = "Rýmovačka",
-}
 
-export enum SearchField {
-  PLACEHOLDER = "Nájdi rým...",
-  PLACEHOLDER_FAVORITE = "Nájdi obľúbené...",
-  PLACEHOLDER_ARCHIVED = "Nájdi archivované...",
+export enum WordsPerPage {
+  FIVE = 5,
+  TEN = 10,
+  FIFTEEN = 15,
 }

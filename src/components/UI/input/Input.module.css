@@ -86,6 +86,11 @@
   color: var(--light-brown-color);
 }
 
+.number {
+  height: 2em;
+  width: 2em;
+}
+
 .search {
   outline: unset;
   padding-block: unset;

@@ -19,7 +19,7 @@
   flex-direction: column;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
   .navigation > ul {
     margin: 1.5em 0;
   }

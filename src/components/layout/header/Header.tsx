@@ -9,7 +9,7 @@ import useWindowSize from "../../../hooks/useWindowSize";
 import { FC } from "react";
 
 /** MODELS */
-import { Headings } from "../../../models/common";
+import APP_CONTENT from "../../../models/constants";
 import { HeaderIcons, IconStyles } from "../../../models/icon";
 import { Links } from "../../../models/link";
 
@@ -25,7 +25,7 @@ const Header: FC<HeaderProps> = ({links}) => {
   
   return (
     <header className={styles.header}>
-      <h1>{Headings.APPLICATION_TITLE}</h1>
+      <h1>{APP_CONTENT.HEADINGS.APPLICATION_TITLE}</h1>
       {isSmall && <Icon iconClass={HeaderIcons.FEATHER} iconStyles={IconStyles.HEADER} />}
       {isMedium && <Navigation links={links} row />}
       {isLarge && <Navigation links={links} />}

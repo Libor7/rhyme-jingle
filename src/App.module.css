@@ -3,7 +3,7 @@
   flex-direction: column;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
   .app-container {
     flex-direction: row;
   }

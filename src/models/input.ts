@@ -10,6 +10,7 @@ export enum FlexWrap {
 }
 
 export enum InputStyles {
+  NUMBER = "number",
   SEARCH = "search",
 }
 

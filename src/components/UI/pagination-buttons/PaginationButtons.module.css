@@ -1,0 +1,5 @@
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  column-gap: 0.25em;
+}

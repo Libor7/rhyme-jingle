@@ -2,7 +2,7 @@
 import Icon from "../icon/Icon";
 
 /** LIBRARIES */
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
@@ -21,25 +21,27 @@ interface ListItemProps {
 }
 
 const ListItem: FC<ListItemProps> = ({ label }) => {
-  const { favoriteCandidates } = useSelector(
+  const { candidates: favoriteCandidates } = useSelector(
     (state: RootState) => state.favorite
   );
   const appDispatch = useAppDispatch();
 
   const isFavoriteCandidate = favoriteCandidates.indexOf(label) >= 0;
-  const classes = `${styles.li} ${isFavoriteCandidate && styles['marked-favorite']}`;
+  const classes = `${styles.li} ${
+    isFavoriteCandidate && styles["marked-favorite"]
+  }`;
 
-  const itemClickHandler = () => {
+  const itemClickHandler = useCallback(() => {
     isFavoriteCandidate
-      ? appDispatch(favoriteActions.removeFavoriteCandidate(label))
-      : appDispatch(favoriteActions.addFavoriteCandidate(label));
-  };
+      ? appDispatch(favoriteActions.removeCandidate(label))
+      : appDispatch(favoriteActions.addCandidate(label));
+  }, [appDispatch, isFavoriteCandidate, label]);
 
-  const iconClickHandler = (event: React.MouseEvent<HTMLElement>) => {
+  const iconClickHandler = useCallback((event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
-    appDispatch(searchedActions.addRemovedWord(label));
-    appDispatch(favoriteActions.removeFavoriteCandidate(label));
-  };
+    appDispatch(searchedActions.removeListedWord(label));
+    appDispatch(favoriteActions.removeCandidate(label));
+  }, [appDispatch, label]);
 
   return (
     <li className={classes} onClick={itemClickHandler}>

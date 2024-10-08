@@ -1,12 +1,17 @@
 /** COMPONENTS */
 import Buttons from "../../UI/buttons/Buttons";
 import List from "../../UI/list/List";
+import Pagination from "../../UI/pagination/Pagination";
 import SearchField from "../../../components/UI/search-field/SearchField";
 import WordCount from "../../UI/word-count/WordCount";
 
 /** LIBRARIES */
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
+
+/** MODELS */
+import { WordsPerPage } from "../../../models/common";
+import { MINIMAL_STRING_LENGTH } from "../../../models/constants";
 
 /** OTHER */
 import { RootState, useAppDispatch } from "../../../store";
@@ -15,53 +20,73 @@ import { searchedActions } from "../../../store/searched";
 import {
   filterByText,
   filterByTextLength,
-  wordsToWordlengths,
+  convertWordsToTheirLengths,
+  filterOutSubset,
 } from "../../../helpers/utils";
 
 const SearchPage = () => {
-  const { allWords, removedWords, searchedText, wordLengthFilters } =
+  const { currentPage, lengthFilters, lexicon, removedWords, searchedText } =
     useSelector((state: RootState) => state.searched);
   const appDispatch = useAppDispatch();
 
-  const isBtnFilterApplied = wordLengthFilters.length > 0;
+  const isLengthFilterApplied = lengthFilters.length > 0;
 
   useEffect(() => {
-    appDispatch(searchedActions.resetWordLengthFilters());
-    appDispatch(searchedActions.resetRemovedWords());
+    appDispatch(searchedActions.setPropertyToInitialValue("lengthFilters"));
+    appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
   }, [appDispatch, searchedText]);
 
   useEffect(() => {
     return () => {
-      appDispatch(searchedActions.setStateToInitial());
-      appDispatch(favoriteActions.resetFavoriteCandidates());
+      appDispatch(searchedActions.setInitialState());
+      appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
     };
-  }, []);
+  }, [appDispatch]);
 
-  const wordsFilteredByText = filterByText(allWords, searchedText);
-  const wordLengths = wordsToWordlengths(wordsFilteredByText);
-
-  const wordsFilteredByRemovedWords = wordsFilteredByText.filter(
-    (word) => removedWords.indexOf(word) === -1
+  const wordsFilteredByText = useMemo(
+    () => filterByText(lexicon, searchedText),
+    [lexicon, searchedText]
+  );
+  const wordLengths = useMemo(
+    () => convertWordsToTheirLengths(wordsFilteredByText),
+    [wordsFilteredByText]
+  );
+  const wordsFilteredByRemovedWords = useMemo(
+    () => filterOutSubset(wordsFilteredByText, removedWords),
+    [removedWords, wordsFilteredByText]
+  );
+  const wordsFilteredByLength = useMemo(
+    () => filterByTextLength(wordsFilteredByRemovedWords, lengthFilters),
+    [lengthFilters, wordsFilteredByRemovedWords]
   );
 
-  const wordsFilteredByLength = filterByTextLength(
-    wordsFilteredByRemovedWords,
-    wordLengthFilters
-  );
-
-  const wordsToShow = isBtnFilterApplied
+  const listedWords = isLengthFilterApplied
     ? wordsFilteredByLength
     : wordsFilteredByRemovedWords;
+  const wordCount = listedWords.length;
+  const hasPagination = wordCount > WordsPerPage.FIVE;
+
+  const fromIndex = WordsPerPage.FIVE * currentPage - WordsPerPage.FIVE;
+  const getCurrentPageWords = (words: string[]) =>
+    words.slice(fromIndex, WordsPerPage.FIVE + fromIndex);
+
+  const wordsToShow = hasPagination
+    ? getCurrentPageWords(listedWords)
+    : listedWords;
 
   return (
     <>
       <SearchField />
-      {searchedText.length > 0 && <WordCount count={wordsToShow.length} />}
+      {searchedText.length >= MINIMAL_STRING_LENGTH && (
+        <WordCount count={wordCount} />
+      )}
       <Buttons
+        disposableWords={wordsFilteredByRemovedWords}
         labels={wordLengths}
         totalWordsFound={wordsFilteredByText.length}
       />
       <List words={wordsToShow} />
+      {hasPagination && <Pagination wordCount={wordCount} />}
     </>
   );
 };

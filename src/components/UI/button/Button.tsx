@@ -1,9 +1,7 @@
 /** LIBRARIES */
-import { FC } from "react";
-import { useSelector } from "react-redux";
+import { FC, ReactNode, useEffect } from "react";
 
 /** OTHER */
-import { RootState } from "../../../store";
 import { useAppDispatch } from "../../../store";
 import { searchedActions } from "../../../store/searched";
 
@@ -11,26 +9,28 @@ import { searchedActions } from "../../../store/searched";
 import styles from "./Button.module.css";
 
 interface ButtonProps {
-  label: number;
+  disabled?: boolean;
+  isMarked?: boolean;
+  label: ReactNode;
+  onClick: () => void;
 }
 
-const Button: FC<ButtonProps> = ({ label }) => {
-  const { wordLengthFilters } = useSelector(
-    (state: RootState) => state.searched
-  );
+const Button: FC<ButtonProps> = ({ isMarked, disabled, label, onClick }) => {
   const appDispatch = useAppDispatch();
 
-  const isBtnMarked = wordLengthFilters.indexOf(label) >= 0;
+  const classes = `${styles.btn} ${isMarked && styles.marked}`;
 
-  const classes = `${styles.btn} ${isBtnMarked && styles.marked}`;
+  useEffect(() => {
+    return () => {
+      appDispatch(searchedActions.removeLengthFilter(label as number));
+    };
+  }, [appDispatch, label]);
 
-  const clickHandler = () => {
-    isBtnMarked
-      ? appDispatch(searchedActions.removeWordLengthFilter(label))
-      : appDispatch(searchedActions.addWordLengthFilter(label));
-  };
-
-  return <button className={classes} onClick={clickHandler}>{label}</button>;
+  return (
+    <button className={classes} onClick={onClick} disabled={disabled}>
+      {label}
+    </button>
+  );
 };
 
 export default Button;

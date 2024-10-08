@@ -18,6 +18,10 @@ export enum LinkIcons {
 }
 
 export enum UtilityIcons {
+  ARROW_LEFT = "fa-angle-left",
+  ARROW_RIGHT = "fa-angle-right",
+  ARROW_LEFT_DOUBLE = "fa-angle-double-left",
+  ARROW_RIGHT_DOUBLE = "fa-angle-double-right",
   CHECK = "fa-check-circle",
   CROSS = "fa-times",
   DOTS_VERTICAL = "fa-ellipsis-v",

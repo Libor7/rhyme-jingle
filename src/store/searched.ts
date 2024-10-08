@@ -1,14 +1,17 @@
+/** LIBRARIES */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface SearchedState {
-  allWords: string[];
-  removedWords: string[];
-  searchedText: string;
-  wordLengthFilters: number[];
-}
+/** MODELS */
+import { INITIAL_PAGE } from "../models/constants";
+import {
+  SearchState,
+} from "../models/store";
 
-const initialSearchedState: SearchedState = {
-  allWords: [
+const initialSearchState: SearchState = {
+  currentPage: INITIAL_PAGE,
+  lengthFilters: [],
+  lexicon: [
+    // TODO osobitný súbor - exported function, ktorá vráti string array všetkých slov
     "má",
     "prekvapenie",
     "pracovne",
@@ -60,58 +63,42 @@ const initialSearchedState: SearchedState = {
   ],
   removedWords: [],
   searchedText: "",
-  wordLengthFilters: [],
 };
 
 const searchedSlice = createSlice({
   name: "searched",
-  initialState: initialSearchedState,
+  initialState: initialSearchState,
   reducers: {
-    addRemovedWord(state, action: PayloadAction<string>) {
-      return {
-        ...state,
-        removedWords: [...state.removedWords, action.payload],
-      };
-    },
-    removeRemovedWord(state, action: PayloadAction<string>) {
-      return {
-        ...state,
-        removedWords: state.removedWords.filter(word => word !== action.payload),
-      };
-    },
-    resetRemovedWords(state) {
-      return {
-        ...state,
-        removedWords: [],
-      };
-    },
-    addWordLengthFilter(state, action: PayloadAction<number>) {
-      return {
-        ...state,
-        wordLengthFilters: [...state.wordLengthFilters, action.payload],
-      };
-    },
-    removeWordLengthFilter(state, action: PayloadAction<number>) {
-      return {
-        ...state,
-        wordLengthFilters: state.wordLengthFilters.filter(filter => filter !== action.payload),
-      };
-    },
-    resetWordLengthFilters(state) {
-      return {
-        ...state,
-        wordLengthFilters: [],
-      };
-    },
-    setSearchedText(state, action: PayloadAction<string>) {
-      return {
-        ...state,
-        searchedText: action.payload,
-      };
-    },
-    setStateToInitial() {
-      return initialSearchedState;
-    }
+    setCurrentPage: (state, action: PayloadAction<number>) => ({
+      ...state,
+      currentPage: action.payload,
+    }),
+    setSearchedText: (state, action: PayloadAction<string>) => ({
+      ...state,
+      searchedText: action.payload,
+    }),
+    addLengthFilter: (state, action: PayloadAction<number>) => ({
+      ...state,
+      lengthFilters: [...state.lengthFilters, action.payload],
+    }),
+    removeLengthFilter: (state, action: PayloadAction<number>) => ({
+      ...state,
+      lengthFilters: state.lengthFilters.filter(
+        (filter) => filter !== action.payload
+      ),
+    }),
+    removeListedWord: (state, action: PayloadAction<string>) => ({
+      ...state,
+      removedWords: [...state.removedWords, action.payload],
+    }),
+    setPropertyToInitialValue: (
+      state,
+      action: PayloadAction<keyof SearchState>
+    ) => ({
+      ...state,
+      [action.payload]: initialSearchState[action.payload],
+    }),
+    setInitialState: () => initialSearchState,
   },
 });
 

@@ -22,7 +22,7 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 901px) {
   .header {
     flex-direction: column;
     text-align: center;

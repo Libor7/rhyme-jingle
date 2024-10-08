@@ -2,8 +2,12 @@
 import { ChangeEvent, FC } from "react";
 
 /** MODELS */
-import { FlexDirections, FlexWrap, InputStyles, InputTypes } from "../../../models/input";
-import { SearchField } from "../../../models/common";
+import {
+  FlexDirections,
+  FlexWrap,
+  InputStyles,
+  InputTypes,
+} from "../../../models/input";
 
 /** STYLES */
 import styles from "./Input.module.css";
@@ -17,9 +21,12 @@ interface InputFieldProps {
   className: InputStyles;
   id: string;
   label?: string;
+  max?: number;
+  min?: 1;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  placeholder?: SearchField;
+  placeholder?: string;
   type?: InputTypes;
+  value?: number | string;
 }
 
 interface InputProps {
@@ -28,7 +35,14 @@ interface InputProps {
 }
 
 const Input: FC<InputProps> = ({ containerProps, fieldProps }) => {
-  const { className, id, label, type = InputTypes.SEARCH } = fieldProps;
+  const {
+    className,
+    id,
+    label,
+    max,
+    min,
+    type = InputTypes.SEARCH,
+  } = fieldProps;
   const { direction = FlexDirections.ROW, wrap = true } = containerProps;
 
   const flexWrap = wrap ? FlexWrap.WRAP : FlexWrap.NOWRAP;
@@ -38,7 +52,13 @@ const Input: FC<InputProps> = ({ containerProps, fieldProps }) => {
   return (
     <div className={containerClasses}>
       {label && <label htmlFor={id}>{label}</label>}
-      <input {...fieldProps} className={inputClasses} type={type} />
+      <input
+        {...fieldProps}
+        className={inputClasses}
+        type={type}
+        max={max}
+        min={min}
+      />
     </div>
   );
 };
