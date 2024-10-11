@@ -39,9 +39,8 @@ const Input: FC<InputProps> = ({ containerProps, fieldProps }) => {
     className,
     id,
     label,
-    max,
-    min,
     type = InputTypes.SEARCH,
+    ...rest
   } = fieldProps;
   const { direction = FlexDirections.ROW, wrap = true } = containerProps;
 
@@ -52,13 +51,7 @@ const Input: FC<InputProps> = ({ containerProps, fieldProps }) => {
   return (
     <div className={containerClasses}>
       {label && <label htmlFor={id}>{label}</label>}
-      <input
-        {...fieldProps}
-        className={inputClasses}
-        type={type}
-        max={max}
-        min={min}
-      />
+      <input {...rest} className={inputClasses} type={type} />
     </div>
   );
 };

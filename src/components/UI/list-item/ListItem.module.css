@@ -6,22 +6,19 @@
   display: flex;
   font-size: 1.5em;
   justify-content: space-between;
-  margin: 0.25em 0.5em;
+  margin: 0.25em 0;
+}
+
+.li:not(.marked-favorite):hover {
+  background-color: var(--dark-brown-color);
 }
 
 .li > span {
+  flex-grow: 1;
   font-family: Parisienne;
   padding: 0.25em 0 0.25em 1em;
 }
 
-.li > i {
-  padding: 0.5em 0.75em 0.5em 0;
-}
-
-.li.marked-favorite > i {
-  background-color: var(--light-brown-color);
-}
-
-.marked-favorite {
+.li.marked-favorite, .li.marked-favorite > i {
   background-color: var(--light-brown-color);
 }

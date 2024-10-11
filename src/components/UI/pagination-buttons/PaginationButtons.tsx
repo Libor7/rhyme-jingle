@@ -1,4 +1,5 @@
 /** COMPONENTS */
+import Button from "../button/Button";
 import Icon from "../icon/Icon";
 
 /** LIBRARIES */
@@ -6,8 +7,8 @@ import { FC, PropsWithChildren, useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { IconStyles, UtilityIcons } from "../../../models/icon";
 import { INITIAL_PAGE } from "../../../models/constants";
+import { IconStyles, UtilityIcons } from "../../../models/icon";
 
 /** OTHER */
 import { RootState, useAppDispatch } from "../../../store";
@@ -41,27 +42,35 @@ const PaginationButtons: FC<PropsWithChildren<PaginationButtonsProps>> = ({
 
   return (
     <section className={styles["pagination-container"]}>
-      <Icon
-        iconClass={UtilityIcons.ARROW_LEFT_DOUBLE}
-        iconStyles={IconStyles.ICON_BUTTON}
-        onClick={pageChangeHandler.bind(null, INITIAL_PAGE, true)}
-      />
-      <Icon
-        iconClass={UtilityIcons.ARROW_LEFT}
-        iconStyles={IconStyles.ICON_BUTTON}
+      <Button onClick={pageChangeHandler.bind(null, INITIAL_PAGE, true)}>
+        <Icon
+          iconClass={UtilityIcons.ARROW_LEFT_DOUBLE}
+          iconStyles={IconStyles.ICON_BUTTON}
+        />
+      </Button>
+      <Button
         onClick={pageChangeHandler.bind(null, page - 1, page > INITIAL_PAGE)}
-      />
+      >
+        <Icon
+          iconClass={UtilityIcons.ARROW_LEFT}
+          iconStyles={IconStyles.ICON_BUTTON}
+        />
+      </Button>
       {children}
-      <Icon
-        iconClass={UtilityIcons.ARROW_RIGHT}
-        iconStyles={IconStyles.ICON_BUTTON}
+      <Button
         onClick={pageChangeHandler.bind(null, page + 1, page < pageCount)}
-      />
-      <Icon
-        iconClass={UtilityIcons.ARROW_RIGHT_DOUBLE}
-        iconStyles={IconStyles.ICON_BUTTON}
-        onClick={pageChangeHandler.bind(null, pageCount, true)}
-      />
+      >
+        <Icon
+          iconClass={UtilityIcons.ARROW_RIGHT}
+          iconStyles={IconStyles.ICON_BUTTON}
+        />
+      </Button>
+      <Button onClick={pageChangeHandler.bind(null, pageCount, true)}>
+        <Icon
+          iconClass={UtilityIcons.ARROW_RIGHT_DOUBLE}
+          iconStyles={IconStyles.ICON_BUTTON}
+        />
+      </Button>
     </section>
   );
 };

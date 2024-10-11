@@ -41,7 +41,7 @@ const LinkData: Links[] = [
 
 function App() {
   const location = useLocation();
-  const { isSmall } = useWindowSize();
+  const { isExtraSmall, isSmall } = useWindowSize();
 
   const nonactiveLinks = LinkData.filter(
     (link) => link.path !== location.pathname
@@ -51,7 +51,7 @@ function App() {
     <div className={styles["app-container"]}>
       <Header links={nonactiveLinks} />
       <MainContent />
-      {isSmall && <Footer links={nonactiveLinks} />}
+      {(isExtraSmall || isSmall) && <Footer links={nonactiveLinks} />}
     </div>
   );
 }

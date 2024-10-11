@@ -15,15 +15,9 @@
   cursor: pointer;
   display: flex;
   justify-content: center;
-  margin: 0.25em;
-  max-width: calc(100% / 7);
-  padding: 0.5em 1em;
+  padding: 0.5em;
 }
 
-/* .icon-button.fa-undo {
-  background-color: var(--brown-color);
-} */
-
-/* .icon-button.fa-heart {
-  background-color: var(--light-brown-color);
-} */
+.icon-hover {
+  background-color: var(--dark-brown-color);
+}

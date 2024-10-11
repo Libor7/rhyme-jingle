@@ -1,5 +1,9 @@
 .pagination-container {
+  align-items: center;
   display: flex;
-  justify-content: center;
-  column-gap: 0.25em;
+  justify-content: space-between;
+}
+
+.pagination-container > button, .pagination-container > button > i {
+  border-radius: 50%;
 }

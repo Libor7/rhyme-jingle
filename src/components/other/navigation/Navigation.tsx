@@ -1,11 +1,11 @@
 /** COMPONENTS */
-import LinkItem from "../UI/link-item/LinkItem";
+import LinkItem from "../../UI/link-item/LinkItem";
 
 /** LIBRARIES */
 import { FC } from "react";
 
 /** MODELS */
-import { Links } from "../../models/link";
+import { Links } from "../../../models/link";
 
 /** STYLES */
 import styles from "./Navigation.module.css";

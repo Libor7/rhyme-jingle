@@ -87,8 +87,22 @@
 }
 
 .number {
-  height: 2em;
+  border: unset;
+  font-size: 1.5em;
+  outline: unset;
+  padding: 0.5em;
+  text-align: center;
   width: 2em;
+}
+
+.number:focus {
+  border: unset;
+  color: var(--light-brown-color);
+}
+
+.number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .search {

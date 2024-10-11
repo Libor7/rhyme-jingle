@@ -16,3 +16,9 @@
   background-color: var(--dark-brown-color);
   cursor: pointer;
 }
+
+.controls {
+  display: flex;
+  column-gap: 1px;
+  padding-top: 0.5em;
+}

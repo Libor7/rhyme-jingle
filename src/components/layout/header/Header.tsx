@@ -1,6 +1,6 @@
 /** COMPONENTS */
 import Icon from "../../UI/icon/Icon";
-import Navigation from "../../navigation/Navigation";
+import Navigation from "../../other/navigation/Navigation";
 
 /** HOOKS */
 import useWindowSize from "../../../hooks/useWindowSize";
@@ -20,15 +20,18 @@ interface HeaderProps {
   links: Links[];
 }
 
-const Header: FC<HeaderProps> = ({links}) => {
-  const { isSmall, isMedium, isLarge } = useWindowSize();
-  
+const Header: FC<HeaderProps> = ({ links }) => {
+  const { isExtraSmall, isSmall, isMedium, isLarge, isExtraLarge } =
+    useWindowSize();
+
   return (
     <header className={styles.header}>
       <h1>{APP_CONTENT.HEADINGS.APPLICATION_TITLE}</h1>
-      {isSmall && <Icon iconClass={HeaderIcons.FEATHER} iconStyles={IconStyles.HEADER} />}
+      {(isExtraSmall || isSmall) && (
+        <Icon iconClass={HeaderIcons.FEATHER} iconStyles={IconStyles.HEADER} />
+      )}
       {isMedium && <Navigation links={links} row />}
-      {isLarge && <Navigation links={links} />}
+      {(isLarge || isExtraLarge) && <Navigation links={links} />}
     </header>
   );
 };
