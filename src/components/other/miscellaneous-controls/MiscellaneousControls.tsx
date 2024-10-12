@@ -53,6 +53,16 @@ const MiscellaneousControls: FC<MiscellaneousControlsProps> = ({
           />
         </Button>
       )}
+      {/* Todo - hasCandidates zmeniť na podmienku, či vyhľadalo viac search texts oddelených čiarkou - pridať placeholder do inputu */}
+      {/* že je možné hľadať viac možností naraz oddelených čiarkou  */}
+      {hasCandidates && (
+        <Button onClick={() => {}}>
+          <Icon
+            iconClass={UtilityIcons.FILTER}
+            iconStyles={IconStyles.ICON_BUTTON}
+          />
+        </Button>
+      )}
     </section>
   );
 };

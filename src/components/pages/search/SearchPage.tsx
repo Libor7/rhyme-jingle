@@ -27,6 +27,7 @@ import {
 const SearchPage = () => {
   const { currentPage, lengthFilters, lexicon, removedWords, searchedText } =
     useSelector((state: RootState) => state.searched);
+  const { candidates } = useSelector((state: RootState) => state.favorite);
   const appDispatch = useAppDispatch();
 
   const isLengthFilterApplied = lengthFilters.length > 0;
@@ -34,6 +35,7 @@ const SearchPage = () => {
   useEffect(() => {
     appDispatch(searchedActions.setPropertyToInitialValue("lengthFilters"));
     appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
+    appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
   }, [appDispatch, searchedText]);
 
   useEffect(() => {
@@ -78,7 +80,13 @@ const SearchPage = () => {
     <>
       <SearchField />
       {searchedText.length >= MINIMAL_STRING_LENGTH && (
-        <WordCount count={wordCount} />
+        <WordCount adjectives={["nájdených", "nájdené"]} count={wordCount} />
+      )}
+      {!!candidates.length && (
+        <WordCount
+          adjectives={["obľúbených", "obľúbené"]}
+          count={candidates.length}
+        />
       )}
       <Buttons
         disposableWords={wordsFilteredByRemovedWords}

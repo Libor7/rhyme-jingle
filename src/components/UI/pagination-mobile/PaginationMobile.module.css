@@ -7,6 +7,7 @@
   font-weight: 600;
   height: 3.5em;
   justify-content: center;
+  margin: 0 calc((100% - 5em) / 2);
   padding: 0.5em;
   width: 3.5em;
 }
@@ -19,6 +20,12 @@
 
 .controls {
   display: flex;
-  column-gap: 1px;
-  padding-top: 0.5em;
+  column-gap: 0.125em;
+  padding-top: 0.25em;
+}
+
+@media (min-width: 341px) {
+  .container {
+    margin: 0;
+  }
 }

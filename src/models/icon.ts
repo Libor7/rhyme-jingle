@@ -26,6 +26,7 @@ export enum UtilityIcons {
   CROSS = "fa-times",
   DOTS_HORIZONTAL = "fa-ellipsis-h",
   DOTS_VERTICAL = "fa-ellipsis-v",
+  FILTER = "fa-filter",
   RESET = "fa-undo",
   TRASH = "fa-trash-alt",
 }
