@@ -10,9 +10,9 @@ import { useSelector } from "react-redux";
 import { IconStyles, LinkIcons, UtilityIcons } from "../../../models/icon";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "../../../store";
-import { searchedActions } from "../../../store/searched";
 import { favoriteActions } from "../../../store/favorite";
+import { searchedActions } from "../../../store/searched";
+import { RootState, useAppDispatch } from "../../../store";
 
 /** STYLES */
 import styles from "./MiscellaneousControls.module.css";
@@ -49,16 +49,6 @@ const MiscellaneousControls: FC<MiscellaneousControlsProps> = ({
         <Button onClick={() => {}}>
           <Icon
             iconClass={LinkIcons.FAVORITE}
-            iconStyles={IconStyles.ICON_BUTTON}
-          />
-        </Button>
-      )}
-      {/* Todo - hasCandidates zmeniť na podmienku, či vyhľadalo viac search texts oddelených čiarkou - pridať placeholder do inputu */}
-      {/* že je možné hľadať viac možností naraz oddelených čiarkou  */}
-      {hasCandidates && (
-        <Button onClick={() => {}}>
-          <Icon
-            iconClass={UtilityIcons.FILTER}
             iconStyles={IconStyles.ICON_BUTTON}
           />
         </Button>

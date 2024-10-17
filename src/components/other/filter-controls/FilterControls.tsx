@@ -5,11 +5,14 @@ import Button from "../../UI/button/Button";
 import { FC, useCallback, useMemo } from "react";
 import { useSelector } from "react-redux";
 
+/** MODELS */
+import { Operator } from "../../../models/common";
+
 /** OTHER */
 import { RootState, useAppDispatch } from "../../../store";
 import { searchedActions } from "../../../store/searched";
 import {
-  containsWordsOfLength,
+  containsWordOfLength,
   removeDuplicates,
   sortByNumberASC,
 } from "../../../helpers/utils";
@@ -33,7 +36,9 @@ const FilterControls: FC<FilterControlsProps> = ({
     () =>
       removeDuplicates<number>(labels)
         .sort(sortByNumberASC)
-        .filter((btn) => containsWordsOfLength(disposableWords, btn)),
+        .filter((length) =>
+          containsWordOfLength(disposableWords, length, Operator.EQUAL)
+        ),
     [disposableWords, labels]
   );
 

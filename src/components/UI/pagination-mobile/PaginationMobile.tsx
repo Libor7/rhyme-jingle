@@ -52,9 +52,20 @@ const PaginationMobile: FC<PaginationMobileProps> = ({ pageCount }) => {
     toggleDialogHandler();
   }, [appDispatch, pageNum, toggleDialogHandler]);
 
+  const enterKeyHandler = useCallback(
+    (event: React.KeyboardEvent<HTMLDivElement>) =>
+      event.key === "Enter" && toggleDialogHandler(),
+    [toggleDialogHandler]
+  );
+
   return (
     <>
-      <div className={styles.container} onClick={toggleDialogHandler}>
+      <div
+        className={styles.container}
+        onClick={toggleDialogHandler}
+        tabIndex={0}
+        onKeyDown={enterKeyHandler}
+      >
         {currentPage} / {pageCount}
       </div>
       {isDialogOpen && (

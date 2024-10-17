@@ -16,6 +16,10 @@
 .li > span {
   flex-grow: 1;
   font-family: Parisienne;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
   padding: 0.25em 0 0.25em 1em;
 }
 

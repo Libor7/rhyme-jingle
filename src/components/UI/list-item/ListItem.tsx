@@ -57,14 +57,22 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
     []
   );
 
+  const enterKeyHandler = useCallback(
+    (event: React.KeyboardEvent<HTMLLIElement>) =>
+      event.key === "Enter" && itemClickHandler(),
+    [itemClickHandler]
+  );
+
   return (
     <li
       className={classes}
       onClick={itemClickHandler}
+      onKeyDown={enterKeyHandler}
       onMouseOut={mouseOutHandler}
       onMouseOver={mouseOverHandler}
+      tabIndex={0}
     >
-      <span>{label}</span>
+      <span lang="sk">{label}</span>
       <Icon
         ref={iconRef}
         iconClass={UtilityIcons.TRASH}
