@@ -1,11 +1,4 @@
-:root {
-  --beige-color: #f8f4e1;
-  --light-brown-color: #af8f6f;
-  --brown-color: #74512d;
-  --dark-brown-color: #543310;
-}
-
-html, body, div#root, div#root > div {
+html, body, div#root {
   height: 100%;
 }
 

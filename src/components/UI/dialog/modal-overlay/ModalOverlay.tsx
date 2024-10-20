@@ -1,20 +1,23 @@
 /** LIBRARIES */
-import { Dispatch, FC, SetStateAction, useCallback } from "react";
+import { styled } from "@mui/system";
+import { FC } from "react";
 
-/** STYLES */
-import styles from "./ModalOverlay.module.css";
+const StyledDiv = styled("div")(({ theme }) => ({
+  backgroundColor: theme.palette.primary.light,
+  left: "50%",
+  padding: "0.25em",
+  position: "fixed",
+  top: "50%",
+  transform: "translate(-50%, -50%)",
+  zIndex: 30,
+}));
 
 interface ModalOverlayProps {
-  onModalClose: Dispatch<SetStateAction<boolean>>;
   children: React.ReactNode;
 }
 
-const ModalOverlay: FC<ModalOverlayProps> = ({ onModalClose, children }) => {
-  const close = useCallback(() => {
-    onModalClose(false);
-  }, [onModalClose]);
-
-  return <div className={styles["modal-overlay"]}>{children}</div>;
+const ModalOverlay: FC<ModalOverlayProps> = ({ children }) => {
+  return <StyledDiv>{children}</StyledDiv>;
 };
 
 export default ModalOverlay;

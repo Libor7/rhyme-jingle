@@ -1,28 +1,40 @@
-/** COMPONENTS */
+/** CUSTOM COMPONENTS */
 import LinkItem from "../../UI/link-item/LinkItem";
 
 /** LIBRARIES */
+import { styled } from "@mui/system";
 import { FC } from "react";
 
 /** MODELS */
-import { Links } from "../../../models/link";
+import { Link } from "../../../models/link";
 
-/** STYLES */
-import styles from "./Footer.module.css";
+const StyledFooter = styled("footer")(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.main,
+}));
+
+const StyledUl = styled("ul")(() => ({
+  display: "flex",
+  flexWrap: "wrap",
+  gap: "1em",
+  justifyContent: "center",
+  listStyleType: "none",
+  margin: "1em",
+  padding: 0,
+}));
 
 interface FooterProps {
-  links: Links[];
+  links: Link[];
 }
 
 const Footer: FC<FooterProps> = ({ links }) => {
   return (
-    <footer className={styles.footer}>
-      <ul>
+    <StyledFooter>
+      <StyledUl>
         {links.map((link) => (
           <LinkItem key={link.path} {...link} />
         ))}
-      </ul>
-    </footer>
+      </StyledUl>
+    </StyledFooter>
   );
 };
 

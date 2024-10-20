@@ -1,18 +1,8 @@
 /** LIBRARIES */
-import {
-  forwardRef,
-  useCallback,
-  useImperativeHandle,
-  useRef,
-} from "react";
+import { forwardRef, useCallback, useImperativeHandle, useRef } from "react";
 
 /** MODELS */
-import {
-  HeaderIcons,
-  IconStyles,
-  LinkIcons,
-  UtilityIcons,
-} from "../../../models/icon";
+import { Icon as IconEnum, IconStyle } from "../../../models/icon";
 
 /** STYLES */
 import styles from "./Icon.module.css";
@@ -24,8 +14,8 @@ export interface IconHandle {
 
 interface IconProps {
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  iconClass: HeaderIcons | LinkIcons | UtilityIcons;
-  iconStyles: IconStyles;
+  iconClass: IconEnum;
+  iconStyles: IconStyle;
 }
 
 const Icon = forwardRef<IconHandle, IconProps>(

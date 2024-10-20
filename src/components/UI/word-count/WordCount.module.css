@@ -1,9 +1,0 @@
-.span {
-  color: var(--brown-color);
-  margin: 0;
-  padding: 0.5em;
-}
-
-.span:not(:first-of-type) {
-  padding-top: 0;
-}

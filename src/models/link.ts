@@ -1,22 +1,25 @@
 /** MODELS */
-import { LinkIcons } from "./icon";
+import { Icon } from "./icon";
 
-export enum LinkLabels {
+export enum Label {
   ARCHIVE = "Archív",
   FAVORITE = "Obľúbené",
   SEARCH = "Vyhľadávanie",
   SETTINGS = "Nastavenia",
 }
 
-export enum LinkPaths {
+export enum Path {
   ARCHIVE = "/archive",
   FAVORITE = "/favorite",
   SEARCH = "/search",
   SETTINGS = "/settings",
 }
 
-export interface Links {
-  icon: LinkIcons;
-  label: LinkLabels;
-  path: LinkPaths;
+export interface Link extends IPath {
+  icon: Icon;
+  label: Label;
+}
+
+export interface IPath {
+  path: Path;
 }

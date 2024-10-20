@@ -5,35 +5,39 @@ import SearchPage from "../../pages/search/SearchPage";
 import SettingsPage from "../../pages/settings/SettingsPage";
 
 /** LIBRARIES */
+import { styled } from "@mui/system";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 /** MODELS */
-import { LinkPaths } from "../../../models/link";
+import { Path } from "../../../models/link";
 
-/** STYLES */
-import styles from "./MainContent.module.css";
+const StyledMain = styled("main")(({ theme }) => ({
+  backgroundColor: theme.palette.secondary.main,
+  flexGrow: 1,
+  padding: "1em 0.75em",
+}));
 
 const MainContent = () => {
   return (
-    <main className={styles.main}>
+    <StyledMain>
       <Switch>
-        <Route path={LinkPaths.SEARCH}>
+        <Route path={Path.SEARCH}>
           <SearchPage />
         </Route>
-        <Route path={LinkPaths.FAVORITE}>
+        <Route path={Path.FAVORITE}>
           <FavoritePage />
         </Route>
-        <Route path={LinkPaths.ARCHIVE}>
+        <Route path={Path.ARCHIVE}>
           <ArchivePage />
         </Route>
-        <Route path={LinkPaths.SETTINGS}>
+        <Route path={Path.SETTINGS}>
           <SettingsPage />
         </Route>
         <Route path="*">
-          <Redirect to={LinkPaths.SEARCH} />
+          <Redirect to={Path.SEARCH} />
         </Route>
       </Switch>
-    </main>
+    </StyledMain>
   );
 };
 

@@ -1,4 +1,4 @@
-export enum FlexDirections {
+export enum FlexDirection {
   COLUMN = "column",
   ROW_REVERSE = "row-reverse",
   ROW = "row",
@@ -9,12 +9,7 @@ export enum FlexWrap {
   WRAP = "wrap",
 }
 
-export enum InputStyles {
-  NUMBER = "number",
-  SEARCH = "search",
-}
-
-export enum InputTypes {
+export enum Input {
   CHECKBOX = "checkbox",
   NUMBER = "number",
   RADIO = "radio",

@@ -1,17 +1,21 @@
-/** LIBRARIES */
-import { Dispatch, FC, SetStateAction } from "react";
+/** COMPONENTS */
+import MUIBackdrop from "@mui/material/Backdrop";
 
-/** STYLES */
-import styles from "./Backdrop.module.css";
+/** LIBRARIES */
+import { styled } from "@mui/system";
+import { FC } from "react";
+
+const StyledBackdrop = styled(MUIBackdrop)(({ theme }) => ({
+  color: theme.palette.primary.contrastText,
+  zIndex: 20,
+}));
 
 interface BackdropProps {
-    onClick: Dispatch<SetStateAction<boolean>>; 
+  open: boolean;
 }
 
-const Backdrop: FC<BackdropProps> = ({ onClick }) => {
-    return (
-        <div className={styles['backdrop-base']} onClick={() => onClick(false)} />
-    );
-  };
-  
-  export default Backdrop;
+const Backdrop: FC<BackdropProps> = ({ open }) => {
+  return <StyledBackdrop open={open} />;
+};
+
+export default Backdrop;

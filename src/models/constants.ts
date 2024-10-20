@@ -1,5 +1,6 @@
 export const INITIAL_PAGE = 1;
 export const MINIMAL_STRING_LENGTH = 1;     // TODO zvýšiť na 2 po pridaní prod lexikonu 
+export const DEFAULT_FILTERS_QUANTITY = 2;
 
 const APP_CONTENT = {
     HEADINGS: {

@@ -6,7 +6,7 @@ import { ChangeEvent } from "react";
 
 /** MODELS */
 import APP_CONTENT from "../../../models/constants";
-import { InputStyles } from "../../../models/input";
+import { Input as InputEnum } from "../../../models/input";
 
 /** OTHER */
 import { searchedActions } from "../../../store/searched";
@@ -24,7 +24,7 @@ const SearchField = () => {
         containerProps={{}}
         fieldProps={{
           id: "all-words",
-          className: InputStyles.SEARCH,
+          className: InputEnum.SEARCH,
           placeholder: APP_CONTENT.SEARCHFIELD.PLACEHOLDER.SEARCHED,
           onChange: (event: ChangeEvent<HTMLInputElement>) =>
             appDispatch(

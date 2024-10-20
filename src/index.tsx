@@ -1,7 +1,8 @@
-/** COMPONENTS */
+/** CUSTOM COMPONENTS */
 import App from "./App";
 
 /** LIBRARIES */
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
@@ -14,16 +15,39 @@ import store from "./store";
 /** STYLES */
 import "./index.css";
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#74512d",
+      light: "#8f7357",
+      dark: "#51381f",
+      contrastText: "#fff",
+    },
+    secondary: {
+      main: "#f8f4e1",
+      light: "#f9f6e7",
+      dark: "#adaa9d",
+      contrastText: "#000",
+    },
+  },
+  typography: {
+    fontFamily: ["Parisienne", "serif"].join(","),
+  },
+});
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

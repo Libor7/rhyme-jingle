@@ -3,29 +3,28 @@ import { ChangeEvent, FC } from "react";
 
 /** MODELS */
 import {
-  FlexDirections,
+  FlexDirection,
   FlexWrap,
-  InputStyles,
-  InputTypes,
+  Input as InputEnum,
 } from "../../../models/input";
 
 /** STYLES */
 import styles from "./Input.module.css";
 
 interface InputContainerProps {
-  direction?: FlexDirections;
+  direction?: FlexDirection;
   wrap?: boolean;
 }
 
 interface InputFieldProps {
-  className: InputStyles;
+  className: InputEnum;
   id: string;
   label?: string;
   max?: number;
   min?: 1;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  type?: InputTypes;
+  type?: InputEnum;
   value?: number | string;
 }
 
@@ -39,10 +38,10 @@ const Input: FC<InputProps> = ({ containerProps, fieldProps }) => {
     className,
     id,
     label,
-    type = InputTypes.SEARCH,
+    type = InputEnum.SEARCH,
     ...rest
   } = fieldProps;
-  const { direction = FlexDirections.ROW, wrap = true } = containerProps;
+  const { direction = FlexDirection.ROW, wrap = true } = containerProps;
 
   const flexWrap = wrap ? FlexWrap.WRAP : FlexWrap.NOWRAP;
   const containerClasses = `${styles.container} ${styles[direction]} ${styles[flexWrap]}`;

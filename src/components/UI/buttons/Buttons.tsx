@@ -3,27 +3,35 @@ import FilterControls from "../../other/filter-controls/FilterControls";
 import MiscellaneousControls from "../../other/miscellaneous-controls/MiscellaneousControls";
 
 /** LIBRARIES */
+import { styled } from "@mui/system";
 import { FC } from "react";
 
-/** STYLES */
-import styles from "./Buttons.module.css";
+const StyledSection = styled("section")(() => ({
+  display: "flex",
+  justifyContent: "space-between",
+}));
 
 interface ButtonsProps {
   disposableWords: string[];
-  labels: number[];
+  hasPagination: boolean;
+  lengths: number[];
   totalWordsFound: number;
 }
 
 const Buttons: FC<ButtonsProps> = ({
   disposableWords,
-  labels,
+  hasPagination,
+  lengths,
   totalWordsFound,
 }) => {
   return (
-    <section className={styles.buttons}>
-      <FilterControls disposableWords={disposableWords} labels={labels} />
-      <MiscellaneousControls totalWordsFound={totalWordsFound} />
-    </section>
+    <StyledSection>
+      <FilterControls disposableWords={disposableWords} lengths={lengths} />
+      <MiscellaneousControls
+        totalWordsFound={totalWordsFound}
+        hasPagination={hasPagination}
+      />
+    </StyledSection>
   );
 };
 

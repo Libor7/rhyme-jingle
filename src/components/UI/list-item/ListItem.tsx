@@ -1,42 +1,74 @@
-/** COMPONENTS */
+/** CUSTOM COMPONENTS */
 import Icon, { IconHandle } from "../icon/Icon";
 
+/** COMPONENTS */
+import ListItemText from "@mui/material/ListItemText";
+import MUIListItem from "@mui/material/ListItem";
+import Paper from "@mui/material/Paper";
+
 /** LIBRARIES */
+import { styled } from "@mui/system";
 import { FC, useCallback, useRef } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { IconStyles, UtilityIcons } from "../../../models/icon";
+import { IconStyle, Icon as IconEnum } from "../../../models/icon";
 
 /** OTHER */
 import { RootState, useAppDispatch } from "../../../store";
 import { favoriteActions } from "../../../store/favorite";
 import { searchedActions } from "../../../store/searched";
 
-/** STYLES */
-import styles from "./ListItem.module.css";
+const StyledPaper = styled(Paper)<StyledPaperProps>(({ theme, favorite }) => ({
+  backgroundColor: favorite
+    ? theme.palette.primary.light
+    : theme.palette.primary.main,
+  color: theme.palette.secondary.light,
+  cursor: "pointer",
+  margin: "0.25em 0",
+
+  "&:hover": {
+    backgroundColor: favorite ? theme.palette.primary.light : theme.palette.primary.dark,
+  },
+}));
+
+const StyledMUIListItem = styled(MUIListItem)(() => ({
+  padding: 0,
+}));
+
+const StyledListItemText = styled(ListItemText)(() => ({
+  webkitHyphens: "auto",
+  mozHyphens: "auto",
+  msHyphens: "auto",
+  hyphens: "auto",
+  margin: 0,
+  padding: "0.5em 1.5em",
+
+  "& > .MuiTypography-root": {
+    fontSize: "1.5em",
+  },
+}));
 
 interface ListItemProps {
   label: string;
 }
 
+interface StyledPaperProps {
+  favorite: number;
+}
+
 const ListItem: FC<ListItemProps> = ({ label }) => {
-  const { candidates: favoriteCandidates } = useSelector(
-    (state: RootState) => state.favorite
-  );
+  const { candidates } = useSelector((state: RootState) => state.favorite);
   const appDispatch = useAppDispatch();
   const iconRef = useRef<IconHandle>(null);
 
-  const isFavoriteCandidate = favoriteCandidates.indexOf(label) >= 0;
-  const classes = `${styles.li} ${
-    isFavoriteCandidate ? styles["marked-favorite"] : ""
-  }`;
+  const isFavorite = candidates.indexOf(label) >= 0;
 
   const itemClickHandler = useCallback(() => {
-    isFavoriteCandidate
+    isFavorite
       ? appDispatch(favoriteActions.removeCandidate(label))
       : appDispatch(favoriteActions.addCandidate(label));
-  }, [appDispatch, isFavoriteCandidate, label]);
+  }, [appDispatch, isFavorite, label]);
 
   const iconClickHandler = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -64,22 +96,23 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
   );
 
   return (
-    <li
-      className={classes}
-      onClick={itemClickHandler}
-      onKeyDown={enterKeyHandler}
-      onMouseOut={mouseOutHandler}
-      onMouseOver={mouseOverHandler}
-      tabIndex={0}
-    >
-      <span lang="sk">{label}</span>
-      <Icon
-        ref={iconRef}
-        iconClass={UtilityIcons.TRASH}
-        iconStyles={IconStyles.ICON_BUTTON}
-        onClick={iconClickHandler}
-      />
-    </li>
+    <StyledPaper elevation={3} favorite={isFavorite ? 1 : 0} square>
+      <StyledMUIListItem
+        onClick={itemClickHandler}
+        onKeyDown={enterKeyHandler}
+        onMouseOut={mouseOutHandler}
+        onMouseOver={mouseOverHandler}
+        tabIndex={0}
+      >
+        <StyledListItemText lang="sk">{label}</StyledListItemText>
+        <Icon
+          ref={iconRef}
+          iconClass={IconEnum.TRASH}
+          iconStyles={IconStyle.ICON_BUTTON}
+          onClick={iconClickHandler}
+        />
+      </StyledMUIListItem>
+    </StyledPaper>
   );
 };
 

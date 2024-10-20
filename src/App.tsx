@@ -1,4 +1,4 @@
-/** COMPONENTS */
+/** CUSTOM COMPONENTS */
 import Footer from "./components/layout/footer/Footer";
 import Header from "./components/layout/header/Header";
 import MainContent from "./components/layout/main-content/MainContent";
@@ -7,53 +7,61 @@ import MainContent from "./components/layout/main-content/MainContent";
 import useWindowSize from "./hooks/useWindowSize";
 
 /** LIBRARIES */
+import { styled } from "@mui/system";
 import { useLocation } from "react-router-dom";
 
 /** MODELS */
-import { LinkIcons } from "./models/icon";
-import { LinkLabels, LinkPaths, Links } from "./models/link";
+import { Icon } from "./models/icon";
+import { Label, Path, Link } from "./models/link";
 
-/** STYLES */
-import styles from "./App.module.css";
-
-const LinkData: Links[] = [
+const links: Link[] = [
   {
-    icon: LinkIcons.SEARCH,
-    label: LinkLabels.SEARCH,
-    path: LinkPaths.SEARCH,
+    icon: Icon.SEARCH,
+    label: Label.SEARCH,
+    path: Path.SEARCH,
   },
   {
-    icon: LinkIcons.FAVORITE,
-    label: LinkLabels.FAVORITE,
-    path: LinkPaths.FAVORITE,
+    icon: Icon.FAVORITE,
+    label: Label.FAVORITE,
+    path: Path.FAVORITE,
   },
   {
-    icon: LinkIcons.ARCHIVE,
-    label: LinkLabels.ARCHIVE,
-    path: LinkPaths.ARCHIVE,
+    icon: Icon.ARCHIVE,
+    label: Label.ARCHIVE,
+    path: Path.ARCHIVE,
   },
   {
-    icon: LinkIcons.SETTINGS,
-    label: LinkLabels.SETTINGS,
-    path: LinkPaths.SETTINGS,
+    icon: Icon.SETTINGS,
+    label: Label.SETTINGS,
+    path: Path.SETTINGS,
   },
 ];
 
-function App() {
+const StyledDiv = styled("div")(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+
+  [theme.breakpoints.up("md")]: {
+    flexDirection: "row",
+  },
+}));
+
+const App = () => {
   const location = useLocation();
   const { isExtraSmall, isSmall } = useWindowSize();
 
-  const nonactiveLinks = LinkData.filter(
+  const nonactiveLinks = links.filter(
     (link) => link.path !== location.pathname
   );
 
   return (
-    <div className={styles["app-container"]}>
+    <StyledDiv>
       <Header links={nonactiveLinks} />
       <MainContent />
       {(isExtraSmall || isSmall) && <Footer links={nonactiveLinks} />}
-    </div>
+    </StyledDiv>
   );
-}
+};
 
 export default App;

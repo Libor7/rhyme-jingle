@@ -1,11 +1,18 @@
-/** COMPONENTS */
+/** CUSTOM COMPONENTS */
 import ListItem from "../list-item/ListItem";
 
+/** COMPONENTS */
+import MUIList from "@mui/material/List";
+
 /** LIBRARIES */
+import { styled } from "@mui/system";
 import { FC } from "react";
 
-/** STYLES */
-import styles from "./List.module.css";
+const StyledMUIList = styled(MUIList)(() => ({
+  listStyleType: "none",
+  margin: 0,
+  padding: "1em 0",
+}));
 
 interface ListProps {
   words: string[];
@@ -13,11 +20,11 @@ interface ListProps {
 
 const List: FC<ListProps> = ({ words }) => {
   return (
-    <ul className={styles.ul}>
+    <StyledMUIList>
       {words.map((word) => (
         <ListItem key={word} label={word} />
       ))}
-    </ul>
+    </StyledMUIList>
   );
 };
 

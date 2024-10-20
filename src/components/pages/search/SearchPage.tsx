@@ -1,17 +1,23 @@
 /** COMPONENTS */
+import Pagination from "@mui/material/Pagination";
+
+/** CUSTOM COMPONENTS */
 import Buttons from "../../UI/buttons/Buttons";
 import List from "../../UI/list/List";
-import Pagination from "../../UI/pagination/Pagination";
 import SearchField from "../../../components/UI/search-field/SearchField";
 import WordCount from "../../UI/word-count/WordCount";
 
+/** HOOKS */
+import useWindowSize from "../../../hooks/useWindowSize";
+
 /** LIBRARIES */
-import { useEffect, useMemo } from "react";
+import { styled } from "@mui/system";
+import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
 import { WordsPerPage } from "../../../models/common";
-import { MINIMAL_STRING_LENGTH } from "../../../models/constants";
+import { INITIAL_PAGE, MINIMAL_STRING_LENGTH } from "../../../models/constants";
 
 /** OTHER */
 import { RootState, useAppDispatch } from "../../../store";
@@ -24,18 +30,30 @@ import {
   filterOutSubset,
 } from "../../../helpers/utils";
 
+const StyledPagination = styled(Pagination)(() => ({
+  display: "flex",
+  justifyContent: "center",
+
+  "& > .MuiPagination-ul": {
+    justifyContent: "center",
+  }
+}));
+
 const SearchPage = () => {
+  const { isExtraSmall, isSmall, isMedium } = useWindowSize();
   const { currentPage, lengthFilters, lexicon, removedWords, searchedText } =
     useSelector((state: RootState) => state.searched);
   const { candidates } = useSelector((state: RootState) => state.favorite);
   const appDispatch = useAppDispatch();
 
   const isLengthFilterApplied = lengthFilters.length > 0;
+  const siblings = isExtraSmall || isSmall ? 0 : isMedium ? 1 : 2;
 
   useEffect(() => {
     appDispatch(searchedActions.setPropertyToInitialValue("lengthFilters"));
     appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
     appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
+    appDispatch(searchedActions.setCurrentPage(INITIAL_PAGE));
   }, [appDispatch, searchedText]);
 
   useEffect(() => {
@@ -67,6 +85,7 @@ const SearchPage = () => {
     : wordsFilteredByRemovedWords;
   const wordCount = listedWords.length;
   const hasPagination = wordCount > WordsPerPage.FIVE;
+  const pageCount = Math.ceil(wordCount / WordsPerPage.FIVE);
 
   const fromIndex = WordsPerPage.FIVE * currentPage - WordsPerPage.FIVE;
   const getCurrentPageWords = (words: string[]) =>
@@ -75,6 +94,12 @@ const SearchPage = () => {
   const wordsToShow = hasPagination
     ? getCurrentPageWords(listedWords)
     : listedWords;
+
+  const pageChangeHandler = useCallback(
+    async (_event: React.ChangeEvent<unknown>, value: number) =>
+      appDispatch(searchedActions.setCurrentPage(value)),
+    [appDispatch]
+  );
 
   return (
     <>
@@ -90,11 +115,22 @@ const SearchPage = () => {
       )}
       <Buttons
         disposableWords={wordsFilteredByRemovedWords}
-        labels={wordLengths}
+        hasPagination={hasPagination}
+        lengths={wordLengths}
         totalWordsFound={wordsFilteredByText.length}
       />
       <List words={wordsToShow} />
-      {hasPagination && <Pagination wordCount={wordCount} />}
+      {hasPagination && (
+        <StyledPagination
+          count={pageCount}
+          onChange={pageChangeHandler}
+          page={currentPage}
+          showFirstButton
+          showLastButton
+          siblingCount={siblings}
+          size="large"
+        />
+      )}
     </>
   );
 };
