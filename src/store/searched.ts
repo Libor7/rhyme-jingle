@@ -3,9 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 /** MODELS */
 import { INITIAL_PAGE } from "../models/constants";
-import {
-  SearchState,
-} from "../models/store";
+import { SearchState } from "../models/store";
 
 const initialSearchState: SearchState = {
   currentPage: INITIAL_PAGE,
@@ -60,7 +58,9 @@ const initialSearchState: SearchState = {
     "opica",
     "orangutan",
     "okuliare",
+    "tí",
   ],
+  pageCount: INITIAL_PAGE,
   removedWords: [],
   searchedText: "",
 };
@@ -86,6 +86,10 @@ const searchedSlice = createSlice({
       lengthFilters: state.lengthFilters.filter(
         (filter) => filter !== action.payload
       ),
+    }),
+    setPageCount: (state, action: PayloadAction<number>) => ({
+      ...state,
+      pageCount: action.payload,
     }),
     removeListedWord: (state, action: PayloadAction<string>) => ({
       ...state,

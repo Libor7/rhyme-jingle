@@ -26,7 +26,7 @@ const StyledLi = styled("li")(({ theme }) => ({
     transform: "scale(0.98)",
   },
 
-  "&:hover": {
+  "&:hover, &:focus, &:focus-visible, &:focus-within": {
     backgroundColor: theme.palette.primary.dark,
   },
 }));
@@ -35,6 +35,10 @@ const StyledLink = styled(Link)(({ theme }) => ({
   color: theme.palette.secondary.light,
   display: "block",
   padding: "1em",
+
+  "&:focus-visible": {
+    outline: "none",
+  },
 }));
 
 const MobileLinks: FC<PropsWithChildren<IPath>> = ({

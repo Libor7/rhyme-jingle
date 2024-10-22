@@ -100,6 +100,7 @@ const FilterControls: FC<FilterControlsProps> = ({
         })}
       {hasMoreBtn && (
         <StyledIconButton
+          toggleflag={allFiltersShown ? 1 : 0}
           aria-label="reset"
           disableRipple
           onClick={toggleAllFilters}

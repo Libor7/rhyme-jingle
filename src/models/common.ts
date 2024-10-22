@@ -10,3 +10,5 @@ export enum WordsPerPage {
   TEN = 10,
   FIFTEEN = 15,
 }
+
+export type DisplayType = "flex" | "none";

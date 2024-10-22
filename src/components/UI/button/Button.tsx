@@ -20,8 +20,10 @@ const StyledButton = styled(MUIButton)<StyledButtonProps>(
     minWidth: "unset",
     width: "2.5em",
 
-    "&:hover, &:focus, &:focus-visible": {
-      backgroundColor: theme.palette.primary.dark,
+    "&:hover, &:focus, &:focus-visible, &:focus-within": {
+      backgroundColor: marked
+        ? theme.palette.primary.light
+        : theme.palette.primary.dark,
     },
   })
 );

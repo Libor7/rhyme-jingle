@@ -27,13 +27,19 @@ const StyledPaper = styled(Paper)<StyledPaperProps>(({ theme, favorite }) => ({
   cursor: "pointer",
   margin: "0.25em 0",
 
-  "&:hover": {
-    backgroundColor: favorite ? theme.palette.primary.light : theme.palette.primary.dark,
+  "&:hover, &:focus, &:focus-visible, &:focus-within": {
+    backgroundColor: favorite
+      ? theme.palette.primary.light
+      : theme.palette.primary.dark,
   },
 }));
 
 const StyledMUIListItem = styled(MUIListItem)(() => ({
   padding: 0,
+
+  "&:focus-visible": {
+    outline: "none",
+  },
 }));
 
 const StyledListItemText = styled(ListItemText)(() => ({
@@ -49,12 +55,12 @@ const StyledListItemText = styled(ListItemText)(() => ({
   },
 }));
 
-interface ListItemProps {
-  label: string;
-}
-
 interface StyledPaperProps {
   favorite: number;
+}
+
+interface ListItemProps {
+  label: string;
 }
 
 const ListItem: FC<ListItemProps> = ({ label }) => {
