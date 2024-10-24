@@ -1,4 +1,5 @@
 /** COMPONENTS */
+import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 
 /** ICONS */
@@ -7,6 +8,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { ChangeEvent, useCallback, useState } from "react";
+import { useSelector } from "react-redux";
 
 /** MODELS */
 import { DisplayType } from "../../../models/common";
@@ -15,8 +17,7 @@ import { Input as InputEnum } from "../../../models/input";
 
 /** OTHER */
 import { searchedActions } from "../../../store/searched";
-import { useAppDispatch } from "../../../store";
-import InputAdornment from "@mui/material/InputAdornment";
+import { RootState, useAppDispatch } from "../../../store";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   display: "flex",
@@ -52,15 +53,16 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       webkitAppearance: "none",
     },
 
-    "& .MuiInputBase-input::-ms-clear, & .MuiInputBase-input::-ms-reveal": {
-      display: "none",
-      height: 0,
-      width: 0,
-      webkitAppearance: "none",
-    }
+  "& .MuiInputBase-input::-ms-clear, & .MuiInputBase-input::-ms-reveal": {
+    display: "none",
+    height: 0,
+    width: 0,
+    webkitAppearance: "none",
+  },
 }));
 
 const SearchField = () => {
+  const { searchedText } = useSelector((state: RootState) => state.searched);
   const appDispatch = useAppDispatch();
   const [showClearIcon, setShowClearIcon] = useState<DisplayType>("none");
 
@@ -72,7 +74,10 @@ const SearchField = () => {
   };
 
   const searchedTextClearHandler = useCallback(
-    () => appDispatch(searchedActions.setSearchedText("")),
+    () => {
+      setShowClearIcon("none");
+      appDispatch(searchedActions.setSearchedText(""));
+    },
     [appDispatch]
   );
 
@@ -94,6 +99,7 @@ const SearchField = () => {
       onChange={searchedTextChangeHandler}
       placeholder={APP_CONTENT.SEARCHFIELD.PLACEHOLDER.SEARCHED}
       type={InputEnum.SEARCH}
+      value={searchedText}
       variant="standard"
     />
   );

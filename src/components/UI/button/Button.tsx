@@ -31,7 +31,7 @@ const StyledButton = styled(MUIButton)<StyledButtonProps>(
 interface ButtonProps {
   isMarked: boolean;
   length: number;
-  onClick: () => void;
+  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 interface StyledButtonProps {

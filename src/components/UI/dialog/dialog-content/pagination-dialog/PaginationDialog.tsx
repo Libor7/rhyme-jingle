@@ -80,7 +80,9 @@ const PaperComponent = (props: PaperProps) => {
 };
 
 interface PaginationDialogProps {
-  onDialogClose: () => void;
+  onDialogClose: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
   open: boolean;
 }
 
@@ -108,10 +110,13 @@ const PaginationDialog: FC<PaginationDialogProps> = ({
     [pageCount]
   );
 
-  const savePageHandler = useCallback(() => {
-    appDispatch(searchedActions.setCurrentPage(pageNum));
-    onDialogClose();
-  }, [appDispatch, onDialogClose, pageNum]);
+  const savePageHandler = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      appDispatch(searchedActions.setCurrentPage(pageNum));
+      onDialogClose(event);
+    },
+    [appDispatch, onDialogClose, pageNum]
+  );
 
   return (
     <Dialog

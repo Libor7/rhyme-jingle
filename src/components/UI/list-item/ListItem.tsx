@@ -70,11 +70,21 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
 
   const isFavorite = candidates.indexOf(label) >= 0;
 
-  const itemClickHandler = useCallback(() => {
-    isFavorite
-      ? appDispatch(favoriteActions.removeCandidate(label))
-      : appDispatch(favoriteActions.addCandidate(label));
-  }, [appDispatch, isFavorite, label]);
+  const toggleCandidate = useCallback(
+    () =>
+      isFavorite
+        ? appDispatch(favoriteActions.removeCandidate(label))
+        : appDispatch(favoriteActions.addCandidate(label)),
+    [appDispatch, isFavorite, label]
+  );
+
+  const itemClickHandler = useCallback(
+    (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+      event.currentTarget.blur();
+      toggleCandidate();
+    },
+    [toggleCandidate]
+  );
 
   const iconClickHandler = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -97,8 +107,8 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
 
   const enterKeyHandler = useCallback(
     (event: React.KeyboardEvent<HTMLLIElement>) =>
-      event.key === "Enter" && itemClickHandler(),
-    [itemClickHandler]
+      event.key === "Enter" && toggleCandidate(),
+    [toggleCandidate]
   );
 
   return (
