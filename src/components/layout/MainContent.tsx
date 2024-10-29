@@ -1,15 +1,15 @@
 /** COMPONENTS */
-import ArchivePage from "../../pages/archive/ArchivePage";
-import FavoritePage from "../../pages/favorite/FavoritePage";
-import SearchPage from "../../pages/search/SearchPage";
-import SettingsPage from "../../pages/settings/SettingsPage";
+import ArchivePage from "../pages/ArchivePage";
+import FavoritePage from "../pages/FavoritePage";
+import SearchPage from "../pages/SearchPage";
+import SettingsPage from "../pages/SettingsPage";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 /** MODELS */
-import { Path } from "../../../models/link";
+import { Path } from "../../models/link";
 
 const StyledMain = styled("main")(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,

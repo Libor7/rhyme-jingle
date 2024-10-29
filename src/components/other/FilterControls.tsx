@@ -1,8 +1,8 @@
 /** CUSTOM COMPONENTS */
-import Button from "../../UI/button/Button";
+import Button from "../UI/Button";
 
 /** HOOKS */
-import useWindowSize from "../../../hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
 
 /** ICONS */
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
@@ -13,20 +13,20 @@ import { FC, useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { Operator } from "../../../models/common";
-import { DEFAULT_FILTERS_QUANTITY } from "../../../models/constants";
+import { Operator } from "../../models/common";
+import { DEFAULT_FILTERS_QUANTITY } from "../../models/constants";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "../../../store";
-import { searchedActions } from "../../../store/searched";
+import { RootState, useAppDispatch } from "../../store";
+import { searchedActions } from "../../store/searched";
 import {
   containsWordOfLength,
   removeDuplicates,
   sortByNumberASC,
-} from "../../../helpers/utils";
+} from "../../helpers/utils";
 
 /** STYLED COMPONENTS */
-import { StyledIconButton } from "../../styled/StyledIconButton";
+import { StyledIconButton } from "../styled/StyledIconButton";
 
 const StyledSection = styled("section")(() => ({
   alignContent: "flex-start",

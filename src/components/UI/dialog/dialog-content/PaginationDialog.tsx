@@ -17,11 +17,11 @@ import { ChangeEvent, FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import APP_CONTENT, { INITIAL_PAGE } from "../../../../../models/constants";
+import APP_CONTENT, { INITIAL_PAGE } from "../../../../models/constants";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "../../../../../store";
-import { searchedActions } from "../../../../../store/searched";
+import { RootState, useAppDispatch } from "../../../../store";
+import { searchedActions } from "../../../../store/searched";
 
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.light,

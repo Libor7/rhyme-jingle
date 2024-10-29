@@ -11,13 +11,13 @@ import { ChangeEvent, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { DisplayType } from "../../../models/common";
-import APP_CONTENT from "../../../models/constants";
-import { Input as InputEnum } from "../../../models/input";
+import { DisplayType } from "../../models/common";
+import APP_CONTENT from "../../models/constants";
+import { Input } from "../../models/input";
 
 /** OTHER */
-import { searchedActions } from "../../../store/searched";
-import { RootState, useAppDispatch } from "../../../store";
+import { searchedActions } from "../../store/searched";
+import { RootState, useAppDispatch } from "../../store";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   display: "flex",
@@ -98,7 +98,7 @@ const SearchField = () => {
       }}
       onChange={searchedTextChangeHandler}
       placeholder={APP_CONTENT.SEARCHFIELD.PLACEHOLDER.SEARCHED}
-      type={InputEnum.SEARCH}
+      type={Input.SEARCH}
       value={searchedText}
       variant="standard"
     />

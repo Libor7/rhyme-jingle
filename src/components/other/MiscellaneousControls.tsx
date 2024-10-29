@@ -1,12 +1,11 @@
 /** CUSTOM COMPONENTS */
-import Modal from "../../UI/dialog/modal/Modal";
-import PaginationDialog from "../../UI/dialog/dialog-content/pagination-dialog/PaginationDialog";
+import Modal from "../UI/dialog/Modal";
+import PaginationDialog from "../UI/dialog/dialog-content/PaginationDialog";
 
 /** ICONS */
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
 import ReplayIcon from "@mui/icons-material/Replay";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
-import SpellcheckIcon from "@mui/icons-material/Spellcheck";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
@@ -14,12 +13,12 @@ import { FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** OTHER */
-import { favoriteActions } from "../../../store/favorite";
-import { searchedActions } from "../../../store/searched";
-import { RootState, useAppDispatch } from "../../../store";
+import { favoriteActions } from "../../store/favorite";
+import { searchedActions } from "../../store/searched";
+import { RootState, useAppDispatch } from "../../store";
 
 /** STYLED COMPONENTS */
-import { StyledIconButton } from "../../styled/StyledIconButton";
+import { StyledIconButton } from "../styled/StyledIconButton";
 
 const StyledSection = styled("section")(() => ({
   alignItems: "flex-end",
@@ -95,18 +94,6 @@ const MiscellaneousControls: FC<MiscellaneousControlsProps> = ({
           onKeyDown={enterKeyHandler}
         >
           <AutoStoriesIcon fontSize="inherit" />
-        </StyledIconButton>
-      )}
-      {totalWordsFound > 0 && (
-        <StyledIconButton
-          aria-label="toggle case sensitivity"
-          disableRipple
-          onClick={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
-            event.currentTarget.blur()
-          }
-          onKeyDown={() => {}}
-        >
-          <SpellcheckIcon fontSize="inherit" />
         </StyledIconButton>
       )}
       {pageModalShown && (

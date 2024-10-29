@@ -1,5 +1,5 @@
 /** CUSTOM COMPONENTS */
-import Icon, { IconHandle } from "../icon/Icon";
+import Icon from "./Icon";
 
 /** COMPONENTS */
 import ListItemText from "@mui/material/ListItemText";
@@ -8,16 +8,16 @@ import Paper from "@mui/material/Paper";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC, useCallback, useRef } from "react";
+import { FC, useCallback } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { IconStyle, Icon as IconEnum } from "../../../models/icon";
+import { Icon as IconEnum } from "../../models/icon";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "../../../store";
-import { favoriteActions } from "../../../store/favorite";
-import { searchedActions } from "../../../store/searched";
+import { RootState, useAppDispatch } from "../../store";
+import { favoriteActions } from "../../store/favorite";
+import { searchedActions } from "../../store/searched";
 
 const StyledPaper = styled(Paper)<StyledPaperProps>(({ theme, favorite }) => ({
   backgroundColor: favorite
@@ -66,7 +66,6 @@ interface ListItemProps {
 const ListItem: FC<ListItemProps> = ({ label }) => {
   const { candidates } = useSelector((state: RootState) => state.favorite);
   const appDispatch = useAppDispatch();
-  const iconRef = useRef<IconHandle>(null);
 
   const isFavorite = candidates.indexOf(label) >= 0;
 
@@ -95,16 +94,6 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
     [appDispatch, label]
   );
 
-  const mouseOutHandler = useCallback(
-    () => iconRef.current?.mouseoutHandler(),
-    []
-  );
-
-  const mouseOverHandler = useCallback(
-    () => iconRef.current?.mouseoverHandler(),
-    []
-  );
-
   const enterKeyHandler = useCallback(
     (event: React.KeyboardEvent<HTMLLIElement>) =>
       event.key === "Enter" && toggleCandidate(),
@@ -116,15 +105,12 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
       <StyledMUIListItem
         onClick={itemClickHandler}
         onKeyDown={enterKeyHandler}
-        onMouseOut={mouseOutHandler}
-        onMouseOver={mouseOverHandler}
         tabIndex={0}
       >
         <StyledListItemText lang="sk">{label}</StyledListItemText>
         <Icon
-          ref={iconRef}
           iconClass={IconEnum.TRASH}
-          iconStyles={IconStyle.ICON_BUTTON}
+          iconStyle="icon"
           onClick={iconClickHandler}
         />
       </StyledMUIListItem>

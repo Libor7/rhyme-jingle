@@ -1,6 +1,6 @@
 /** COMPONENTS */
-import Backdrop from "../backdrop/Backdrop";
-import ModalOverlay from "../modal-overlay/ModalOverlay";
+import Backdrop from "./Backdrop";
+import ModalOverlay from "./ModalOverlay";
 
 /** LIBRARIES */
 import { FC } from "react";

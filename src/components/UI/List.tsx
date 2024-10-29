@@ -1,5 +1,5 @@
 /** CUSTOM COMPONENTS */
-import ListItem from "../list-item/ListItem";
+import ListItem from "./ListItem";
 
 /** COMPONENTS */
 import MUIList from "@mui/material/List";

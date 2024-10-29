@@ -1,12 +1,12 @@
 /** COMPONENTS */
-import LinkItem from "../../UI/link-item/LinkItem";
+import LinkItem from "../UI/LinkItem";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { FC } from "react";
 
 /** MODELS */
-import { Link } from "../../../models/link";
+import { Link } from "../../models/link";
 
 const StyledNav = styled("nav")<StyledProps>(({ theme, row }) => ({
   alignItems: "center",

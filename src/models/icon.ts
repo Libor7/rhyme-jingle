@@ -14,8 +14,4 @@ export enum Icon {
   TRASH = "fa-trash-alt",
 }
 
-export enum IconStyle {
-  BUTTON = "button",
-  HEADER = "header",
-  ICON_BUTTON = "icon-button",
-}
+export type IconStyleType = "button" | "header" | "icon";

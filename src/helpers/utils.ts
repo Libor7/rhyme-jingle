@@ -1,8 +1,6 @@
 /** MODELS */
 import { Operator } from "../models/common";
-import {
-  MINIMAL_STRING_LENGTH,
-} from "../models/constants";
+import { MINIMAL_STRING_LENGTH } from "../models/constants";
 
 export const containsWordOfLength = (
   words: string[],
@@ -32,7 +30,14 @@ export const filterByText = (words: string[], text: string) =>
   words.filter(
     (word) =>
       text.length >= MINIMAL_STRING_LENGTH &&
-      word.slice(-text.length) === text.toLowerCase()
+      word
+        .slice(-text.length)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "") ===
+        text
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
   );
 
 export const filterByTextLength = (words: string[], lengths: number[]) =>

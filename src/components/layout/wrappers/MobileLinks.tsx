@@ -4,7 +4,7 @@ import { FC, PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 
 /** MODELS */
-import { IPath } from "../../../../models/link";
+import { IPath } from "../../../models/link";
 
 const StyledLi = styled("li")(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,

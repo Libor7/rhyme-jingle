@@ -2,24 +2,24 @@
 import Pagination from "@mui/material/Pagination";
 
 /** CUSTOM COMPONENTS */
-import Buttons from "../../UI/buttons/Buttons";
-import List from "../../UI/list/List";
-import SearchField from "../../../components/UI/search-field/SearchField";
-import WordCount from "../../UI/word-count/WordCount";
+import Buttons from "../UI/Buttons";
+import List from "../UI/List";
+import SearchField from "../UI/SearchField";
+import WordCount from "../UI/WordCount";
 
 /** HOOKS */
-import useSearch from "../../../hooks/useSearch";
-import useWindowSize from "../../../hooks/useWindowSize";
+import useSearch from "../../hooks/useSearch";
+import useWindowSize from "../../hooks/useWindowSize";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { MINIMAL_STRING_LENGTH } from "../../../models/constants";
+import { MINIMAL_STRING_LENGTH } from "../../models/constants";
 
 /** OTHER */
-import { RootState } from "../../../store";
+import { RootState } from "../../store";
 
 const StyledPagination = styled(Pagination)(() => ({
   display: "flex",

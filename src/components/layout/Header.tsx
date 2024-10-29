@@ -1,18 +1,18 @@
 /** CUSTOM COMPONENTS */
-import Icon from "../../UI/icon/Icon";
-import Navigation from "../../other/navigation/Navigation";
+import Icon from "../UI/Icon";
+import Navigation from "../other/Navigation";
 
 /** HOOKS */
-import useWindowSize from "../../../hooks/useWindowSize";
+import useWindowSize from "../../hooks/useWindowSize";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { FC } from "react";
 
 /** MODELS */
-import APP_CONTENT from "../../../models/constants";
-import { Icon as IconEnum, IconStyle } from "../../../models/icon";
-import { Link } from "../../../models/link";
+import APP_CONTENT from "../../models/constants";
+import { Icon as IconEnum } from "../../models/icon";
+import { Link } from "../../models/link";
 
 const StyledHeader = styled("header")(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -55,7 +55,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
     <StyledHeader>
       <StyledHeading>{APP_CONTENT.HEADINGS.APPLICATION_TITLE}</StyledHeading>
       {(isExtraSmall || isSmall) && (
-        <Icon iconClass={IconEnum.FEATHER} iconStyles={IconStyle.HEADER} />
+        <Icon iconClass={IconEnum.FEATHER} iconStyle="header" />
       )}
       {isMedium && <Navigation links={links} row />}
       {(isLarge || isExtraLarge) && <Navigation links={links} />}
