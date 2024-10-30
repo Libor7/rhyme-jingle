@@ -58,6 +58,13 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     fontWeight: 600,
     textAlign: "center",
   },
+
+  "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button": {
+    webkitAppearance: "none",
+    mozAppearance: "none",
+    appearance: "none",
+    margin: 0,
+  },
 }));
 
 const StyledDialogActions = styled(DialogActions)(({ theme }) => ({

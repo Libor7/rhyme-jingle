@@ -12,10 +12,23 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <link
-      rel="stylesheet"
+      rel="preload"
       href="https://fonts.googleapis.com/css?family=Parisienne"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <script src="https://kit.fontawesome.com/d7fd385736.js" crossorigin="anonymous"></script>
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Parisienne"
+        defer
+    /></noscript>
+    <script
+      async
+      src="https://kit.fontawesome.com/d7fd385736.js"
+      crossorigin="anonymous"
+      defer
+    ></script>
     <title>Rýmovačka</title>
   </head>
   <body>

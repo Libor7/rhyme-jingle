@@ -12,6 +12,7 @@ import { FC, useCallback } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
+import APP_CONTENT from "../../models/constants";
 import { Icon as IconEnum } from "../../models/icon";
 
 /** OTHER */
@@ -77,6 +78,11 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
     [appDispatch, isFavorite, label]
   );
 
+  const removeItem = useCallback(() => {
+    appDispatch(searchedActions.removeListedWord(label));
+    appDispatch(favoriteActions.removeCandidate(label));
+  }, [appDispatch, label]);
+
   const itemClickHandler = useCallback(
     (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
       event.currentTarget.blur();
@@ -85,33 +91,43 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
     [toggleCandidate]
   );
 
-  const iconClickHandler = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      appDispatch(searchedActions.removeListedWord(label));
-      appDispatch(favoriteActions.removeCandidate(label));
-    },
-    [appDispatch, label]
-  );
-
-  const enterKeyHandler = useCallback(
+  const itemEnterKeyHandler = useCallback(
     (event: React.KeyboardEvent<HTMLLIElement>) =>
       event.key === "Enter" && toggleCandidate(),
     [toggleCandidate]
+  );
+
+  const iconClickHandler = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      event.stopPropagation();
+      removeItem();
+    },
+    [removeItem]
+  );
+
+  const iconEnterKeyHandler = useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
+      event.stopPropagation();
+      event.key === "Enter" && removeItem();
+    },
+    [removeItem]
   );
 
   return (
     <StyledPaper elevation={3} favorite={isFavorite ? 1 : 0} square>
       <StyledMUIListItem
         onClick={itemClickHandler}
-        onKeyDown={enterKeyHandler}
+        onKeyDown={itemEnterKeyHandler}
         tabIndex={0}
       >
         <StyledListItemText lang="sk">{label}</StyledListItemText>
         <Icon
+          alt={APP_CONTENT.ICON.ALT_TEXT.LIST_ITEM.TRASH_CAN}
           iconClass={IconEnum.TRASH}
           iconStyle="icon"
+          isFavorite={isFavorite}
           onClick={iconClickHandler}
+          onKeyDown={iconEnterKeyHandler}
         />
       </StyledMUIListItem>
     </StyledPaper>

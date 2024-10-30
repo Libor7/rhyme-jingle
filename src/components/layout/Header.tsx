@@ -55,7 +55,7 @@ const Header: FC<HeaderProps> = ({ links }) => {
     <StyledHeader>
       <StyledHeading>{APP_CONTENT.HEADINGS.APPLICATION_TITLE}</StyledHeading>
       {(isExtraSmall || isSmall) && (
-        <Icon iconClass={IconEnum.FEATHER} iconStyle="header" />
+        <Icon alt={APP_CONTENT.ICON.ALT_TEXT.HEADER} iconClass={IconEnum.FEATHER} iconStyle="header" />
       )}
       {isMedium && <Navigation links={links} row />}
       {(isLarge || isExtraLarge) && <Navigation links={links} />}

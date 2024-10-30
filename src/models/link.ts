@@ -16,6 +16,7 @@ export enum Path {
 }
 
 export interface Link extends IPath {
+  alt: string;
   icon: Icon;
   label: Label;
 }

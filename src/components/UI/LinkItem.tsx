@@ -13,12 +13,12 @@ import { FC } from "react";
 /** MODELS */
 import { Link as ILink } from "../../models/link";
 
-const LinkItem: FC<ILink> = ({ icon, label, path }) => {
+const LinkItem: FC<ILink> = ({ alt, icon, label, path }) => {
   const { isExtraSmall, isSmall } = useWindowSize();
 
   return isExtraSmall || isSmall ? (
     <MobileLinks path={path}>
-      <Icon iconClass={icon} />
+      <Icon alt={alt} iconClass={icon} />
     </MobileLinks>
   ) : (
     <DesktopLinks path={path}>{label}</DesktopLinks>
