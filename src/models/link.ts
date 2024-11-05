@@ -1,5 +1,5 @@
-/** MODELS */
-import { Icon } from "./icon";
+/** LIBRARIES */
+import { FC } from "react";
 
 export enum Label {
   ARCHIVE = "Archív",
@@ -16,8 +16,7 @@ export enum Path {
 }
 
 export interface Link extends IPath {
-  alt: string;
-  icon: Icon;
+  icon: FC;
   label: Label;
 }
 

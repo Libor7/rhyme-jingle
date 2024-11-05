@@ -1,8 +1,8 @@
 
 export enum Operator {
-  EQUAL = "equal",
-  GREATER = "greater",
-  GREATER_OR_EQUAL = "greaterOrEqual",
+  EQUAL,
+  GREATER,
+  GREATER_OR_EQUAL,
 }
 
 export enum WordsPerPage {

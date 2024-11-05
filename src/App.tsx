@@ -6,39 +6,37 @@ import MainContent from "./components/layout/MainContent";
 /** HOOKS */
 import useWindowSize from "./hooks/useWindowSize";
 
+/** ICONS */
+import FolderIcon from '@mui/icons-material/Folder';
+import SearchIcon from '@mui/icons-material/Search';
+import SettingsIcon from '@mui/icons-material/Settings';
+import StarIcon from '@mui/icons-material/Star';
+
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { useLocation } from "react-router-dom";
 
 /** MODELS */
-import APP_CONTENT from "./models/constants";
-import { Icon } from "./models/icon";
 import { Label, Path, Link } from "./models/link";
-
-const LINK_ALT_TEXT = APP_CONTENT.ICON.ALT_TEXT.LINK;
 
 const links: Link[] = [
   {
-    alt: LINK_ALT_TEXT.SEARCHED,
-    icon: Icon.SEARCH,
+    icon: SearchIcon,
     label: Label.SEARCH,
     path: Path.SEARCH,
   },
   {
-    alt: LINK_ALT_TEXT.FAVORITE,
-    icon: Icon.FAVORITE,
+    icon: StarIcon,
     label: Label.FAVORITE,
     path: Path.FAVORITE,
   },
   {
-    alt: LINK_ALT_TEXT.ARCHIVED,
-    icon: Icon.ARCHIVE,
+    icon: FolderIcon,
     label: Label.ARCHIVE,
     path: Path.ARCHIVE,
   },
   {
-    alt: LINK_ALT_TEXT.SETTINGS,
-    icon: Icon.SETTINGS,
+    icon: SettingsIcon,
     label: Label.SETTINGS,
     path: Path.SETTINGS,
   },

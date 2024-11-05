@@ -89,7 +89,7 @@ const SearchField = () => {
         endAdornment: (
           <InputAdornment
             position="end"
-            sx={{ display: showClearIcon, cursor: "pointer" }}
+            sx={{ display: showClearIcon, cursor: "pointer", marginRight: "0.5em" }}
             onClick={searchedTextClearHandler}
           >
             <ClearIcon />

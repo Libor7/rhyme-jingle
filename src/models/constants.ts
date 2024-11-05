@@ -9,20 +9,6 @@ const APP_CONTENT = {
   HEADINGS: {
     APPLICATION_TITLE: "Rýmovačka",
   },
-  ICON: {
-    ALT_TEXT: {
-      HEADER: "Feather image",
-      LINK: {
-        ARCHIVED: "Folder image ",
-        FAVORITE: "Heart image",
-        SEARCHED: "Magnifying glass image",
-        SETTINGS: "Cog wheel image",
-      },
-      LIST_ITEM: {
-        TRASH_CAN: "Trash can image",
-      },
-    },
-  },
   SEARCHFIELD: {
     PLACEHOLDER: {
       ARCHIVED: "Nájdi archivované...",

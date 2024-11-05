@@ -1,47 +1,38 @@
-/** CUSTOM COMPONENTS */
-import Icon from "./Icon";
-
 /** COMPONENTS */
 import ListItemText from "@mui/material/ListItemText";
 import MUIListItem from "@mui/material/ListItem";
-import Paper from "@mui/material/Paper";
+
+/** CUSTOM COMPONENTS */
+import LinkItemActions from "./LinkItemActions";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { FC, useCallback } from "react";
 import { useSelector } from "react-redux";
 
-/** MODELS */
-import APP_CONTENT from "../../models/constants";
-import { Icon as IconEnum } from "../../models/icon";
-
 /** OTHER */
+import { hasArrayElement } from "../../helpers/utils";
 import { RootState, useAppDispatch } from "../../store";
 import { favoriteActions } from "../../store/favorite";
-import { searchedActions } from "../../store/searched";
 
-const StyledPaper = styled(Paper)<StyledPaperProps>(({ theme, favorite }) => ({
-  backgroundColor: favorite
-    ? theme.palette.primary.light
-    : theme.palette.primary.main,
-  color: theme.palette.secondary.light,
-  cursor: "pointer",
-  margin: "0.25em 0",
-
-  "&:hover, &:focus, &:focus-visible, &:focus-within": {
-    backgroundColor: favorite
+const StyledMUIListItem = styled(MUIListItem)<StyledMUIListItemProps>(
+  ({ theme, favoritecandidate }) => ({
+    backgroundColor: favoritecandidate
       ? theme.palette.primary.light
-      : theme.palette.primary.dark,
-  },
-}));
+      : theme.palette.primary.main,
+    color: theme.palette.secondary.light,
+    cursor: "pointer",
+    margin: "0.25em 0",
+    padding: 0,
 
-const StyledMUIListItem = styled(MUIListItem)(() => ({
-  padding: 0,
-
-  "&:focus-visible": {
-    outline: "none",
-  },
-}));
+    "&:hover, &:focus, &:focus-visible, &:focus-within": {
+      backgroundColor: favoritecandidate
+        ? theme.palette.primary.light
+        : theme.palette.primary.dark,
+      outline: "none",
+    },
+  })
+);
 
 const StyledListItemText = styled(ListItemText)(() => ({
   webkitHyphens: "auto",
@@ -56,8 +47,8 @@ const StyledListItemText = styled(ListItemText)(() => ({
   },
 }));
 
-interface StyledPaperProps {
-  favorite: number;
+interface StyledMUIListItemProps {
+  favoritecandidate: number;
 }
 
 interface ListItemProps {
@@ -65,23 +56,21 @@ interface ListItemProps {
 }
 
 const ListItem: FC<ListItemProps> = ({ label }) => {
-  const { candidates } = useSelector((state: RootState) => state.favorite);
+  const { candidates, favorites } = useSelector(
+    (state: RootState) => state.favorite
+  );
   const appDispatch = useAppDispatch();
 
-  const isFavorite = candidates.indexOf(label) >= 0;
+  const isFavoriteCandidate = hasArrayElement(candidates, label);
+  const isFavorite = hasArrayElement(favorites, label);
 
-  const toggleCandidate = useCallback(
-    () =>
-      isFavorite
-        ? appDispatch(favoriteActions.removeCandidate(label))
-        : appDispatch(favoriteActions.addCandidate(label)),
-    [appDispatch, isFavorite, label]
-  );
+  const toggleCandidate = useCallback(() => {
+    if (isFavorite) return;
 
-  const removeItem = useCallback(() => {
-    appDispatch(searchedActions.removeListedWord(label));
-    appDispatch(favoriteActions.removeCandidate(label));
-  }, [appDispatch, label]);
+    isFavoriteCandidate
+      ? appDispatch(favoriteActions.removeCandidate(label))
+      : appDispatch(favoriteActions.addCandidate(label));
+  }, [appDispatch, isFavorite, isFavoriteCandidate, label]);
 
   const itemClickHandler = useCallback(
     (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -91,46 +80,27 @@ const ListItem: FC<ListItemProps> = ({ label }) => {
     [toggleCandidate]
   );
 
-  const itemEnterKeyHandler = useCallback(
+  const itemKeyHandler = useCallback(
     (event: React.KeyboardEvent<HTMLLIElement>) =>
       event.key === "Enter" && toggleCandidate(),
     [toggleCandidate]
   );
 
-  const iconClickHandler = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      removeItem();
-    },
-    [removeItem]
-  );
-
-  const iconEnterKeyHandler = useCallback(
-    (event: React.KeyboardEvent<HTMLElement>) => {
-      event.stopPropagation();
-      event.key === "Enter" && removeItem();
-    },
-    [removeItem]
-  );
-
   return (
-    <StyledPaper elevation={3} favorite={isFavorite ? 1 : 0} square>
-      <StyledMUIListItem
-        onClick={itemClickHandler}
-        onKeyDown={itemEnterKeyHandler}
-        tabIndex={0}
-      >
-        <StyledListItemText lang="sk">{label}</StyledListItemText>
-        <Icon
-          alt={APP_CONTENT.ICON.ALT_TEXT.LIST_ITEM.TRASH_CAN}
-          iconClass={IconEnum.TRASH}
-          iconStyle="icon"
-          isFavorite={isFavorite}
-          onClick={iconClickHandler}
-          onKeyDown={iconEnterKeyHandler}
-        />
-      </StyledMUIListItem>
-    </StyledPaper>
+    <StyledMUIListItem
+      favoritecandidate={isFavoriteCandidate ? 1 : 0}
+      onClick={itemClickHandler}
+      onKeyDown={itemKeyHandler}
+      sx={{ boxShadow: 3 }}
+      tabIndex={0}
+    >
+      <StyledListItemText lang="sk">{label}</StyledListItemText>
+      <LinkItemActions
+        isFavorite={isFavorite}
+        isFavoriteCandidate={isFavoriteCandidate}
+        label={label}
+      />
+    </StyledMUIListItem>
   );
 };
 

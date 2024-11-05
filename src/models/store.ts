@@ -1,5 +1,6 @@
 export interface FavoriteState {
   candidates: string[];
+  favorites:  string[];
 }
 
 export interface SearchState {

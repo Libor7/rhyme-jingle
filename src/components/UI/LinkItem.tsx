@@ -1,24 +1,35 @@
+/** COMPONENTS */
+import IconButton from "@mui/material/IconButton";
+
 /** CUSTOM COMPONENTS */
 import DesktopLinks from "../layout/wrappers/DesktopLinks";
-
-import Icon from "./Icon";
 import MobileLinks from "../layout/wrappers/MobileLinks";
 
 /** HOOKS */
 import useWindowSize from "../../hooks/useWindowSize";
 
 /** LIBRARIES */
+import { styled } from "@mui/system";
 import { FC } from "react";
 
 /** MODELS */
 import { Link as ILink } from "../../models/link";
 
-const LinkItem: FC<ILink> = ({ alt, icon, label, path }) => {
+const StyledIcon = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+  "& > .MuiSvgIcon-root": {
+    fontSize: "1.5em",
+  }
+}));
+
+const LinkItem: FC<ILink> = ({ icon: LinkIcon, label, path }) => {
   const { isExtraSmall, isSmall } = useWindowSize();
 
   return isExtraSmall || isSmall ? (
     <MobileLinks path={path}>
-      <Icon alt={alt} iconClass={icon} />
+      <StyledIcon aria-label={label} disableRipple tabIndex={-1}>
+        <LinkIcon />
+      </StyledIcon>
     </MobileLinks>
   ) : (
     <DesktopLinks path={path}>{label}</DesktopLinks>

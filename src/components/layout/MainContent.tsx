@@ -1,5 +1,5 @@
 /** COMPONENTS */
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
@@ -30,8 +30,8 @@ const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
 const MainContent = () => {
   return (
     <StyledMain>
-      <Switch>
-        <Suspense fallback={<StyledCircularProgress size="4em" />}>
+      <Suspense fallback={<StyledCircularProgress size="4em" />}>
+        <Switch>
           <Route path={Path.SEARCH}>
             <SearchPage />
           </Route>
@@ -47,8 +47,8 @@ const MainContent = () => {
           <Route path="*">
             <Redirect to={Path.SEARCH} />
           </Route>
-        </Suspense>
-      </Switch>
+        </Switch>
+      </Suspense>
     </StyledMain>
   );
 };

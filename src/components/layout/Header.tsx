@@ -1,5 +1,4 @@
 /** CUSTOM COMPONENTS */
-import Icon from "../UI/Icon";
 import Navigation from "../other/Navigation";
 
 /** HOOKS */
@@ -11,14 +10,12 @@ import { FC } from "react";
 
 /** MODELS */
 import APP_CONTENT from "../../models/constants";
-import { Icon as IconEnum } from "../../models/icon";
 import { Link } from "../../models/link";
 
 const StyledHeader = styled("header")(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   color: theme.palette.secondary.light,
   display: "flex",
-  justifyContent: "space-between",
 
   [theme.breakpoints.up("sm")]: {
     justifyContent: "flex-start",
@@ -31,11 +28,11 @@ const StyledHeader = styled("header")(({ theme }) => ({
   },
 }));
 
-const StyledHeading = styled("h1")(({ theme }) => ({
+const StyledHeading = styled("h1")(() => ({
   fontFamily: "Parisienne, serif",
   fontWeight: "normal",
-  WebkitHyphens: "auto",
-  MozHyphens: "auto",
+  webkitHyphens: "auto",
+  mozHyphens: "auto",
   msHyphens: "auto",
   hyphens: "auto",
   margin: 0,
@@ -48,17 +45,13 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ links }) => {
-  const { isExtraSmall, isSmall, isMedium, isLarge, isExtraLarge } =
-    useWindowSize();
+  const { isMedium, isLarge, isExtraLarge } = useWindowSize();
+  const isDesktopSize = isMedium || isLarge || isExtraLarge;
 
   return (
     <StyledHeader>
       <StyledHeading>{APP_CONTENT.HEADINGS.APPLICATION_TITLE}</StyledHeading>
-      {(isExtraSmall || isSmall) && (
-        <Icon alt={APP_CONTENT.ICON.ALT_TEXT.HEADER} iconClass={IconEnum.FEATHER} iconStyle="header" />
-      )}
-      {isMedium && <Navigation links={links} row />}
-      {(isLarge || isExtraLarge) && <Navigation links={links} />}
+      {isDesktopSize && <Navigation links={links} row={isMedium} />}
     </StyledHeader>
   );
 };

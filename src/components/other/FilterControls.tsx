@@ -21,6 +21,7 @@ import { RootState, useAppDispatch } from "../../store";
 import { searchedActions } from "../../store/searched";
 import {
   containsWordOfLength,
+  hasArrayElement,
   removeDuplicates,
   sortByNumberASC,
 } from "../../helpers/utils";
@@ -54,7 +55,7 @@ const FilterControls: FC<FilterControlsProps> = ({
 
   const wordLengths = useMemo(
     () =>
-      removeDuplicates<number>(lengths)
+      removeDuplicates(lengths)
         .sort(sortByNumberASC)
         .filter((length) =>
           containsWordOfLength(disposableWords, length, Operator.EQUAL)
@@ -86,7 +87,7 @@ const FilterControls: FC<FilterControlsProps> = ({
         wordLengths.map((length, index) => {
           if (!allFiltersShown && hasMoreBtn && index > 1) return null;
 
-          const marked = lengthFilters.indexOf(length) >= 0;
+          const marked = hasArrayElement(lengthFilters, length);
           const clickHandler = marked ? removeLengthFilter : addLengthFilter;
 
           return (

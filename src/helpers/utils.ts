@@ -27,18 +27,19 @@ export const convertWordsToTheirLengths = (words: string[]) =>
   words.map((word) => word.length);
 
 export const filterByText = (words: string[], text: string) =>
-  words.filter(
-    (word) =>
-      text.length >= MINIMAL_STRING_LENGTH &&
-      word
-        .slice(-text.length)
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "") ===
-        text
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-  );
+  text.length < MINIMAL_STRING_LENGTH
+    ? []
+    : words.filter(
+        (word) =>
+          word
+            .slice(-text.length)
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") ===
+          text
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+      );
 
 export const filterByTextLength = (words: string[], lengths: number[]) =>
   words.filter((word) => lengths.indexOf(word.length) >= 0);

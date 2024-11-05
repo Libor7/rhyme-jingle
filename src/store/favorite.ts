@@ -6,6 +6,7 @@ import { FavoriteState } from "../models/store";
 
 const initialFavoriteState: FavoriteState = {
   candidates: [],
+  favorites: [],
 };
 
 const favoriteSlice = createSlice({
@@ -20,6 +21,16 @@ const favoriteSlice = createSlice({
       ...state,
       candidates: state.candidates.filter(
         (candidate) => candidate !== action.payload
+      ),
+    }),
+    addFavorites: (state) => ({
+      ...state,
+      favorites: [...state.favorites, ...state.candidates],
+    }),
+    removeFavorite: (state, action: PayloadAction<string>) => ({
+      ...state,
+      favorites: state.favorites.filter(
+        (favorite) => favorite !== action.payload
       ),
     }),
     setPropertyToInitialValue: (

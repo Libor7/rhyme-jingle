@@ -38,7 +38,7 @@ const MiscellaneousControls: FC<MiscellaneousControlsProps> = ({
 }) => {
   const { candidates } = useSelector((state: RootState) => state.favorite);
   const appDispatch = useAppDispatch();
-  const [pageModalShown, setPageModalShown] = useState<boolean>(false);
+  const [modalShown, setModalShown] = useState<boolean>(false);
 
   const hasCandidates = candidates.length > 0;
 
@@ -52,23 +52,32 @@ const MiscellaneousControls: FC<MiscellaneousControlsProps> = ({
     [appDispatch]
   );
 
-  const togglePageModal = useCallback(
+  const toggleModal = useCallback(
     (
       event:
         | React.MouseEvent<HTMLButtonElement, MouseEvent>
         | React.KeyboardEvent<HTMLButtonElement>
     ) => {
-      setPageModalShown((prevState) => !prevState);
+      setModalShown((prevState) => !prevState);
       event.currentTarget.blur();
     },
     []
   );
 
-  const enterKeyHandler = useCallback(
+  const toggleModalKeyHandler = useCallback(
     (event: React.KeyboardEvent<HTMLButtonElement>) =>
-      event.key === "Enter" && togglePageModal(event),
-    [togglePageModal]
+      event.key === "Enter" && toggleModal(event),
+    [toggleModal]
   );
+
+  const addToFavoritesKeyHandler = (
+    event: React.KeyboardEvent<HTMLButtonElement>
+  ) => event.key === "Enter" && addToFavorites();
+
+  const addToFavorites = () => {
+    appDispatch(favoriteActions.addFavorites());
+    appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
+  };
 
   return (
     <StyledSection>
@@ -82,7 +91,12 @@ const MiscellaneousControls: FC<MiscellaneousControlsProps> = ({
         </StyledIconButton>
       )}
       {hasCandidates && (
-        <StyledIconButton aria-label="add favorites" disableRipple>
+        <StyledIconButton
+          aria-label="add favorites"
+          disableRipple
+          onClick={addToFavorites}
+          onKeyDown={addToFavoritesKeyHandler}
+        >
           <StarBorderIcon fontSize="inherit" />
         </StyledIconButton>
       )}
@@ -90,18 +104,15 @@ const MiscellaneousControls: FC<MiscellaneousControlsProps> = ({
         <StyledIconButton
           aria-label="switch pagination"
           disableRipple
-          onClick={togglePageModal}
-          onKeyDown={enterKeyHandler}
+          onClick={toggleModal}
+          onKeyDown={toggleModalKeyHandler}
         >
           <AutoStoriesIcon fontSize="inherit" />
         </StyledIconButton>
       )}
-      {pageModalShown && (
+      {modalShown && (
         <Modal>
-          <PaginationDialog
-            open={pageModalShown}
-            onDialogClose={togglePageModal}
-          />
+          <PaginationDialog open={modalShown} onDialogClose={toggleModal} />
         </Modal>
       )}
     </StyledSection>
