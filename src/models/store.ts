@@ -1,9 +1,12 @@
-export interface FavoriteState {
+export interface IFavoriteState {
   candidates: string[];
+  currentPage: number;
   favorites:  string[];
+  pageCount: number;
+  searchedText: string;
 }
 
-export interface SearchState {
+export interface ISearchState {
   currentPage: number;
   lengthFilters: number[];
   lexicon: string[];

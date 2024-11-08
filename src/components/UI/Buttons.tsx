@@ -4,21 +4,21 @@ import MiscellaneousControls from "../other/MiscellaneousControls";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC } from "react";
+import { type FC } from "react";
 
 const StyledSection = styled("section")(() => ({
   display: "flex",
   justifyContent: "space-between",
 }));
 
-interface ButtonsProps {
+interface IButtonsProps {
   disposableWords: string[];
   hasPagination: boolean;
   lengths: number[];
   totalWordsFound: number;
 }
 
-const Buttons: FC<ButtonsProps> = ({
+const Buttons: FC<IButtonsProps> = ({
   disposableWords,
   hasPagination,
   lengths,

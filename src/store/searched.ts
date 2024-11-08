@@ -1,11 +1,11 @@
 /** LIBRARIES */
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 /** MODELS */
 import { INITIAL_PAGE } from "../models/constants";
-import { SearchState } from "../models/store";
+import { type ISearchState } from "../models/store";
 
-const initialSearchState: SearchState = {
+const initialSearchState: ISearchState = {
   currentPage: INITIAL_PAGE,
   lengthFilters: [],
   lexicon: [
@@ -115,7 +115,7 @@ const searchedSlice = createSlice({
     }),
     setPropertyToInitialValue: (
       state,
-      action: PayloadAction<keyof SearchState>
+      action: PayloadAction<keyof ISearchState>
     ) => ({
       ...state,
       [action.payload]: initialSearchState[action.payload],

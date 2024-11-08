@@ -6,11 +6,11 @@ import useWindowSize from "../../hooks/useWindowSize";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC } from "react";
+import { type FC } from "react";
 
 /** MODELS */
 import APP_CONTENT from "../../models/constants";
-import { Link } from "../../models/link";
+import { type ILink } from "../../models/link";
 
 const StyledHeader = styled("header")(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -40,11 +40,11 @@ const StyledHeading = styled("h1")(() => ({
   textAlign: "center",
 }));
 
-interface HeaderProps {
-  links: Link[];
+interface IHeaderProps {
+  links: ILink[];
 }
 
-const Header: FC<HeaderProps> = ({ links }) => {
+const Header: FC<IHeaderProps> = ({ links }) => {
   const { isMedium, isLarge, isExtraLarge } = useWindowSize();
   const isDesktopSize = isMedium || isLarge || isExtraLarge;
 

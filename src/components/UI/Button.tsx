@@ -3,13 +3,13 @@ import MUIButton from "@mui/material/Button";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC, PropsWithChildren, useEffect } from "react";
+import { type FC, type PropsWithChildren, useEffect } from "react";
 
 /** OTHER */
 import { useAppDispatch } from "../../store";
 import { searchedActions } from "../../store/searched";
 
-const StyledButton = styled(MUIButton)<StyledButtonProps>(
+const StyledButton = styled(MUIButton)<IStyledButtonProps>(
   ({ theme, marked }) => ({
     backgroundColor: marked
       ? theme.palette.primary.light
@@ -28,17 +28,17 @@ const StyledButton = styled(MUIButton)<StyledButtonProps>(
   })
 );
 
-interface ButtonProps {
+interface IButtonProps {
   isMarked: boolean;
   length: number;
   onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-interface StyledButtonProps {
+interface IStyledButtonProps {
   marked: number;
 }
 
-const Button: FC<PropsWithChildren<ButtonProps>> = ({
+const Button: FC<PropsWithChildren<IButtonProps>> = ({
   isMarked,
   length,
   onClick,

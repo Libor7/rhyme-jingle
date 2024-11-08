@@ -17,9 +17,15 @@ import { styled } from "@mui/system";
 import { useLocation } from "react-router-dom";
 
 /** MODELS */
-import { Label, Path, Link } from "./models/link";
+import { Label, Path, type ILink } from "./models/link";
+import { useEffect } from "react";
 
-const links: Link[] = [
+/** OTHER */
+import { useAppDispatch } from "./store";
+import { favoriteActions } from "./store/favorite";
+import { getLocalStorageValue } from "./helpers/utils";
+
+const links: ILink[] = [
   {
     icon: SearchIcon,
     label: Label.SEARCH,
@@ -53,12 +59,18 @@ const StyledDiv = styled("div")(({ theme }) => ({
 }));
 
 const App = () => {
+  const appDispatch = useAppDispatch();
   const location = useLocation();
   const { isExtraSmall, isSmall } = useWindowSize();
+  const storedFavorites = getLocalStorageValue<string[]>("favorites", []);
 
   const nonactiveLinks = links.filter(
     (link) => link.path !== location.pathname
   );
+
+  useEffect(() => {
+    appDispatch(favoriteActions.setFavorites(storedFavorites));
+  }, [appDispatch, storedFavorites]);
 
   return (
     <StyledDiv>

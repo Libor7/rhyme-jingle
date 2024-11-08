@@ -1,6 +1,6 @@
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC } from "react";
+import { type FC } from "react";
 
 const StyledDiv = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.primary.light,
@@ -12,11 +12,11 @@ const StyledDiv = styled("div")(({ theme }) => ({
   zIndex: 30,
 }));
 
-interface ModalOverlayProps {
+interface IModalOverlayProps {
   children: React.ReactNode;
 }
 
-const ModalOverlay: FC<ModalOverlayProps> = ({ children }) => {
+const ModalOverlay: FC<IModalOverlayProps> = ({ children }) => {
   return <StyledDiv>{children}</StyledDiv>;
 };
 

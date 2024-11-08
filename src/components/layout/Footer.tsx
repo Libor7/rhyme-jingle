@@ -3,10 +3,10 @@ import LinkItem from "../UI/LinkItem";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC } from "react";
+import { type FC } from "react";
 
 /** MODELS */
-import { Link } from "../../models/link";
+import { type ILink } from "../../models/link";
 
 const StyledFooter = styled("footer")(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -22,11 +22,11 @@ const StyledUl = styled("ul")(() => ({
   padding: 0,
 }));
 
-interface FooterProps {
-  links: Link[];
+interface IFooterProps {
+  links: ILink[];
 }
 
-const Footer: FC<FooterProps> = ({ links }) => {
+const Footer: FC<IFooterProps> = ({ links }) => {
   return (
     <StyledFooter>
       <StyledUl>

@@ -7,15 +7,15 @@ import LinkItemActions from "./LinkItemActions";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC, useCallback } from "react";
+import { type FC, useCallback } from "react";
 import { useSelector } from "react-redux";
 
 /** OTHER */
 import { hasArrayElement } from "../../helpers/utils";
-import { RootState, useAppDispatch } from "../../store";
+import { type RootState, useAppDispatch } from "../../store";
 import { favoriteActions } from "../../store/favorite";
 
-const StyledMUIListItem = styled(MUIListItem)<StyledMUIListItemProps>(
+const StyledMUIListItem = styled(MUIListItem)<IStyledMUIListItemProps>(
   ({ theme, favoritecandidate }) => ({
     backgroundColor: favoritecandidate
       ? theme.palette.primary.light
@@ -47,15 +47,15 @@ const StyledListItemText = styled(ListItemText)(() => ({
   },
 }));
 
-interface StyledMUIListItemProps {
+interface IStyledMUIListItemProps {
   favoritecandidate: number;
 }
 
-interface ListItemProps {
+interface IListItemProps {
   label: string;
 }
 
-const ListItem: FC<ListItemProps> = ({ label }) => {
+const ListItem: FC<IListItemProps> = ({ label }) => {
   const { candidates, favorites } = useSelector(
     (state: RootState) => state.favorite
   );

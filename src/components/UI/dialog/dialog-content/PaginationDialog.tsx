@@ -4,7 +4,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
-import Paper, { PaperProps } from "@mui/material/Paper";
+import Paper, { type PaperProps } from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 
 /** ICONS */
@@ -13,14 +13,19 @@ import CheckIcon from "@mui/icons-material/Check";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { ChangeEvent, FC, useCallback, useState } from "react";
+import {
+  type ChangeEvent,
+  type FC,
+  useCallback,
+  useState,
+} from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
 import APP_CONTENT, { INITIAL_PAGE } from "../../../../models/constants";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "../../../../store";
+import { type RootState, useAppDispatch } from "../../../../store";
 import { searchedActions } from "../../../../store/searched";
 
 const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
@@ -86,14 +91,14 @@ const PaperComponent = (props: PaperProps) => {
   return <Paper {...props} />;
 };
 
-interface PaginationDialogProps {
+interface IPaginationDialogProps {
   onDialogClose: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
   open: boolean;
 }
 
-const PaginationDialog: FC<PaginationDialogProps> = ({
+const PaginationDialog: FC<IPaginationDialogProps> = ({
   onDialogClose,
   open,
 }) => {

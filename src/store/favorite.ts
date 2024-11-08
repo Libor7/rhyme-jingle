@@ -1,12 +1,16 @@
 /** LIBRARIES */
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 /** MODELS */
-import { FavoriteState } from "../models/store";
+import { type IFavoriteState } from "../models/store";
+import { INITIAL_PAGE } from "../models/constants";
 
-const initialFavoriteState: FavoriteState = {
+const initialFavoriteState: IFavoriteState = {
   candidates: [],
+  currentPage: INITIAL_PAGE,
   favorites: [],
+  pageCount: INITIAL_PAGE,
+  searchedText: "",
 };
 
 const favoriteSlice = createSlice({
@@ -23,19 +27,49 @@ const favoriteSlice = createSlice({
         (candidate) => candidate !== action.payload
       ),
     }),
-    addFavorites: (state) => ({
-      ...state,
-      favorites: [...state.favorites, ...state.candidates],
-    }),
-    removeFavorite: (state, action: PayloadAction<string>) => ({
-      ...state,
-      favorites: state.favorites.filter(
+    addFavorites: (state) => {
+      const favorites = [...state.favorites, ...state.candidates];
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+
+      return {
+        ...state,
+        favorites,
+      };
+    },
+    setFavorites: (state, action: PayloadAction<string[]>) => {
+      localStorage.setItem("favorites", JSON.stringify([...action.payload]));
+
+      return {
+        ...state,
+        favorites: [...action.payload],
+      };
+    },
+    removeFavorite: (state, action: PayloadAction<string>) => {
+      const favorites = state.favorites.filter(
         (favorite) => favorite !== action.payload
-      ),
+      );
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+      
+      return {
+        ...state,
+        favorites,
+      };
+    },
+    setCurrentPage: (state, action: PayloadAction<number>) => ({
+      ...state,
+      currentPage: action.payload,
+    }),
+    setPageCount: (state, action: PayloadAction<number>) => ({
+      ...state,
+      pageCount: action.payload,
+    }),
+    setSearchedText: (state, action: PayloadAction<string>) => ({
+      ...state,
+      searchedText: action.payload,
     }),
     setPropertyToInitialValue: (
       state,
-      action: PayloadAction<keyof FavoriteState>
+      action: PayloadAction<keyof IFavoriteState>
     ) => ({
       ...state,
       [action.payload]: initialFavoriteState[action.payload],

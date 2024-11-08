@@ -47,6 +47,9 @@ export const filterByTextLength = (words: string[], lengths: number[]) =>
 export const filterOutSubset = (words: string[], subset: string[]) =>
   words.filter((word) => subset.indexOf(word) === -1);
 
+export const getLocalStorageValue = <T>(key: string, initialValue: T): T =>
+  JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue));
+
 export const hasArrayElement = <T>(arr: T[], elem: T) => arr.indexOf(elem) >= 0;
 
 export const removeDuplicates = <T>(arr: T[]) => Array.from(new Set(arr));

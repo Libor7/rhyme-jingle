@@ -9,13 +9,13 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC, useCallback, useState } from "react";
+import { type FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** OTHER */
 import { favoriteActions } from "../../store/favorite";
 import { searchedActions } from "../../store/searched";
-import { RootState, useAppDispatch } from "../../store";
+import { type RootState, useAppDispatch } from "../../store";
 
 /** STYLED COMPONENTS */
 import { StyledIconButton } from "../styled/StyledIconButton";
@@ -27,12 +27,12 @@ const StyledSection = styled("section")(() => ({
   gap: "0.25em",
 }));
 
-interface MiscellaneousControlsProps {
+interface IMiscellaneousControlsProps {
   hasPagination: boolean;
   totalWordsFound: number;
 }
 
-const MiscellaneousControls: FC<MiscellaneousControlsProps> = ({
+const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
   hasPagination,
   totalWordsFound,
 }) => {

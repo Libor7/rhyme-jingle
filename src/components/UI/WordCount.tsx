@@ -3,9 +3,9 @@ import Typography from "@mui/material/Typography";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { ElementType, FC } from "react";
+import { type ElementType, type FC } from "react";
 
-const StyledTypography = styled(Typography)<StyledTypographyProps>(
+const StyledTypography = styled(Typography)<IStyledTypographyProps>(
   ({ theme }) => ({
     color: theme.palette.primary.main,
     fontFamily: "Parisienne",
@@ -19,16 +19,16 @@ const StyledTypography = styled(Typography)<StyledTypographyProps>(
   })
 );
 
-interface WordCountProps {
+interface IWordCountProps {
   adjectives: [string, string];
   count: number;
 }
 
-interface StyledTypographyProps {
+interface IStyledTypographyProps {
   component: ElementType;
 }
 
-const WordCount: FC<WordCountProps> = ({ adjectives, count }) => {
+const WordCount: FC<IWordCountProps> = ({ adjectives, count }) => {
   const text = count < 1 || count > 4 ? adjectives[0] : adjectives[1];
 
   return (

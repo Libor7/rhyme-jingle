@@ -9,7 +9,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC, useCallback, useMemo, useState } from "react";
+import { type FC, useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
@@ -39,12 +39,12 @@ const StyledSection = styled("section")(() => ({
   maxWidth: "70%",
 }));
 
-interface FilterControlsProps {
+interface IFilterControlsProps {
   disposableWords: string[];
   lengths: number[];
 }
 
-const FilterControls: FC<FilterControlsProps> = ({
+const FilterControls: FC<IFilterControlsProps> = ({
   disposableWords,
   lengths,
 }) => {

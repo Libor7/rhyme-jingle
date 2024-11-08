@@ -10,10 +10,10 @@ import useWindowSize from "../../hooks/useWindowSize";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC } from "react";
+import { type FC } from "react";
 
 /** MODELS */
-import { Link as ILink } from "../../models/link";
+import { type ILink } from "../../models/link";
 
 const StyledIcon = styled(IconButton)(({ theme }) => ({
   color: theme.palette.secondary.main,

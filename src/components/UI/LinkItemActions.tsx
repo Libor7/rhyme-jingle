@@ -7,14 +7,15 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC, useCallback } from "react";
+import { type FC, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 
 /** OTHER */
 import { useAppDispatch } from "../../store";
 import { favoriteActions } from "../../store/favorite";
 import { searchedActions } from "../../store/searched";
 
-const StyledDiv = styled("div")<StyledDivProps>(
+const StyledDiv = styled("div")<IStyledDivProps>(
   ({ theme, isFavCandidate }) => ({
     display: "flex",
     flexWrap: "wrap",
@@ -39,22 +40,25 @@ const StyledDiv = styled("div")<StyledDivProps>(
   })
 );
 
-interface StyledDivProps {
+interface IStyledDivProps {
   isFavCandidate: boolean;
 }
 
-interface LinkItemActionsProps {
+interface ILinkItemActionsProps {
   isFavorite: boolean;
   isFavoriteCandidate: boolean;
   label: string;
 }
 
-const LinkItemActions: FC<LinkItemActionsProps> = ({
+const LinkItemActions: FC<ILinkItemActionsProps> = ({
   isFavorite,
   isFavoriteCandidate,
   label,
 }) => {
   const appDispatch = useAppDispatch();
+  const location = useLocation();
+
+  const isSearchPage = location.pathname === "/search";
 
   const removeItem = useCallback(() => {
     appDispatch(searchedActions.removeListedWord(label));
@@ -110,15 +114,17 @@ const LinkItemActions: FC<LinkItemActionsProps> = ({
           <StarBorderIcon fontSize="inherit" />
         </IconButton>
       )}
-      <IconButton
-        aria-label="delete icon"
-        disableRipple
-        onClick={deleteHandler}
-        onKeyDown={deleteKeyHandler}
-        role="button"
-      >
-        <DeleteIcon fontSize="inherit" />
-      </IconButton>
+      {isSearchPage && (
+        <IconButton
+          aria-label="delete icon"
+          disableRipple
+          onClick={deleteHandler}
+          onKeyDown={deleteKeyHandler}
+          role="button"
+        >
+          <DeleteIcon fontSize="inherit" />
+        </IconButton>
+      )}
     </StyledDiv>
   );
 };

@@ -7,17 +7,11 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { ChangeEvent, useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import { type ChangeEvent, type FC, useCallback, useState } from "react";
 
 /** MODELS */
-import { DisplayType } from "../../models/common";
-import APP_CONTENT from "../../models/constants";
+import { type DisplayType } from "../../models/common";
 import { Input } from "../../models/input";
-
-/** OTHER */
-import { searchedActions } from "../../store/searched";
-import { RootState, useAppDispatch } from "../../store";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   display: "flex",
@@ -61,46 +55,51 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
-const SearchField = () => {
-  const { searchedText } = useSelector((state: RootState) => state.searched);
-  const appDispatch = useAppDispatch();
+interface ISearchFieldProps {
+  id: string;
+  placeholder: string;
+  setValue: (value: string) => void;
+  value: string;
+}
+
+const SearchField: FC<ISearchFieldProps> = ({ setValue, ...restProps }) => {
   const [showClearIcon, setShowClearIcon] = useState<DisplayType>("none");
 
-  const searchedTextChangeHandler = ({
-    currentTarget,
-  }: ChangeEvent<HTMLInputElement>) => {
-    setShowClearIcon(currentTarget.value === "" ? "none" : "flex");
-    appDispatch(searchedActions.setSearchedText(currentTarget.value));
-  };
-
-  const searchedTextClearHandler = useCallback(
-    () => {
-      setShowClearIcon("none");
-      appDispatch(searchedActions.setSearchedText(""));
+  const changeHandler = useCallback(
+    ({ currentTarget }: ChangeEvent<HTMLInputElement>) => {
+      setShowClearIcon(currentTarget.value === "" ? "none" : "flex");
+      setValue(currentTarget.value);
     },
-    [appDispatch]
+    [setValue]
   );
+
+  const clearHandler = useCallback(() => {
+    setShowClearIcon("none");
+    setValue("");
+  }, [setValue]);
 
   return (
     <StyledTextField
       autoFocus
-      id="search-all"
       InputProps={{
         endAdornment: (
           <InputAdornment
             position="end"
-            sx={{ display: showClearIcon, cursor: "pointer", marginRight: "0.5em" }}
-            onClick={searchedTextClearHandler}
+            sx={{
+              display: showClearIcon,
+              cursor: "pointer",
+              marginRight: "0.5em",
+            }}
+            onClick={clearHandler}
           >
             <ClearIcon />
           </InputAdornment>
         ),
       }}
-      onChange={searchedTextChangeHandler}
-      placeholder={APP_CONTENT.SEARCHFIELD.PLACEHOLDER.SEARCHED}
+      onChange={changeHandler}
       type={Input.SEARCH}
-      value={searchedText}
       variant="standard"
+      {...restProps}
     />
   );
 };

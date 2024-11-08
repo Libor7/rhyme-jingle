@@ -1,5 +1,5 @@
 /** LIBRARIES */
-import { FC } from "react";
+import { type FC } from "react";
 
 export enum Label {
   ARCHIVE = "Archív",
@@ -15,7 +15,7 @@ export enum Path {
   SETTINGS = "/settings",
 }
 
-export interface Link extends IPath {
+export interface ILink extends IPath {
   icon: FC;
   label: Label;
 }

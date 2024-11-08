@@ -4,11 +4,11 @@ import IconButton from "@mui/material/IconButton";
 /** LIBRARIES */
 import { styled } from "@mui/system";
 
-interface StyledIconButtonProps {
+interface IStyledIconButtonProps {
   toggleflag?: number;
 }
 
-export const StyledIconButton = styled(IconButton)<StyledIconButtonProps>(
+export const StyledIconButton = styled(IconButton)<IStyledIconButtonProps>(
   ({ theme, toggleflag }) => ({
     backgroundColor: toggleflag ? theme.palette.primary.light : theme.palette.primary.main,
     borderRadius: "unset",

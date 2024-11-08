@@ -7,7 +7,7 @@ import { WordsPerPage } from "../models/common";
 import { INITIAL_PAGE } from "../models/constants";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "../store";
+import { type RootState, useAppDispatch } from "../store";
 import { searchedActions } from "../store/searched";
 import { favoriteActions } from "../store/favorite";
 import {
@@ -88,7 +88,7 @@ const useSearch = () => {
   );
 
   const pageChangeHandler = useCallback(
-    async (_event: React.ChangeEvent<unknown>, value: number) =>
+    (_event: React.ChangeEvent<unknown>, value: number) =>
       appDispatch(searchedActions.setCurrentPage(value)),
     [appDispatch]
   );

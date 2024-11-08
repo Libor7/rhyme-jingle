@@ -3,18 +3,18 @@ import MUIBackdrop from "@mui/material/Backdrop";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC } from "react";
+import { type FC } from "react";
 
 const StyledBackdrop = styled(MUIBackdrop)(({ theme }) => ({
   color: theme.palette.primary.contrastText,
   zIndex: 20,
 }));
 
-interface BackdropProps {
+interface IBackdropProps {
   open: boolean;
 }
 
-const Backdrop: FC<BackdropProps> = ({ open }) => {
+const Backdrop: FC<IBackdropProps> = ({ open }) => {
   return <StyledBackdrop open={open} />;
 };
 

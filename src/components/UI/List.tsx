@@ -6,7 +6,7 @@ import MUIList from "@mui/material/List";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC } from "react";
+import { type FC } from "react";
 
 const StyledMUIList = styled(MUIList)(() => ({
   listStyleType: "none",
@@ -14,11 +14,11 @@ const StyledMUIList = styled(MUIList)(() => ({
   padding: "1em 0",
 }));
 
-interface ListProps {
+interface IListProps {
   words: string[];
 }
 
-const List: FC<ListProps> = ({ words }) => {
+const List: FC<IListProps> = ({ words }) => {
   return (
     <StyledMUIList>
       {words.map((word) => (

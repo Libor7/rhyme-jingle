@@ -1,6 +1,3 @@
-/** COMPONENTS */
-import Pagination from "@mui/material/Pagination";
-
 /** CUSTOM COMPONENTS */
 import Buttons from "../UI/Buttons";
 import List from "../UI/List";
@@ -9,29 +6,24 @@ import WordCount from "../UI/WordCount";
 
 /** HOOKS */
 import useSearch from "../../hooks/useSearch";
-import useWindowSize from "../../hooks/useWindowSize";
+import usePaginationSiblings from "../../hooks/usePaginationSiblings";
 
 /** LIBRARIES */
-import { styled } from "@mui/system";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { MINIMAL_STRING_LENGTH } from "../../models/constants";
+import APP_CONTENT, { MINIMAL_STRING_LENGTH } from "../../models/constants";
 
 /** OTHER */
-import { RootState } from "../../store";
+import { type RootState, useAppDispatch } from "../../store";
+import { searchedActions } from "../../store/searched";
+import { useCallback, useEffect } from "react";
 
-const StyledPagination = styled(Pagination)(() => ({
-  display: "flex",
-  justifyContent: "center",
-
-  "& > .MuiPagination-ul": {
-    justifyContent: "center",
-  },
-}));
+/** STYLED COMPONENTS */
+import { StyledPagination } from "../styled/StyledPagination";
 
 const SearchPage = () => {
-  const { isExtraSmall, isSmall, isMedium } = useWindowSize();
+  const siblings = usePaginationSiblings();
   const { currentPage, searchedText } = useSelector(
     (state: RootState) => state.searched
   );
@@ -46,12 +38,26 @@ const SearchPage = () => {
     wordsFilteredByTextCount,
     wordsToShow,
   } = useSearch();
+  const appDispatch = useAppDispatch();
 
-  const siblings = isExtraSmall || isSmall ? 0 : isMedium ? 1 : 2;
+  useEffect(() => {
+    currentPage > pageCount &&
+      appDispatch(searchedActions.setCurrentPage(pageCount));
+  }, [appDispatch, currentPage, pageCount]);
+
+  const setSearchedText = useCallback(
+    (value: string) => appDispatch(searchedActions.setSearchedText(value)),
+    [appDispatch]
+  );
 
   return (
     <>
-      <SearchField />
+      <SearchField
+        id="search-all"
+        placeholder={APP_CONTENT.SEARCHFIELD.PLACEHOLDER.SEARCHED}
+        setValue={setSearchedText}
+        value={searchedText}
+      />
       {searchedText.length >= MINIMAL_STRING_LENGTH && (
         <WordCount adjectives={["nájdených", "nájdené"]} count={wordCount} />
       )}

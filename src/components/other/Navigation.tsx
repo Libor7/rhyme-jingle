@@ -3,19 +3,19 @@ import LinkItem from "../UI/LinkItem";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC } from "react";
+import { type FC } from "react";
 
 /** MODELS */
-import { Link } from "../../models/link";
+import { type ILink } from "../../models/link";
 
-const StyledNav = styled("nav")<StyledProps>(({ theme, row }) => ({
+const StyledNav = styled("nav")<IStyledProps>(({ theme, row }) => ({
   alignItems: "center",
   backgroundColor: theme.palette.primary.light,
   display: "flex",
   flexDirection: row ? "row" : "column",
 }));
 
-const StyledUl = styled("ul")<StyledProps>(({ theme, row }) => ({
+const StyledUl = styled("ul")<IStyledProps>(({ theme, row }) => ({
   display: "flex",
   flexDirection: row ? "row" : "column",
   flexWrap: "wrap",
@@ -28,16 +28,16 @@ const StyledUl = styled("ul")<StyledProps>(({ theme, row }) => ({
   },
 }));
 
-interface NavigationProps {
-  links: Link[];
+interface INavigationProps {
+  links: ILink[];
   row?: boolean;
 }
 
-interface StyledProps {
+interface IStyledProps {
   row: boolean;
 }
 
-const Navigation: FC<NavigationProps> = ({ links, row }) => {
+const Navigation: FC<INavigationProps> = ({ links, row }) => {
   return (
     <StyledNav row={!!row}>
       <StyledUl row={!!row}>
