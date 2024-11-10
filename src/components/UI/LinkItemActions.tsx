@@ -17,6 +17,7 @@ import { searchedActions } from "../../store/searched";
 
 const StyledDiv = styled("div")<IStyledDivProps>(
   ({ theme, isFavCandidate }) => ({
+    alignSelf: "stretch",
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "flex-end",
@@ -24,7 +25,7 @@ const StyledDiv = styled("div")<IStyledDivProps>(
     "& > .MuiButtonBase-root.MuiIconButton-root": {
       borderRadius: "unset",
       color: theme.palette.secondary.light,
-      height: "2.5em",
+      minHeight: "2.5em",
       padding: "0.5em",
       width: "2.5em",
     },

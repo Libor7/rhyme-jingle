@@ -1,8 +1,5 @@
 /** COMPONENTS */
 import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import IconButton from "@mui/material/IconButton";
 import Paper, { type PaperProps } from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
@@ -28,24 +25,10 @@ import APP_CONTENT, { INITIAL_PAGE } from "../../../../models/constants";
 import { type RootState, useAppDispatch } from "../../../../store";
 import { searchedActions } from "../../../../store/searched";
 
-const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.light,
-  color: theme.palette.primary.main,
-  fontWeight: 600,
-  textAlign: "center",
-}));
-
-const StyledDialogContent = styled(DialogContent)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.light,
-
-  "&:focus-visible": {
-    outline: "unset",
-  },
-
-  "& > .MuiFormControl-root:focus-visible": {
-    outline: "unset",
-  },
-}));
+/** STYLED COMPONENTS */
+import { StyledDialogTitle } from "../../../styled/StyledDialogTitle";
+import { StyledDialogContent } from "../../../styled/StyledDialogContent";
+import { StyledDialogActions } from "../../../styled/StyledDialogActions";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root:focus-visible": {
@@ -70,21 +53,6 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
     appearance: "none",
     margin: 0,
   },
-}));
-
-const StyledDialogActions = styled(DialogActions)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.light,
-  padding: "0 1.5em 1em",
-
-  "& > button.MuiButtonBase-root": {
-    color: theme.palette.primary.main,
-    flexGrow: 1,
-  },
-  "& > button.MuiButtonBase-root:focus, & > button.MuiButtonBase-root:focus-visible, & > button.MuiButtonBase-root:focus-within":
-    {
-      borderBottom: `2px solid ${theme.palette.primary.dark}`,
-      color: theme.palette.primary.dark,
-    },
 }));
 
 const PaperComponent = (props: PaperProps) => {
@@ -134,10 +102,10 @@ const PaginationDialog: FC<IPaginationDialogProps> = ({
     <Dialog
       open={open}
       PaperComponent={PaperComponent}
-      aria-labelledby="dialog-title"
+      aria-labelledby="searched-dialog-title"
     >
-      <StyledDialogTitle id="dialog-title">
-        {APP_CONTENT.DIALOG.TITLE}
+      <StyledDialogTitle id="searched-dialog-title">
+        {APP_CONTENT.DIALOG.SEARCHED.TITLE}
       </StyledDialogTitle>
       <StyledDialogContent>
         <StyledTextField

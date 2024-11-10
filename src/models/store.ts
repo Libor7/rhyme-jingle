@@ -1,8 +1,12 @@
+/** MODELS */
+import { WordsPerPage } from "./common";
+
 export interface IFavoriteState {
   candidates: string[];
   currentPage: number;
   favorites:  string[];
   pageCount: number;
+  recordsPerPage: WordsPerPage;
   searchedText: string;
 }
 
@@ -11,6 +15,11 @@ export interface ISearchState {
   lengthFilters: number[];
   lexicon: string[];
   pageCount: number;
+  recordsPerPage: WordsPerPage;
   removedWords: string[];
   searchedText: string;
+}
+
+export interface ISettingsState {
+  colorPalette: string;
 }

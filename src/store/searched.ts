@@ -2,8 +2,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 /** MODELS */
+import { WordsPerPage } from "../models/common";
 import { INITIAL_PAGE } from "../models/constants";
 import { type ISearchState } from "../models/store";
+
+/** OTHER */
+import { getLocalStorageValue } from "../helpers/utils";
 
 const initialSearchState: ISearchState = {
   currentPage: INITIAL_PAGE,
@@ -79,6 +83,7 @@ const initialSearchState: ISearchState = {
     "tŕň",
   ],
   pageCount: INITIAL_PAGE,
+  recordsPerPage: getLocalStorageValue<WordsPerPage>("searchedPerPage", WordsPerPage.FIVE),
   removedWords: [],
   searchedText: "",
 };
@@ -109,6 +114,14 @@ const searchedSlice = createSlice({
       ...state,
       pageCount: action.payload,
     }),
+    setRecordsPerPage: (state, action: PayloadAction<WordsPerPage>) => {
+      localStorage.setItem("searchedPerPage", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        recordsPerPage: action.payload,
+      };
+    },
     removeListedWord: (state, action: PayloadAction<string>) => ({
       ...state,
       removedWords: [...state.removedWords, action.payload],

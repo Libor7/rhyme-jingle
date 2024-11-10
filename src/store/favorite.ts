@@ -2,14 +2,22 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 /** MODELS */
-import { type IFavoriteState } from "../models/store";
+import { WordsPerPage } from "../models/common";
 import { INITIAL_PAGE } from "../models/constants";
+import { type IFavoriteState } from "../models/store";
+
+/** OTHER */
+import { getLocalStorageValue } from "../helpers/utils";
 
 const initialFavoriteState: IFavoriteState = {
   candidates: [],
   currentPage: INITIAL_PAGE,
   favorites: [],
   pageCount: INITIAL_PAGE,
+  recordsPerPage: getLocalStorageValue<WordsPerPage>(
+    "favoritesPerPage",
+    WordsPerPage.FIVE
+  ),
   searchedText: "",
 };
 
@@ -49,7 +57,7 @@ const favoriteSlice = createSlice({
         (favorite) => favorite !== action.payload
       );
       localStorage.setItem("favorites", JSON.stringify(favorites));
-      
+
       return {
         ...state,
         favorites,
@@ -63,6 +71,14 @@ const favoriteSlice = createSlice({
       ...state,
       pageCount: action.payload,
     }),
+    setRecordsPerPage: (state, action: PayloadAction<WordsPerPage>) => {
+      localStorage.setItem("favoritesPerPage", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        recordsPerPage: action.payload,
+      };
+    },
     setSearchedText: (state, action: PayloadAction<string>) => ({
       ...state,
       searchedText: action.payload,

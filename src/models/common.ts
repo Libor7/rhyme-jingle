@@ -6,6 +6,7 @@ export enum Operator {
 }
 
 export enum WordsPerPage {
+  THREE = 3,
   FIVE = 5,
   TEN = 10,
   FIFTEEN = 15,

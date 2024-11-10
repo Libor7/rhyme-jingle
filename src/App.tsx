@@ -7,23 +7,30 @@ import MainContent from "./components/layout/MainContent";
 import useWindowSize from "./hooks/useWindowSize";
 
 /** ICONS */
-import FolderIcon from '@mui/icons-material/Folder';
-import SearchIcon from '@mui/icons-material/Search';
-import SettingsIcon from '@mui/icons-material/Settings';
-import StarIcon from '@mui/icons-material/Star';
+import FolderIcon from "@mui/icons-material/Folder";
+import SearchIcon from "@mui/icons-material/Search";
+import SettingsIcon from "@mui/icons-material/Settings";
+import StarIcon from "@mui/icons-material/Star";
 
 /** LIBRARIES */
+import {
+  createTheme,
+  ThemeProvider,
+} from "@mui/material/styles";
 import { styled } from "@mui/system";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 /** MODELS */
+import { palettes } from "./models/constants";
 import { Label, Path, type ILink } from "./models/link";
 import { useEffect } from "react";
 
 /** OTHER */
-import { useAppDispatch } from "./store";
-import { favoriteActions } from "./store/favorite";
 import { getLocalStorageValue } from "./helpers/utils";
+import { RootState, useAppDispatch } from "./store";
+import { favoriteActions } from "./store/favorite";
+import { settingsActions } from "./store/settings";
 
 const links: ILink[] = [
   {
@@ -62,7 +69,19 @@ const App = () => {
   const appDispatch = useAppDispatch();
   const location = useLocation();
   const { isExtraSmall, isSmall } = useWindowSize();
+  const { colorPalette } = useSelector((state: RootState) => state.settings);
   const storedFavorites = getLocalStorageValue<string[]>("favorites", []);
+  const storedColorPalette = getLocalStorageValue<string>(
+    "colorPalette",
+    "coffeeBeige"
+  );
+
+  const theme = createTheme({
+    palette: palettes.get(colorPalette),
+    typography: {
+      fontFamily: ["Parisienne", "serif"].join(","),
+    },
+  });
 
   const nonactiveLinks = links.filter(
     (link) => link.path !== location.pathname
@@ -72,12 +91,18 @@ const App = () => {
     appDispatch(favoriteActions.setFavorites(storedFavorites));
   }, [appDispatch, storedFavorites]);
 
+  useEffect(() => {
+    appDispatch(settingsActions.setColorPalette(storedColorPalette));
+  }, [appDispatch, storedColorPalette]);
+
   return (
-    <StyledDiv>
-      <Header links={nonactiveLinks} />
-      <MainContent />
-      {(isExtraSmall || isSmall) && <Footer links={nonactiveLinks} />}
-    </StyledDiv>
+    <ThemeProvider theme={theme}>
+      <StyledDiv>
+        <Header links={nonactiveLinks} />
+        <MainContent />
+        {(isExtraSmall || isSmall) && <Footer links={nonactiveLinks} />}
+      </StyledDiv>
+    </ThemeProvider>
   );
 };
 

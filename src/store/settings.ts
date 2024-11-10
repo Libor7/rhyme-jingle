@@ -1,11 +1,26 @@
-import { createSlice } from '@reduxjs/toolkit';
+/** LIBRARIES */
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialSettingsState = {};
+/** MODELS */
+import { type ISettingsState } from "../models/store";
+
+const initialSettingsState: ISettingsState = {
+  colorPalette: "coffeeBeige",
+};
 
 const settingsSlice = createSlice({
   name: 'settings',
   initialState: initialSettingsState,
-  reducers: {}
+  reducers: {
+    setColorPalette: (state, action: PayloadAction<string>) => {
+      localStorage.setItem("colorPalette", JSON.stringify(action.payload));
+
+      return {
+        ...state,
+        colorPalette: action.payload,
+      };
+    },
+  }
 });
 
 export const settingsActions = settingsSlice.actions;

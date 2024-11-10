@@ -3,7 +3,6 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { WordsPerPage } from "../models/common";
 import { INITIAL_PAGE } from "../models/constants";
 
 /** OTHER */
@@ -23,6 +22,7 @@ const useSearch = () => {
     lengthFilters,
     lexicon,
     pageCount,
+    recordsPerPage,
     removedWords,
     searchedText,
   } = useSelector((state: RootState) => state.searched);
@@ -37,7 +37,6 @@ const useSearch = () => {
 
   useEffect(() => {
     return () => {
-      appDispatch(searchedActions.setInitialState());
       appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
     };
   }, [appDispatch]);
@@ -68,18 +67,18 @@ const useSearch = () => {
     : wordsFilteredByRemovedWords;
 
   const wordCount = listedWords.length;
-  const hasPagination = wordCount > WordsPerPage.FIVE;
+  const hasPagination = wordCount > recordsPerPage;
 
   useEffect(() => {
     appDispatch(
-      searchedActions.setPageCount(Math.ceil(wordCount / WordsPerPage.FIVE))
+      searchedActions.setPageCount(Math.ceil(wordCount / recordsPerPage))
     );
-  }, [appDispatch, wordCount]);
+  }, [appDispatch, recordsPerPage, wordCount]);
 
-  const fromIndex = WordsPerPage.FIVE * currentPage - WordsPerPage.FIVE;
+  const fromIndex = recordsPerPage * currentPage - recordsPerPage;
   const getCurrentPageWords = useCallback(
-    (words: string[]) => words.slice(fromIndex, WordsPerPage.FIVE + fromIndex),
-    [fromIndex]
+    (words: string[]) => words.slice(fromIndex, recordsPerPage + fromIndex),
+    [fromIndex, recordsPerPage]
   );
 
   const wordsToShow = useMemo(

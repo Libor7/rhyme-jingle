@@ -22,9 +22,9 @@ const StyledMain = styled("main")(({ theme }) => ({
 
 const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({
   color: theme.palette.primary.main,
-  left: "50%",
+  left: "calc(50% - 2em)",
   position: "absolute",
-  top: "50%",
+  top: "calc(50% - 2em)",
 }));
 
 const MainContent = () => {

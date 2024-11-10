@@ -3,7 +3,6 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { WordsPerPage } from "../models/common";
 import { INITIAL_PAGE } from "../models/constants";
 
 /** OTHER */
@@ -12,7 +11,7 @@ import { filterByText } from "../helpers/utils";
 import { favoriteActions } from "../store/favorite";
 
 const useFavorite = () => {
-  const { currentPage, favorites, pageCount, searchedText } = useSelector(
+  const { currentPage, favorites, pageCount, recordsPerPage, searchedText } = useSelector(
     (state: RootState) => state.favorite
   );
   const appDispatch = useAppDispatch();
@@ -33,18 +32,18 @@ const useFavorite = () => {
   const favoriteWords =
     searchedText.length > 0 ? favoritesFilteredByText : favorites;
   const wordCount = favoriteWords.length;
-  const hasPagination = wordCount > WordsPerPage.FIVE;
+  const hasPagination = wordCount > recordsPerPage;
 
   useEffect(() => {
     appDispatch(
-      favoriteActions.setPageCount(Math.ceil(wordCount / WordsPerPage.FIVE))
+      favoriteActions.setPageCount(Math.ceil(wordCount / recordsPerPage))
     );
-  }, [appDispatch, wordCount]);
+  }, [appDispatch, recordsPerPage, wordCount]);
 
-  const fromIndex = WordsPerPage.FIVE * currentPage - WordsPerPage.FIVE;
+  const fromIndex = recordsPerPage * currentPage - recordsPerPage;
   const getCurrentPageWords = useCallback(
-    (words: string[]) => words.slice(fromIndex, WordsPerPage.FIVE + fromIndex),
-    [fromIndex]
+    (words: string[]) => words.slice(fromIndex, recordsPerPage + fromIndex),
+    [fromIndex, recordsPerPage]
   );
 
   const wordsToShow = useMemo(

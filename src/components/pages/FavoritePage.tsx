@@ -1,4 +1,5 @@
 /** CUSTOM COMPONENTS */
+import FavoriteControls from "../other/FavoriteControls";
 import List from "../UI/List";
 import SearchField from "../UI/SearchField";
 import WordCount from "../UI/WordCount";
@@ -16,6 +17,8 @@ import APP_CONTENT from "../../models/constants";
 /** OTHER */
 import { useAppDispatch } from "../../store";
 import { favoriteActions } from "../../store/favorite";
+
+/** STYLED COMPONENTS */
 import { StyledPagination } from "../styled/StyledPagination";
 
 const FavoritePage = () => {
@@ -48,6 +51,7 @@ const FavoritePage = () => {
         adjectives={["obľúbených", "obľúbené"]}
         count={wordCount}
       />
+      <FavoriteControls />
       <List words={wordsToShow} />
       {hasPagination && (
         <StyledPagination
