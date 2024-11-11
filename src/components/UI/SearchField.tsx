@@ -23,6 +23,10 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       outline: "unset",
     },
 
+  "& .MuiInputBase-root:before": {
+    borderBottom: `1px solid ${theme.palette.primary.main}`,
+  },
+
   "& .MuiInputBase-root:hover:not(.Mui-disabled, .Mui-error):before": {
     borderBottom: `1px solid ${theme.palette.primary.dark}`,
   },

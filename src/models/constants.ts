@@ -5,6 +5,7 @@ import {
   darkGreenAndWhite,
   islandGreenAndWhite,
   midnightblueAndWater,
+  orangeAndWhite,
 } from "./color-palettes";
 
 export const INITIAL_PAGE = 1;
@@ -13,6 +14,10 @@ export const DEFAULT_FILTERS_QUANTITY = 2;
 
 const APP_CONTENT = {
   DIALOG: {
+    ARCHIVED: {
+      TITLE: "Odstrániť archivované",
+      DESCRIPTION: "Prajete si zmazať všetky položky v časti Archivované?",
+    },
     FAVORITE: {
       TITLE: "Odstrániť obľúbené",
       DESCRIPTION: "Prajete si zmazať všetky položky v časti Obľúbené?",
@@ -35,9 +40,17 @@ const APP_CONTENT = {
     },
   },
   SELECTFIELD: {
-    LABEL: {
-      SEARCHED: "Počet nájdených slov",
-      FAVORITE: "Počet obľúbených slov",
+    ARCHIVED: {
+      ID: "archived",
+      LABEL: "Počet archivovaných slov",
+    },
+    FAVORITE: {
+      ID: "favorite",
+      LABEL: "Počet obľúbených slov",
+    },
+    SEARCHED: {
+      ID: "searched",
+      LABEL: "Počet nájdených slov",
     },
   },
   THEME_COLOR_PICKER: {
@@ -63,6 +76,10 @@ const APP_CONTENT = {
         LABEL: "Modré odtiene",
         VALUE: "midnightblueWater",
       },
+      ORANGEWHITE: {
+        LABEL: "Oranžová",
+        VALUE: "orangeWhite",
+      },
     },
   },
 };
@@ -75,6 +92,7 @@ export const palettes = new Map([
   ["darkGreenWhite", darkGreenAndWhite],
   ["islandGreenWhite", islandGreenAndWhite],
   ["midnightblueWater", midnightblueAndWater],
+  ["orangeWhite", orangeAndWhite],
 ]);
 
 export default APP_CONTENT;

@@ -1,5 +1,5 @@
 /** CUSTOM COMPONENTS */
-import FavoriteControls from "components/other/FavoriteControls";
+import AdditionalControls from "components/other/AdditionalControls";
 import List from "components/UI/List";
 import SearchField from "components/UI/SearchField";
 import WordCount from "components/UI/WordCount";
@@ -47,11 +47,14 @@ const FavoritePage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
-      <WordCount
-        adjectives={["obľúbených", "obľúbené"]}
+      <WordCount adjectives={["obľúbených", "obľúbené"]} count={wordCount} />
+      <AdditionalControls
         count={wordCount}
+        dialogText={{
+          title: APP_CONTENT.DIALOG.FAVORITE.TITLE,
+          description: APP_CONTENT.DIALOG.FAVORITE.DESCRIPTION,
+        }}
       />
-      <FavoriteControls />
       <List words={wordsToShow} />
       {hasPagination && (
         <StyledPagination

@@ -7,6 +7,7 @@ import { INITIAL_PAGE } from "models/constants";
 
 /** OTHER */
 import { type RootState, useAppDispatch } from "store";
+import { archivedActions } from "store/archived";
 import { searchedActions } from "store/searched";
 import { favoriteActions } from "store/favorite";
 import {
@@ -33,6 +34,7 @@ const useSearch = () => {
     appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
     appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
     appDispatch(searchedActions.setCurrentPage(INITIAL_PAGE));
+    searchedText.length > 0 && appDispatch(archivedActions.addArchived(searchedText));
   }, [appDispatch, searchedText]);
 
   useEffect(() => {

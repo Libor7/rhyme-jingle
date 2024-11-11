@@ -10,16 +10,20 @@ import CheckIcon from "@mui/icons-material/Check";
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { FC, useCallback } from "react";
+import { useLocation } from "react-router-dom";
+
+/** MODELS */
+import { IDialogContent } from "components/other/AdditionalControls";
 
 /** OTHER */
 import { useAppDispatch } from "store";
 import { favoriteActions } from "store/favorite";
-import APP_CONTENT from "models/constants";
 
 /** STYLED COMPONENTS */
 import { StyledDialogTitle } from "components/styled/StyledDialogTitle";
 import { StyledDialogContent } from "components/styled/StyledDialogContent";
 import { StyledDialogActions } from "components/styled/StyledDialogActions";
+import { archivedActions } from "store/archived";
 
 const StyledParagraph = styled("p")(({ theme }) => ({
   color: theme.palette.primary.main,
@@ -35,7 +39,8 @@ const PaperComponent = (props: PaperProps) => {
   return <Paper {...props} />;
 };
 
-interface IFavoriteDialogProps {
+interface IAdditionalControlsDialogProps {
+  dialogText: IDialogContent;
   onCheckboxClose: () => void;
   onDialogClose: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -43,35 +48,38 @@ interface IFavoriteDialogProps {
   open: boolean;
 }
 
-const FavoriteDialog: FC<IFavoriteDialogProps> = ({
+const AdditionalControlsDialog: FC<IAdditionalControlsDialogProps> = ({
+  dialogText,
   onCheckboxClose,
   onDialogClose,
   open,
 }) => {
   const appDispatch = useAppDispatch();
+  const location = useLocation();
+  const isFavoritePage = location.pathname === "/favorite";
 
-  const deleteFavoritesHandler = useCallback(
+  const deleteHandler = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      appDispatch(favoriteActions.setFavorites([]));
+      isFavoritePage
+        ? appDispatch(favoriteActions.setFavorites([]))
+        : appDispatch(archivedActions.setArchived([]));
       onCheckboxClose();
       onDialogClose(event);
     },
-    [appDispatch, onCheckboxClose, onDialogClose]
+    [appDispatch, isFavoritePage, onCheckboxClose, onDialogClose]
   );
 
   return (
     <Dialog
       open={open}
       PaperComponent={PaperComponent}
-      aria-labelledby="favorite-dialog-title"
+      aria-labelledby="items-deletion-dialog-title"
     >
-      <StyledDialogTitle id="favorite-dialog-title">
-        {APP_CONTENT.DIALOG.FAVORITE.TITLE}
+      <StyledDialogTitle id="items-deletion-dialog-title">
+        {dialogText.title}
       </StyledDialogTitle>
       <StyledDialogContent>
-        <StyledParagraph>
-          {APP_CONTENT.DIALOG.FAVORITE.DESCRIPTION}
-        </StyledParagraph>
+        <StyledParagraph>{dialogText.description}</StyledParagraph>
       </StyledDialogContent>
       <StyledDialogActions>
         <IconButton
@@ -86,7 +94,7 @@ const FavoriteDialog: FC<IFavoriteDialogProps> = ({
         <IconButton
           aria-label="reset"
           disableRipple
-          onClick={deleteFavoritesHandler}
+          onClick={deleteHandler}
           role="button"
           size="large"
         >
@@ -97,4 +105,4 @@ const FavoriteDialog: FC<IFavoriteDialogProps> = ({
   );
 };
 
-export default FavoriteDialog;
+export default AdditionalControlsDialog;

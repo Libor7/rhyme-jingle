@@ -3,22 +3,18 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 /** CUSTOM COMPONENTS */
-import FavoriteDialog from "components/UI/dialog/dialog-content/FavoriteDialog";
+import AdditionalControlsDialog from "components/UI/dialog/dialog-content/AdditionalControlsDialog";
 import Modal from "components/UI/dialog/Modal";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import { FC, useCallback, useState } from "react";
 
 /** ICONS */
 import DeleteIcon from "@mui/icons-material/Delete";
 
 /** MODELS */
 import APP_CONTENT from "models/constants";
-
-/** OTHER */
-import { RootState } from "store";
 
 /** STYLED COMPONENTS */
 import { StyledIconButton } from "components/styled/StyledIconButton";
@@ -27,6 +23,7 @@ const StyledSection = styled("section")(() => ({
   display: "flex",
   flexWrap: "wrap",
   justifyContent: "space-between",
+  marginTop: "1em",
 }));
 
 const StyledFormControlLabel = styled(
@@ -67,8 +64,20 @@ interface IStyledFormControlLabelProps {
   checked: boolean;
 }
 
-const FavoriteControls = () => {
-  const { favorites } = useSelector((state: RootState) => state.favorite);
+export interface IDialogContent {
+  title: string;
+  description: string;
+}
+
+interface IAdditionalControlsProps {
+  count: number;
+  dialogText: IDialogContent;
+}
+
+const AdditionalControls: FC<IAdditionalControlsProps> = ({
+  count,
+  dialogText,
+}) => {
   const [checked, setChecked] = useState<boolean>(false);
   const [modalShown, setModalShown] = useState<boolean>(false);
 
@@ -104,7 +113,7 @@ const FavoriteControls = () => {
   return (
     <>
       <StyledSection>
-        {favorites.length > 0 && (
+        {count > 0 && (
           <StyledFormControlLabel
             checked={checked}
             control={<Checkbox size="large" />}
@@ -113,9 +122,9 @@ const FavoriteControls = () => {
             onKeyDown={checkboxKeyHandler}
           />
         )}
-        {checked && (
+        {count > 0 && checked && (
           <StyledIconButton
-            aria-label="remove all favorites"
+            aria-label="remove all items"
             disableRipple
             onClick={toggleModal}
             onKeyDown={toggleModalKeyHandler}
@@ -126,7 +135,8 @@ const FavoriteControls = () => {
       </StyledSection>
       {modalShown && (
         <Modal>
-          <FavoriteDialog
+          <AdditionalControlsDialog
+            dialogText={dialogText}
             open={modalShown}
             onCheckboxClose={checkboxChangeHandler}
             onDialogClose={toggleModal}
@@ -137,4 +147,4 @@ const FavoriteControls = () => {
   );
 };
 
-export default FavoriteControls;
+export default AdditionalControls;

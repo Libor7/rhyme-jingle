@@ -75,3 +75,18 @@ export const midnightblueAndWater: PaletteOptions = {
     contrastText: "#000",
   },
 };
+
+export const orangeAndWhite: PaletteOptions = {
+  primary: {
+    main: "#FFA500",
+    light: "#ffb733",
+    dark: "#b27300",
+    contrastText: "#fff",
+  },
+  secondary: {
+    main: "#f2f2f2",
+    light: "#f4f4f4",
+    dark: "#a9a9a9",
+    contrastText: "#000",
+  },
+};

@@ -1,6 +1,14 @@
 /** MODELS */
 import { WordsPerPage } from "./common";
 
+export interface IArchiveState {
+  archived: string[];
+  currentPage: number;
+  pageCount: number;
+  recordsPerPage: WordsPerPage;
+  searchedText: string;
+}
+
 export interface IFavoriteState {
   candidates: string[];
   currentPage: number;

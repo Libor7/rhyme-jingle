@@ -2,11 +2,11 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@components/*": ["components/*"],
-      "@helpers/*": ["helpers/*"],
-      "@hooks/*": ["hooks/*"],
-      "@models/*": ["models/*"],
-      "@store/*": ["store/*"],
+      "components/*": ["components/*"],
+      "helpers/*": ["helpers/*"],
+      "hooks/*": ["hooks/*"],
+      "models/*": ["models/*"],
+      "store/*": ["store/*"],
     },
     "target": "es5",
     "lib": [

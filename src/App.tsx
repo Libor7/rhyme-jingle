@@ -13,10 +13,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import StarIcon from "@mui/icons-material/Star";
 
 /** LIBRARIES */
-import {
-  createTheme,
-  ThemeProvider,
-} from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { styled } from "@mui/system";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -29,6 +26,7 @@ import { useEffect } from "react";
 /** OTHER */
 import { getLocalStorageValue } from "helpers/utils";
 import { RootState, useAppDispatch } from "store";
+import { archivedActions } from "store/archived";
 import { favoriteActions } from "store/favorite";
 import { settingsActions } from "store/settings";
 
@@ -70,6 +68,7 @@ const App = () => {
   const location = useLocation();
   const { isExtraSmall, isSmall } = useWindowSize();
   const { colorPalette } = useSelector((state: RootState) => state.settings);
+  const storedArchived = getLocalStorageValue<string[]>("archived", []);
   const storedFavorites = getLocalStorageValue<string[]>("favorites", []);
   const storedColorPalette = getLocalStorageValue<string>(
     "colorPalette",
@@ -86,6 +85,10 @@ const App = () => {
   const nonactiveLinks = links.filter(
     (link) => link.path !== location.pathname
   );
+
+  useEffect(() => {
+    appDispatch(archivedActions.setArchived(storedArchived));
+  }, [appDispatch, storedArchived]);
 
   useEffect(() => {
     appDispatch(favoriteActions.setFavorites(storedFavorites));

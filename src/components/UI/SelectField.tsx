@@ -26,7 +26,11 @@ const StyledFormControl = styled(FormControl)(({ theme }) => ({
 
   "& > .MuiInputBase-root > fieldset": {
     border: `1px solid ${theme.palette.primary.main}`,
-  }
+  },
+
+  "& > .MuiInputBase-root > fieldset:hover": {
+    border: `1px solid ${theme.palette.primary.dark}`,
+  },
 }));
 
 const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
@@ -50,11 +54,7 @@ const SelectField: FC<SelectFieldProps> = ({
   return (
     <StyledFormControl>
       <StyledInputLabel id={labelId}>{label}</StyledInputLabel>
-      <Select
-        labelId={labelId}
-        label={label}
-        {...restProps}
-      >
+      <Select labelId={labelId} label={label} {...restProps}>
         {Object.values(WordsPerPage)
           .filter((val) => typeof val !== "string")
           .map((val) => (
