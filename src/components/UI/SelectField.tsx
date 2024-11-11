@@ -9,7 +9,7 @@ import { styled } from "@mui/system";
 import { FC } from "react";
 
 /** MODELS */
-import { WordsPerPage } from "../../models/common";
+import { WordsPerPage } from "models/common";
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
   margin: "1em 0.75em",

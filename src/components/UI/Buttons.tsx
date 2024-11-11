@@ -1,6 +1,6 @@
 /** COMPONENTS */
-import FilterControls from "../other/FilterControls";
-import MiscellaneousControls from "../other/MiscellaneousControls";
+import FilterControls from "components/other/FilterControls";
+import MiscellaneousControls from "components/other/MiscellaneousControls";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";

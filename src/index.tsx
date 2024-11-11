@@ -1,5 +1,5 @@
 /** CUSTOM COMPONENTS */
-import App from "./App";
+import App from "App";
 
 /** LIBRARIES */
 import React from "react";
@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 
 /** OTHER */
 import reportWebVitals from "./reportWebVitals";
-import store from "./store";
+import store from "store";
 
 /** STYLES */
 import "./index.css";

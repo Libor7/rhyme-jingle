@@ -3,12 +3,12 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { INITIAL_PAGE } from "../models/constants";
+import { INITIAL_PAGE } from "models/constants";
 
 /** OTHER */
-import { type RootState, useAppDispatch } from "../store";
-import { filterByText } from "../helpers/utils";
-import { favoriteActions } from "../store/favorite";
+import { type RootState, useAppDispatch } from "store";
+import { filterByText } from "helpers/utils";
+import { favoriteActions } from "store/favorite";
 
 const useFavorite = () => {
   const { currentPage, favorites, pageCount, recordsPerPage, searchedText } = useSelector(

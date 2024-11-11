@@ -1,6 +1,6 @@
 /** MODELS */
-import { Operator } from "../models/common";
-import { MINIMAL_STRING_LENGTH } from "../models/constants";
+import { Operator } from "models/common";
+import { MINIMAL_STRING_LENGTH } from "models/constants";
 
 export const containsWordOfLength = (
   words: string[],

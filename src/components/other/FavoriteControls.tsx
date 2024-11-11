@@ -3,8 +3,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 /** CUSTOM COMPONENTS */
-import FavoriteDialog from "../UI/dialog/dialog-content/FavoriteDialog";
-import Modal from "../UI/dialog/Modal";
+import FavoriteDialog from "components/UI/dialog/dialog-content/FavoriteDialog";
+import Modal from "components/UI/dialog/Modal";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
@@ -15,13 +15,13 @@ import { useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 /** MODELS */
-import APP_CONTENT from "../../models/constants";
+import APP_CONTENT from "models/constants";
 
 /** OTHER */
-import { RootState } from "../../store";
+import { RootState } from "store";
 
 /** STYLED COMPONENTS */
-import { StyledIconButton } from "../styled/StyledIconButton";
+import { StyledIconButton } from "components/styled/StyledIconButton";
 
 const StyledSection = styled("section")(() => ({
   display: "flex",

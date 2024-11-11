@@ -12,14 +12,14 @@ import { styled } from "@mui/system";
 import { FC, useCallback } from "react";
 
 /** OTHER */
-import { useAppDispatch } from "../../../../store";
-import { favoriteActions } from "../../../../store/favorite";
-import APP_CONTENT from "../../../../models/constants";
+import { useAppDispatch } from "store";
+import { favoriteActions } from "store/favorite";
+import APP_CONTENT from "models/constants";
 
 /** STYLED COMPONENTS */
-import { StyledDialogTitle } from "../../../styled/StyledDialogTitle";
-import { StyledDialogContent } from "../../../styled/StyledDialogContent";
-import { StyledDialogActions } from "../../../styled/StyledDialogActions";
+import { StyledDialogTitle } from "components/styled/StyledDialogTitle";
+import { StyledDialogContent } from "components/styled/StyledDialogContent";
+import { StyledDialogActions } from "components/styled/StyledDialogActions";
 
 const StyledParagraph = styled("p")(({ theme }) => ({
   color: theme.palette.primary.main,

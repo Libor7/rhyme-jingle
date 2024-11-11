@@ -19,16 +19,16 @@ import {
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import APP_CONTENT, { INITIAL_PAGE } from "../../../../models/constants";
+import APP_CONTENT, { INITIAL_PAGE } from "models/constants";
 
 /** OTHER */
-import { type RootState, useAppDispatch } from "../../../../store";
-import { searchedActions } from "../../../../store/searched";
+import { type RootState, useAppDispatch } from "store";
+import { searchedActions } from "store/searched";
 
 /** STYLED COMPONENTS */
-import { StyledDialogTitle } from "../../../styled/StyledDialogTitle";
-import { StyledDialogContent } from "../../../styled/StyledDialogContent";
-import { StyledDialogActions } from "../../../styled/StyledDialogActions";
+import { StyledDialogTitle } from "components/styled/StyledDialogTitle";
+import { StyledDialogContent } from "components/styled/StyledDialogContent";
+import { StyledDialogActions } from "components/styled/StyledDialogActions";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root:focus-visible": {

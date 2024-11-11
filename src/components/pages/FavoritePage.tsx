@@ -1,25 +1,25 @@
 /** CUSTOM COMPONENTS */
-import FavoriteControls from "../other/FavoriteControls";
-import List from "../UI/List";
-import SearchField from "../UI/SearchField";
-import WordCount from "../UI/WordCount";
+import FavoriteControls from "components/other/FavoriteControls";
+import List from "components/UI/List";
+import SearchField from "components/UI/SearchField";
+import WordCount from "components/UI/WordCount";
 
 /** HOOKS */
-import useFavorite from "../../hooks/useFavorite";
-import usePaginationSiblings from "../../hooks/usePaginationSiblings";
+import useFavorite from "hooks/useFavorite";
+import usePaginationSiblings from "hooks/usePaginationSiblings";
 
 /** LIBRARIES */
 import { useCallback } from "react";
 
 /** MODELS */
-import APP_CONTENT from "../../models/constants";
+import APP_CONTENT from "models/constants";
 
 /** OTHER */
-import { useAppDispatch } from "../../store";
-import { favoriteActions } from "../../store/favorite";
+import { useAppDispatch } from "store";
+import { favoriteActions } from "store/favorite";
 
 /** STYLED COMPONENTS */
-import { StyledPagination } from "../styled/StyledPagination";
+import { StyledPagination } from "components/styled/StyledPagination";
 
 const FavoritePage = () => {
   const appDispatch = useAppDispatch();

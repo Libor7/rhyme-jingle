@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 /** MODELS */
-import { type ISettingsState } from "../models/store";
+import { type ISettingsState } from "models/store";
 
 const initialSettingsState: ISettingsState = {
   colorPalette: "coffeeBeige",

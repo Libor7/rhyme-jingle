@@ -2,24 +2,24 @@
 import { SelectChangeEvent } from "@mui/material/Select";
 
 /** CUSTOM COMPONENTS */
-import ThemeColorPicker from "../other/ThemeColorPicker";
-import SelectField from "../UI/SelectField";
+import ThemeColorPicker from "components/other/ThemeColorPicker";
+import SelectField from "components/UI/SelectField";
 
 /** LIBRARIES */
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { WordsPerPage } from "../../models/common";
-import APP_CONTENT from "../../models/constants";
-import { Label } from "../../models/link";
+import { WordsPerPage } from "models/common";
+import APP_CONTENT from "models/constants";
+import { Label } from "models/link";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "../../store";
-import { favoriteActions } from "../../store/favorite";
-import { searchedActions } from "../../store/searched";
+import { RootState, useAppDispatch } from "store";
+import { favoriteActions } from "store/favorite";
+import { searchedActions } from "store/searched";
 
 /** STYLED COMPONENTS */
-import { StyledTypography } from "../styled/StyledTypography";
+import { StyledTypography } from "components/styled/StyledTypography";
 
 const TEXT_CONTENT = APP_CONTENT.SELECTFIELD.LABEL;
 

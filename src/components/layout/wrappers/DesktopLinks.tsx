@@ -4,7 +4,7 @@ import { type FC, type PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
 
 /** MODELS */
-import { type IPath } from "../../../models/link";
+import { type IPath } from "models/link";
 
 const StyledMenuItem = styled("li")(() => ({
   flexGrow: 1,

@@ -2,7 +2,7 @@
 import { type FC } from "react";
 
 /** STYLED COMPONENTS */
-import { StyledTypography } from "../styled/StyledTypography";
+import { StyledTypography } from "components/styled/StyledTypography";
 
 interface IWordCountProps {
   adjectives: [string, string];

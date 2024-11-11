@@ -11,11 +11,11 @@ import { ChangeEvent } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import APP_CONTENT from "../../models/constants";
+import APP_CONTENT from "models/constants";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "../../store";
-import { settingsActions } from "../../store/settings";
+import { RootState, useAppDispatch } from "store";
+import { settingsActions } from "store/settings";
 
 const TEXT_CONTENT = APP_CONTENT.THEME_COLOR_PICKER;
 

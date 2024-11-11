@@ -6,8 +6,8 @@ import { styled } from "@mui/system";
 import { type FC, type PropsWithChildren, useEffect } from "react";
 
 /** OTHER */
-import { useAppDispatch } from "../../store";
-import { searchedActions } from "../../store/searched";
+import { useAppDispatch } from "store";
+import { searchedActions } from "store/searched";
 
 const StyledButton = styled(MUIButton)<IStyledButtonProps>(
   ({ theme, marked }) => ({

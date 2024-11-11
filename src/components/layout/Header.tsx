@@ -1,16 +1,16 @@
 /** CUSTOM COMPONENTS */
-import Navigation from "../other/Navigation";
+import Navigation from "components/other/Navigation";
 
 /** HOOKS */
-import useWindowSize from "../../hooks/useWindowSize";
+import useWindowSize from "hooks/useWindowSize";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { type FC } from "react";
 
 /** MODELS */
-import APP_CONTENT from "../../models/constants";
-import { type ILink } from "../../models/link";
+import APP_CONTENT from "models/constants";
+import { type ILink } from "models/link";
 
 const StyledHeader = styled("header")(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,

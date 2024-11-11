@@ -2,12 +2,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 /** MODELS */
-import { WordsPerPage } from "../models/common";
-import { INITIAL_PAGE } from "../models/constants";
-import { type IFavoriteState } from "../models/store";
+import { WordsPerPage } from "models/common";
+import { INITIAL_PAGE } from "models/constants";
+import { type IFavoriteState } from "models/store";
 
 /** OTHER */
-import { getLocalStorageValue } from "../helpers/utils";
+import { getLocalStorageValue } from "helpers/utils";
 
 const initialFavoriteState: IFavoriteState = {
   candidates: [],

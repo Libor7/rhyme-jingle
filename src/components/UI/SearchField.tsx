@@ -10,8 +10,8 @@ import { styled } from "@mui/system";
 import { type ChangeEvent, type FC, useCallback, useState } from "react";
 
 /** MODELS */
-import { type DisplayType } from "../../models/common";
-import { Input } from "../../models/input";
+import { type DisplayType } from "models/common";
+import { Input } from "models/input";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   display: "flex",

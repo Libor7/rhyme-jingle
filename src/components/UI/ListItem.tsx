@@ -11,9 +11,9 @@ import { type FC, useCallback } from "react";
 import { useSelector } from "react-redux";
 
 /** OTHER */
-import { hasArrayElement } from "../../helpers/utils";
-import { type RootState, useAppDispatch } from "../../store";
-import { favoriteActions } from "../../store/favorite";
+import { hasArrayElement } from "helpers/utils";
+import { type RootState, useAppDispatch } from "store";
+import { favoriteActions } from "store/favorite";
 
 const StyledMUIListItem = styled(MUIListItem)<IStyledMUIListItemProps>(
   ({ theme, favoritecandidate }) => ({

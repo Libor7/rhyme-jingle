@@ -7,12 +7,12 @@ import { lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 
 /** MODELS */
-import { Path } from "../../models/link";
+import { Path } from "models/link";
 
-const ArchivePage = lazy(() => import("../pages/ArchivePage"));
-const FavoritePage = lazy(() => import("../pages/FavoritePage"));
-const SearchPage = lazy(() => import("../pages/SearchPage"));
-const SettingsPage = lazy(() => import("../pages/SettingsPage"));
+const ArchivePage = lazy(() => import("components/pages/ArchivePage"));
+const FavoritePage = lazy(() => import("components/pages/FavoritePage"));
+const SearchPage = lazy(() => import("components/pages/SearchPage"));
+const SettingsPage = lazy(() => import("components/pages/SettingsPage"));
 
 const StyledMain = styled("main")(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,

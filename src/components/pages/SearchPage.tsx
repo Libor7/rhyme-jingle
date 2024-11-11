@@ -1,26 +1,26 @@
 /** CUSTOM COMPONENTS */
-import Buttons from "../UI/Buttons";
-import List from "../UI/List";
-import SearchField from "../UI/SearchField";
-import WordCount from "../UI/WordCount";
+import Buttons from "components/UI/Buttons";
+import List from "components/UI/List";
+import SearchField from "components/UI/SearchField";
+import WordCount from "components/UI/WordCount";
 
 /** HOOKS */
-import useSearch from "../../hooks/useSearch";
-import usePaginationSiblings from "../../hooks/usePaginationSiblings";
+import useSearch from "hooks/useSearch";
+import usePaginationSiblings from "hooks/usePaginationSiblings";
 
 /** LIBRARIES */
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import APP_CONTENT, { MINIMAL_STRING_LENGTH } from "../../models/constants";
+import APP_CONTENT, { MINIMAL_STRING_LENGTH } from "models/constants";
 
 /** OTHER */
-import { type RootState, useAppDispatch } from "../../store";
-import { searchedActions } from "../../store/searched";
+import { type RootState, useAppDispatch } from "store";
+import { searchedActions } from "store/searched";
 import { useCallback, useEffect } from "react";
 
 /** STYLED COMPONENTS */
-import { StyledPagination } from "../styled/StyledPagination";
+import { StyledPagination } from "components/styled/StyledPagination";
 
 const SearchPage = () => {
   const siblings = usePaginationSiblings();

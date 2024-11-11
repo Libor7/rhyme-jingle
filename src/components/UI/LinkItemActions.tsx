@@ -11,9 +11,9 @@ import { type FC, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
 /** OTHER */
-import { useAppDispatch } from "../../store";
-import { favoriteActions } from "../../store/favorite";
-import { searchedActions } from "../../store/searched";
+import { useAppDispatch } from "store";
+import { favoriteActions } from "store/favorite";
+import { searchedActions } from "store/searched";
 
 const StyledDiv = styled("div")<IStyledDivProps>(
   ({ theme, isFavCandidate }) => ({

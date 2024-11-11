@@ -3,18 +3,18 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { INITIAL_PAGE } from "../models/constants";
+import { INITIAL_PAGE } from "models/constants";
 
 /** OTHER */
-import { type RootState, useAppDispatch } from "../store";
-import { searchedActions } from "../store/searched";
-import { favoriteActions } from "../store/favorite";
+import { type RootState, useAppDispatch } from "store";
+import { searchedActions } from "store/searched";
+import { favoriteActions } from "store/favorite";
 import {
   convertWordsToTheirLengths,
   filterByText,
   filterByTextLength,
   filterOutSubset,
-} from "../helpers/utils";
+} from "helpers/utils";
 
 const useSearch = () => {
   const {

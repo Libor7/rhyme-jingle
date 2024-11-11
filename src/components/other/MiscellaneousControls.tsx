@@ -1,6 +1,6 @@
 /** CUSTOM COMPONENTS */
-import Modal from "../UI/dialog/Modal";
-import PaginationDialog from "../UI/dialog/dialog-content/PaginationDialog";
+import Modal from "components/UI/dialog/Modal";
+import PaginationDialog from "components/UI/dialog/dialog-content/PaginationDialog";
 
 /** ICONS */
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
@@ -13,12 +13,12 @@ import { type FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** OTHER */
-import { favoriteActions } from "../../store/favorite";
-import { searchedActions } from "../../store/searched";
-import { type RootState, useAppDispatch } from "../../store";
+import { favoriteActions } from "store/favorite";
+import { searchedActions } from "store/searched";
+import { type RootState, useAppDispatch } from "store";
 
 /** STYLED COMPONENTS */
-import { StyledIconButton } from "../styled/StyledIconButton";
+import { StyledIconButton } from "components/styled/StyledIconButton";
 
 const StyledSection = styled("section")(() => ({
   alignItems: "flex-end",

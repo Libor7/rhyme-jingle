@@ -1,10 +1,10 @@
 /** CUSTOM COMPONENTS */
-import Footer from "./components/layout/Footer";
-import Header from "./components/layout/Header";
-import MainContent from "./components/layout/MainContent";
+import Footer from "components/layout/Footer";
+import Header from "components/layout/Header";
+import MainContent from "components/layout/MainContent";
 
 /** HOOKS */
-import useWindowSize from "./hooks/useWindowSize";
+import useWindowSize from "hooks/useWindowSize";
 
 /** ICONS */
 import FolderIcon from "@mui/icons-material/Folder";
@@ -22,15 +22,15 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 /** MODELS */
-import { palettes } from "./models/constants";
-import { Label, Path, type ILink } from "./models/link";
+import { palettes } from "models/constants";
+import { Label, Path, type ILink } from "models/link";
 import { useEffect } from "react";
 
 /** OTHER */
-import { getLocalStorageValue } from "./helpers/utils";
-import { RootState, useAppDispatch } from "./store";
-import { favoriteActions } from "./store/favorite";
-import { settingsActions } from "./store/settings";
+import { getLocalStorageValue } from "helpers/utils";
+import { RootState, useAppDispatch } from "store";
+import { favoriteActions } from "store/favorite";
+import { settingsActions } from "store/settings";
 
 const links: ILink[] = [
   {
