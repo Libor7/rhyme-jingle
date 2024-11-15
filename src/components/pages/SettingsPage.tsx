@@ -1,7 +1,8 @@
 /** COMPONENTS */
-import { SelectChangeEvent } from "@mui/material/Select";
+import { type SelectChangeEvent } from "@mui/material/Select";
 
 /** CUSTOM COMPONENTS */
+import ArchivedAmountPicker from "components/other/ArchivedAmountPicker";
 import ThemeColorPicker from "components/other/ThemeColorPicker";
 import SelectField from "components/UI/SelectField";
 
@@ -14,73 +15,74 @@ import APP_CONTENT from "models/constants";
 import { Label } from "models/link";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "store";
+import { type RootState, useAppDispatch } from "store";
+import { archivedActions } from "store/archived";
 import { favoriteActions } from "store/favorite";
 import { searchedActions } from "store/searched";
 
 /** STYLED COMPONENTS */
 import { StyledTypography } from "components/styled/StyledTypography";
-import { archivedActions } from "store/archived";
 
-const TEXT_CONTENT = APP_CONTENT.SELECTFIELD;
+const SELECT = APP_CONTENT.SELECTFIELD;
 
 const SettingsPage = () => {
   const appDispatch = useAppDispatch();
-  const { recordsPerPage: archivedRecordsPerPage } = useSelector(
+  const { recordsPerPage: archivedPerPage } = useSelector(
     (state: RootState) => state.archived
   );
-  const { recordsPerPage: searchedRecordsPerPage } = useSelector(
+  const { recordsPerPage: searchedPerPage } = useSelector(
     (state: RootState) => state.searched
   );
-  const { recordsPerPage: favoriteRecordsPerPage } = useSelector(
+  const { recordsPerPage: favoritesPerPage } = useSelector(
     (state: RootState) => state.favorite
   );
 
-  const searchedSelectChangeHandler = (
-    event: SelectChangeEvent<WordsPerPage>
-  ) =>
+  const searchedSelectChangeHandler = ({
+    target,
+  }: SelectChangeEvent<WordsPerPage>) =>
     appDispatch(
-      searchedActions.setRecordsPerPage(event.target.value as WordsPerPage)
+      searchedActions.setRecordsPerPage(target.value as WordsPerPage)
     );
 
-  const favoriteSelectChangeHandler = (
-    event: SelectChangeEvent<WordsPerPage>
-  ) =>
+  const favoriteSelectChangeHandler = ({
+    target,
+  }: SelectChangeEvent<WordsPerPage>) =>
     appDispatch(
-      favoriteActions.setRecordsPerPage(event.target.value as WordsPerPage)
+      favoriteActions.setRecordsPerPage(target.value as WordsPerPage)
     );
 
-  const archivedSelectChangeHandler = (
-    event: SelectChangeEvent<WordsPerPage>
-  ) =>
+  const archivedSelectChangeHandler = ({
+    target,
+  }: SelectChangeEvent<WordsPerPage>) =>
     appDispatch(
-      archivedActions.setRecordsPerPage(event.target.value as WordsPerPage)
+      archivedActions.setRecordsPerPage(target.value as WordsPerPage)
     );
 
   return (
     <>
       <StyledTypography component="h2">{Label.SETTINGS}</StyledTypography>
       <SelectField
-        id={TEXT_CONTENT.SEARCHED.ID + "-per-page"}
-        label={TEXT_CONTENT.SEARCHED.LABEL}
-        labelId={TEXT_CONTENT.SEARCHED.ID + "-per-page-label"}
+        id={SELECT.SEARCHED.ID + "-per-page"}
+        label={SELECT.SEARCHED.LABEL}
+        labelId={SELECT.SEARCHED.ID + "-per-page-label"}
         onChange={searchedSelectChangeHandler}
-        value={searchedRecordsPerPage}
+        value={searchedPerPage}
       />
       <SelectField
-        id={TEXT_CONTENT.FAVORITE.ID + "-per-page"}
-        label={TEXT_CONTENT.FAVORITE.LABEL}
-        labelId={TEXT_CONTENT.FAVORITE.ID + "-per-page-label"}
+        id={SELECT.FAVORITE.ID + "-per-page"}
+        label={SELECT.FAVORITE.LABEL}
+        labelId={SELECT.FAVORITE.ID + "-per-page-label"}
         onChange={favoriteSelectChangeHandler}
-        value={favoriteRecordsPerPage}
+        value={favoritesPerPage}
       />
       <SelectField
-        id={TEXT_CONTENT.ARCHIVED.ID + "-per-page"}
-        label={TEXT_CONTENT.ARCHIVED.LABEL}
-        labelId={TEXT_CONTENT.ARCHIVED.ID + "-per-page-label"}
+        id={SELECT.ARCHIVED.ID + "-per-page"}
+        label={SELECT.ARCHIVED.LABEL}
+        labelId={SELECT.ARCHIVED.ID + "-per-page-label"}
         onChange={archivedSelectChangeHandler}
-        value={archivedRecordsPerPage}
+        value={archivedPerPage}
       />
+      <ArchivedAmountPicker />
       <ThemeColorPicker />
     </>
   );

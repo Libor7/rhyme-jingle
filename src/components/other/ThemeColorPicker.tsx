@@ -1,42 +1,27 @@
 /** COMPONENTS */
-import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 
+/** CUSTOM COMPONENTS */
+import PickerItemWrapper from "components/layout/wrappers/PickerItemWrapper";
+
 /** LIBRARIES */
-import { styled } from "@mui/system";
-import { ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
 import APP_CONTENT from "models/constants";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "store";
+import { type RootState, useAppDispatch } from "store";
 import { settingsActions } from "store/settings";
 
-const TEXT_CONTENT = APP_CONTENT.THEME_COLOR_PICKER;
+/** STYLED COMPONENTS */
+import { StyledPicker } from "components/styled/StyledPicker";
 
-const StyledFormControl = styled(FormControl)(({ theme }) => ({
-  color: theme.palette.primary.main,
-  margin: "1em",
-
-  "& > .MuiFormLabel-root": {
-    color: theme.palette.primary.main,
-    marginBottom: "1em",
-  },
-
-  "& > .MuiFormLabel-root:focus, & > .MuiFormLabel-root:focus-visible, & > .MuiFormLabel-root:focus-within":
-    {
-      outline: "unset",
-    },
-
-  "& span.MuiButtonBase-root.MuiRadio-root": {
-    color: theme.palette.primary.main,
-  },
-}));
+const TEXT_CONTENT = APP_CONTENT.PICKER.THEME_COLOR;
 
 const ThemeColorPicker = () => {
   const appDispatch = useAppDispatch();
@@ -46,8 +31,12 @@ const ThemeColorPicker = () => {
     appDispatch(settingsActions.setColorPalette(event.target.value));
   };
 
+  const colorPaletteKeyHandler = (key: string, val: string) => {
+    key === "Enter" && appDispatch(settingsActions.setColorPalette(val));
+  };
+
   return (
-    <StyledFormControl>
+    <StyledPicker>
       <FormLabel id="color-palette-picker-label">
         {TEXT_CONTENT.TITLE}
       </FormLabel>
@@ -57,15 +46,18 @@ const ThemeColorPicker = () => {
         onChange={colorPaletteChangeHandler}
       >
         {Object.values(TEXT_CONTENT.CONTROLS).map(({ LABEL, VALUE }) => (
-          <FormControlLabel
-            control={<Radio />}
-            key={VALUE}
-            label={LABEL}
-            value={VALUE}
-          />
+          <PickerItemWrapper key={VALUE}>
+            <FormControlLabel
+              control={<Radio />}
+              label={LABEL}
+              onKeyDown={({ key }) => colorPaletteKeyHandler(key, VALUE)}
+              tabIndex={VALUE !== colorPalette ? 0 : undefined}
+              value={VALUE}
+            />
+          </PickerItemWrapper>
         ))}
       </RadioGroup>
-    </StyledFormControl>
+    </StyledPicker>
   );
 };
 

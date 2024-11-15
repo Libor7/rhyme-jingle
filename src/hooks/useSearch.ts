@@ -30,11 +30,16 @@ const useSearch = () => {
   const appDispatch = useAppDispatch();
 
   useEffect(() => {
+    currentPage > pageCount &&
+      appDispatch(searchedActions.setCurrentPage(pageCount));
+  }, [appDispatch, currentPage, pageCount]);
+
+  useEffect(() => {
     appDispatch(searchedActions.setPropertyToInitialValue("lengthFilters"));
     appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
     appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
     appDispatch(searchedActions.setCurrentPage(INITIAL_PAGE));
-    searchedText.length > 0 && appDispatch(archivedActions.addArchived(searchedText));
+    searchedText.length > 0 && appDispatch(archivedActions.setArchived([searchedText]));
   }, [appDispatch, searchedText]);
 
   useEffect(() => {
@@ -42,6 +47,11 @@ const useSearch = () => {
       appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
     };
   }, [appDispatch]);
+
+  const setSearchedText = useCallback(
+    (value: string) => appDispatch(searchedActions.setSearchedText(value)),
+    [appDispatch]
+  );
 
   const wordsFilteredByText = useMemo(
     () => filterByText(lexicon, searchedText),
@@ -95,13 +105,16 @@ const useSearch = () => {
   );
 
   return {
-    wordsFilteredByTextCount: wordsFilteredByText.length,
+    currentPage,
     hasPagination,
-    pageCount,
     pageChangeHandler,
+    pageCount,
+    searchedText,
+    setSearchedText,
     wordCount,
     wordLengths,
     wordsFilteredByRemovedWords,
+    wordsFilteredByTextCount: wordsFilteredByText.length,
     wordsToShow,
   };
 };

@@ -1,26 +1,29 @@
 /** LIBRARIES */
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 /** MODELS */
 import { type ISettingsState } from "models/store";
 
+/** OTHER */
+import { getLocalStorageValue } from "helpers/utils";
+
 const initialSettingsState: ISettingsState = {
-  colorPalette: "coffeeBeige",
+  colorPalette: getLocalStorageValue<string>("colorPalette", "coffeeBeige"),
 };
 
 const settingsSlice = createSlice({
-  name: 'settings',
+  name: "settings",
   initialState: initialSettingsState,
   reducers: {
-    setColorPalette: (state, action: PayloadAction<string>) => {
-      localStorage.setItem("colorPalette", JSON.stringify(action.payload));
+    setColorPalette: (state, { payload }: PayloadAction<string>) => {
+      localStorage.setItem("colorPalette", JSON.stringify(payload));
 
       return {
         ...state,
-        colorPalette: action.payload,
+        colorPalette: payload,
       };
     },
-  }
+  },
 });
 
 export const settingsActions = settingsSlice.actions;

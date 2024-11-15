@@ -7,7 +7,7 @@ import { INITIAL_PAGE } from "models/constants";
 import { type ISearchState } from "models/store";
 
 /** OTHER */
-import { getLocalStorageValue } from "helpers/utils";
+import { getLocalStorageValue, removeItemFromArray } from "helpers/utils";
 
 const initialSearchState: ISearchState = {
   currentPage: INITIAL_PAGE,
@@ -83,7 +83,10 @@ const initialSearchState: ISearchState = {
     "tŕň",
   ],
   pageCount: INITIAL_PAGE,
-  recordsPerPage: getLocalStorageValue<WordsPerPage>("searchedPerPage", WordsPerPage.FIVE),
+  recordsPerPage: getLocalStorageValue<WordsPerPage>(
+    "searchedPerPage",
+    WordsPerPage.FIVE
+  ),
   removedWords: [],
   searchedText: "",
 };
@@ -92,46 +95,44 @@ const searchedSlice = createSlice({
   name: "searched",
   initialState: initialSearchState,
   reducers: {
-    setCurrentPage: (state, action: PayloadAction<number>) => ({
+    setCurrentPage: (state, { payload }: PayloadAction<number>) => ({
       ...state,
-      currentPage: action.payload,
+      currentPage: payload,
     }),
-    setSearchedText: (state, action: PayloadAction<string>) => ({
+    setSearchedText: (state, { payload }: PayloadAction<string>) => ({
       ...state,
-      searchedText: action.payload,
+      searchedText: payload,
     }),
-    addLengthFilter: (state, action: PayloadAction<number>) => ({
+    addLengthFilter: (state, { payload }: PayloadAction<number>) => ({
       ...state,
-      lengthFilters: [...state.lengthFilters, action.payload],
+      lengthFilters: [...state.lengthFilters, payload],
     }),
-    removeLengthFilter: (state, action: PayloadAction<number>) => ({
+    removeLengthFilter: (state, { payload }: PayloadAction<number>) => ({
       ...state,
-      lengthFilters: state.lengthFilters.filter(
-        (filter) => filter !== action.payload
-      ),
+      lengthFilters: removeItemFromArray(state.lengthFilters, payload),
     }),
-    setPageCount: (state, action: PayloadAction<number>) => ({
+    setPageCount: (state, { payload }: PayloadAction<number>) => ({
       ...state,
-      pageCount: action.payload,
+      pageCount: payload,
     }),
-    setRecordsPerPage: (state, action: PayloadAction<WordsPerPage>) => {
-      localStorage.setItem("searchedPerPage", JSON.stringify(action.payload));
+    setRecordsPerPage: (state, { payload }: PayloadAction<WordsPerPage>) => {
+      localStorage.setItem("searchedPerPage", JSON.stringify(payload));
 
       return {
         ...state,
-        recordsPerPage: action.payload,
+        recordsPerPage: payload,
       };
     },
-    removeListedWord: (state, action: PayloadAction<string>) => ({
+    removeListedWord: (state, { payload }: PayloadAction<string>) => ({
       ...state,
-      removedWords: [...state.removedWords, action.payload],
+      removedWords: [...state.removedWords, payload],
     }),
     setPropertyToInitialValue: (
       state,
-      action: PayloadAction<keyof ISearchState>
+      { payload }: PayloadAction<keyof ISearchState>
     ) => ({
       ...state,
-      [action.payload]: initialSearchState[action.payload],
+      [payload]: initialSearchState[payload],
     }),
     setInitialState: () => initialSearchState,
   },

@@ -1,10 +1,10 @@
 /** MODELS */
-import { WordsPerPage } from "./common";
+import { ArchivedAmount, WordsPerPage } from "./common";
 
 export interface IArchiveState {
   archived: string[];
+  archivedAmount: ArchivedAmount;
   currentPage: number;
-  pageCount: number;
   recordsPerPage: WordsPerPage;
   searchedText: string;
 }
@@ -13,7 +13,6 @@ export interface IFavoriteState {
   candidates: string[];
   currentPage: number;
   favorites:  string[];
-  pageCount: number;
   recordsPerPage: WordsPerPage;
   searchedText: string;
 }

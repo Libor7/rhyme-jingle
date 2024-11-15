@@ -7,21 +7,13 @@ import SearchField from "components/UI/SearchField";
 import useArchive from "hooks/useArchive";
 import usePaginationSiblings from "hooks/usePaginationSiblings";
 
-/** LIBRARIES */
-import { useCallback } from "react";
-
 /** MODELS */
 import APP_CONTENT from "models/constants";
 
-/** OTHER */
-import { useAppDispatch } from "store/index";
-
 /** STYLED COMPONENTS */
 import { StyledPagination } from "components/styled/StyledPagination";
-import { archivedActions } from "store/archived";
 
 const ArchivePage = () => {
-  const appDispatch = useAppDispatch();
   const siblings = usePaginationSiblings();
   const {
     currentPage,
@@ -29,14 +21,10 @@ const ArchivePage = () => {
     pageCount,
     pageChangeHandler,
     searchedText,
+    setSearchedText,
     wordCount,
     wordsToShow,
   } = useArchive();
-
-  const setSearchedText = useCallback(
-    (value: string) => appDispatch(archivedActions.setSearchedText(value)),
-    [appDispatch]
-  );
 
   return (
     <>

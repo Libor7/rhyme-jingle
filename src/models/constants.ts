@@ -53,32 +53,37 @@ const APP_CONTENT = {
       LABEL: "Počet nájdených slov",
     },
   },
-  THEME_COLOR_PICKER: {
-    TITLE: "Farby aplikácie",
-    CONTROLS: {
-      CHERRY: {
-        LABEL: "Čerešňová",
-        VALUE: "cherryWhite",
-      },
-      COFFEE: {
-        LABEL: "Kávová",
-        VALUE: "coffeeBeige",
-      },
-      DARKGREEN: {
-        LABEL: "Tmavozelená",
-        VALUE: "darkGreenWhite",
-      },
-      ISLANDGREEN: {
-        LABEL: "Svetlozelená",
-        VALUE: "islandGreenWhite",
-      },
-      MIDNIGHTBLUE: {
-        LABEL: "Modré odtiene",
-        VALUE: "midnightblueWater",
-      },
-      ORANGEWHITE: {
-        LABEL: "Oranžová",
-        VALUE: "orangeWhite",
+  PICKER: {
+    ARCHIVED_AMOUNT: {
+      LABEL: "Počet archivovaných slov",
+    },
+    THEME_COLOR: {
+      TITLE: "Farby aplikácie",
+      CONTROLS: {
+        CHERRY: {
+          LABEL: "Čerešňová",
+          VALUE: "cherryWhite",
+        },
+        COFFEE: {
+          LABEL: "Kávová",
+          VALUE: "coffeeBeige",
+        },
+        DARKGREEN: {
+          LABEL: "Tmavozelená",
+          VALUE: "darkGreenWhite",
+        },
+        ISLANDGREEN: {
+          LABEL: "Svetlozelená",
+          VALUE: "islandGreenWhite",
+        },
+        MIDNIGHTBLUE: {
+          LABEL: "Modré odtiene",
+          VALUE: "midnightblueWater",
+        },
+        ORANGEWHITE: {
+          LABEL: "Oranžová",
+          VALUE: "orangeWhite",
+        },
       },
     },
   },

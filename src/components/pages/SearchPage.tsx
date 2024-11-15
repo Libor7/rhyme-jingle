@@ -15,40 +15,27 @@ import { useSelector } from "react-redux";
 import APP_CONTENT, { MINIMAL_STRING_LENGTH } from "models/constants";
 
 /** OTHER */
-import { type RootState, useAppDispatch } from "store";
-import { searchedActions } from "store/searched";
-import { useCallback, useEffect } from "react";
+import { type RootState } from "store";
 
 /** STYLED COMPONENTS */
 import { StyledPagination } from "components/styled/StyledPagination";
 
 const SearchPage = () => {
   const siblings = usePaginationSiblings();
-  const { currentPage, searchedText } = useSelector(
-    (state: RootState) => state.searched
-  );
   const { candidates } = useSelector((state: RootState) => state.favorite);
   const {
+    currentPage,
     hasPagination,
     pageChangeHandler,
     pageCount,
+    searchedText,
+    setSearchedText,
     wordCount,
     wordLengths,
     wordsFilteredByRemovedWords,
     wordsFilteredByTextCount,
     wordsToShow,
   } = useSearch();
-  const appDispatch = useAppDispatch();
-
-  useEffect(() => {
-    currentPage > pageCount &&
-      appDispatch(searchedActions.setCurrentPage(pageCount));
-  }, [appDispatch, currentPage, pageCount]);
-
-  const setSearchedText = useCallback(
-    (value: string) => appDispatch(searchedActions.setSearchedText(value)),
-    [appDispatch]
-  );
 
   return (
     <>

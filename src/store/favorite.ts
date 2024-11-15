@@ -7,13 +7,12 @@ import { INITIAL_PAGE } from "models/constants";
 import { type IFavoriteState } from "models/store";
 
 /** OTHER */
-import { getLocalStorageValue } from "helpers/utils";
+import { getLocalStorageValue, removeItemFromArray } from "helpers/utils";
 
 const initialFavoriteState: IFavoriteState = {
   candidates: [],
   currentPage: INITIAL_PAGE,
-  favorites: [],
-  pageCount: INITIAL_PAGE,
+  favorites: getLocalStorageValue<string[]>("favorites", []),
   recordsPerPage: getLocalStorageValue<WordsPerPage>(
     "favoritesPerPage",
     WordsPerPage.FIVE
@@ -25,15 +24,13 @@ const favoriteSlice = createSlice({
   name: "favorite",
   initialState: initialFavoriteState,
   reducers: {
-    addCandidate: (state, action: PayloadAction<string>) => ({
+    addCandidate: (state, { payload }: PayloadAction<string>) => ({
       ...state,
-      candidates: [...state.candidates, action.payload],
+      candidates: [...state.candidates, payload],
     }),
-    removeCandidate: (state, action: PayloadAction<string>) => ({
+    removeCandidate: (state, { payload }: PayloadAction<string>) => ({
       ...state,
-      candidates: state.candidates.filter(
-        (candidate) => candidate !== action.payload
-      ),
+      candidates: removeItemFromArray(state.candidates, payload),
     }),
     addFavorites: (state) => {
       const favorites = [...state.favorites, ...state.candidates];
@@ -44,18 +41,16 @@ const favoriteSlice = createSlice({
         favorites,
       };
     },
-    setFavorites: (state, action: PayloadAction<string[]>) => {
-      localStorage.setItem("favorites", JSON.stringify([...action.payload]));
+    setFavorites: (state, { payload }: PayloadAction<string[]>) => {
+      localStorage.setItem("favorites", JSON.stringify(payload));
 
       return {
         ...state,
-        favorites: [...action.payload],
+        favorites: [...payload],
       };
     },
-    removeFavorite: (state, action: PayloadAction<string>) => {
-      const favorites = state.favorites.filter(
-        (favorite) => favorite !== action.payload
-      );
+    removeFavorite: (state, { payload }: PayloadAction<string>) => {
+      const favorites = removeItemFromArray(state.favorites, payload);
       localStorage.setItem("favorites", JSON.stringify(favorites));
 
       return {
@@ -63,32 +58,28 @@ const favoriteSlice = createSlice({
         favorites,
       };
     },
-    setCurrentPage: (state, action: PayloadAction<number>) => ({
+    setCurrentPage: (state, { payload }: PayloadAction<number>) => ({
       ...state,
-      currentPage: action.payload,
+      currentPage: payload,
     }),
-    setPageCount: (state, action: PayloadAction<number>) => ({
-      ...state,
-      pageCount: action.payload,
-    }),
-    setRecordsPerPage: (state, action: PayloadAction<WordsPerPage>) => {
-      localStorage.setItem("favoritesPerPage", JSON.stringify(action.payload));
+    setRecordsPerPage: (state, { payload }: PayloadAction<WordsPerPage>) => {
+      localStorage.setItem("favoritesPerPage", JSON.stringify(payload));
 
       return {
         ...state,
-        recordsPerPage: action.payload,
+        recordsPerPage: payload,
       };
     },
-    setSearchedText: (state, action: PayloadAction<string>) => ({
+    setSearchedText: (state, { payload }: PayloadAction<string>) => ({
       ...state,
-      searchedText: action.payload,
+      searchedText: payload,
     }),
     setPropertyToInitialValue: (
       state,
-      action: PayloadAction<keyof IFavoriteState>
+      { payload }: PayloadAction<keyof IFavoriteState>
     ) => ({
       ...state,
-      [action.payload]: initialFavoriteState[action.payload],
+      [payload]: initialFavoriteState[payload],
     }),
   },
 });

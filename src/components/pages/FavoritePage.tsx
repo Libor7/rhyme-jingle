@@ -8,36 +8,24 @@ import WordCount from "components/UI/WordCount";
 import useFavorite from "hooks/useFavorite";
 import usePaginationSiblings from "hooks/usePaginationSiblings";
 
-/** LIBRARIES */
-import { useCallback } from "react";
-
 /** MODELS */
 import APP_CONTENT from "models/constants";
-
-/** OTHER */
-import { useAppDispatch } from "store";
-import { favoriteActions } from "store/favorite";
 
 /** STYLED COMPONENTS */
 import { StyledPagination } from "components/styled/StyledPagination";
 
 const FavoritePage = () => {
-  const appDispatch = useAppDispatch();
   const {
     currentPage,
     hasPagination,
     pageCount,
     pageChangeHandler,
     searchedText,
+    setSearchedText,
     wordCount,
     wordsToShow,
   } = useFavorite();
   const siblings = usePaginationSiblings();
-
-  const setSearchedText = useCallback(
-    (value: string) => appDispatch(favoriteActions.setSearchedText(value)),
-    [appDispatch]
-  );
 
   return (
     <>

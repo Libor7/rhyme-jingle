@@ -11,13 +11,19 @@ import { type RootState, useAppDispatch } from "store";
 import { archivedActions } from "store/archived";
 
 const useArchive = () => {
-  const { archived, currentPage, pageCount, recordsPerPage, searchedText } =
-    useSelector((state: RootState) => state.archived);
+  const { archived, currentPage, recordsPerPage, searchedText } = useSelector(
+    (state: RootState) => state.archived
+  );
   const appDispatch = useAppDispatch();
 
   useEffect(() => {
     appDispatch(archivedActions.setCurrentPage(INITIAL_PAGE));
   }, [appDispatch, searchedText]);
+
+  const setSearchedText = useCallback(
+    (value: string) => appDispatch(archivedActions.setSearchedText(value)),
+    [appDispatch]
+  );
 
   const archivedFilteredByText = useMemo(
     () => filterByText(archived, searchedText),
@@ -28,12 +34,6 @@ const useArchive = () => {
     searchedText.length > 0 ? archivedFilteredByText : archived;
   const wordCount = archivedWords.length;
   const hasPagination = wordCount > recordsPerPage;
-
-  useEffect(() => {
-    appDispatch(
-      archivedActions.setPageCount(Math.ceil(wordCount / recordsPerPage))
-    );
-  }, [appDispatch, recordsPerPage, wordCount]);
 
   const fromIndex = recordsPerPage * currentPage - recordsPerPage;
   const getCurrentPageWords = useCallback(
@@ -55,9 +55,10 @@ const useArchive = () => {
   return {
     currentPage,
     hasPagination,
-    pageCount,
+    pageCount: Math.ceil(wordCount / recordsPerPage),
     pageChangeHandler,
     searchedText,
+    setSearchedText,
     wordCount,
     wordsToShow,
   };

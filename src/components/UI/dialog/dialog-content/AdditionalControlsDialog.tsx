@@ -9,11 +9,11 @@ import CheckIcon from "@mui/icons-material/Check";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC, useCallback } from "react";
+import { type FC, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
 /** MODELS */
-import { IDialogContent } from "components/other/AdditionalControls";
+import { type IDialogContent } from "components/other/AdditionalControls";
 
 /** OTHER */
 import { useAppDispatch } from "store";

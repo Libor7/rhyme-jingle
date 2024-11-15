@@ -11,18 +11,19 @@ import { filterByText } from "helpers/utils";
 import { favoriteActions } from "store/favorite";
 
 const useFavorite = () => {
-  const { currentPage, favorites, pageCount, recordsPerPage, searchedText } = useSelector(
+  const { currentPage, favorites, recordsPerPage, searchedText } = useSelector(
     (state: RootState) => state.favorite
   );
   const appDispatch = useAppDispatch();
 
   useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
-
-  useEffect(() => {
     appDispatch(favoriteActions.setCurrentPage(INITIAL_PAGE));
   }, [appDispatch, searchedText]);
+
+  const setSearchedText = useCallback(
+    (value: string) => appDispatch(favoriteActions.setSearchedText(value)),
+    [appDispatch]
+  );
 
   const favoritesFilteredByText = useMemo(
     () => filterByText(favorites, searchedText),
@@ -33,12 +34,6 @@ const useFavorite = () => {
     searchedText.length > 0 ? favoritesFilteredByText : favorites;
   const wordCount = favoriteWords.length;
   const hasPagination = wordCount > recordsPerPage;
-
-  useEffect(() => {
-    appDispatch(
-      favoriteActions.setPageCount(Math.ceil(wordCount / recordsPerPage))
-    );
-  }, [appDispatch, recordsPerPage, wordCount]);
 
   const fromIndex = recordsPerPage * currentPage - recordsPerPage;
   const getCurrentPageWords = useCallback(
@@ -60,9 +55,10 @@ const useFavorite = () => {
   return {
     currentPage,
     hasPagination,
-    pageCount,
+    pageCount: Math.ceil(wordCount / recordsPerPage),
     pageChangeHandler,
     searchedText,
+    setSearchedText,
     wordCount,
     wordsToShow,
   };

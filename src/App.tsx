@@ -21,14 +21,9 @@ import { useLocation } from "react-router-dom";
 /** MODELS */
 import { palettes } from "models/constants";
 import { Label, Path, type ILink } from "models/link";
-import { useEffect } from "react";
 
 /** OTHER */
-import { getLocalStorageValue } from "helpers/utils";
-import { RootState, useAppDispatch } from "store";
-import { archivedActions } from "store/archived";
-import { favoriteActions } from "store/favorite";
-import { settingsActions } from "store/settings";
+import { type RootState } from "store";
 
 const links: ILink[] = [
   {
@@ -64,16 +59,9 @@ const StyledDiv = styled("div")(({ theme }) => ({
 }));
 
 const App = () => {
-  const appDispatch = useAppDispatch();
   const location = useLocation();
   const { isExtraSmall, isSmall } = useWindowSize();
   const { colorPalette } = useSelector((state: RootState) => state.settings);
-  const storedArchived = getLocalStorageValue<string[]>("archived", []);
-  const storedFavorites = getLocalStorageValue<string[]>("favorites", []);
-  const storedColorPalette = getLocalStorageValue<string>(
-    "colorPalette",
-    "coffeeBeige"
-  );
 
   const theme = createTheme({
     palette: palettes.get(colorPalette),
@@ -85,18 +73,6 @@ const App = () => {
   const nonactiveLinks = links.filter(
     (link) => link.path !== location.pathname
   );
-
-  useEffect(() => {
-    appDispatch(archivedActions.setArchived(storedArchived));
-  }, [appDispatch, storedArchived]);
-
-  useEffect(() => {
-    appDispatch(favoriteActions.setFavorites(storedFavorites));
-  }, [appDispatch, storedFavorites]);
-
-  useEffect(() => {
-    appDispatch(settingsActions.setColorPalette(storedColorPalette));
-  }, [appDispatch, storedColorPalette]);
 
   return (
     <ThemeProvider theme={theme}>
