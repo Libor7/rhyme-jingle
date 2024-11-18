@@ -6,7 +6,7 @@ import { styled } from "@mui/system";
 
 export const StyledPicker = styled(FormControl)(({ theme }) => ({
   color: theme.palette.primary.main,
-  margin: "1em",
+  margin: "0 1em 1em",
 
   "& > .MuiFormLabel-root": {
     color: theme.palette.primary.main,

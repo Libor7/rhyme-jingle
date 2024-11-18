@@ -1,6 +1,5 @@
 /** COMPONENTS */
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 
@@ -39,9 +38,6 @@ const ThemeColorPicker = () => {
 
   return (
     <StyledPicker>
-      <FormLabel id="color-palette-picker-label">
-        {TEXT_CONTENT.TITLE}
-      </FormLabel>
       <RadioGroup
         aria-labelledby="Color palette picker"
         value={colorPalette}

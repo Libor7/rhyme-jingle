@@ -2,6 +2,7 @@
 import { type SelectChangeEvent } from "@mui/material/Select";
 
 /** CUSTOM COMPONENTS */
+import AccordionWrapper from "components/layout/wrappers/AccordionWrapper";
 import ArchivedAmountPicker from "components/other/ArchivedAmountPicker";
 import ThemeColorPicker from "components/other/ThemeColorPicker";
 import SelectField from "components/UI/SelectField";
@@ -24,6 +25,7 @@ import { searchedActions } from "store/searched";
 import { StyledTypography } from "components/styled/StyledTypography";
 
 const SELECT = APP_CONTENT.SELECTFIELD;
+const COLOR_PICKER = APP_CONTENT.PICKER.THEME_COLOR;
 
 const SettingsPage = () => {
   const appDispatch = useAppDispatch();
@@ -83,7 +85,9 @@ const SettingsPage = () => {
         value={archivedPerPage}
       />
       <ArchivedAmountPicker />
-      <ThemeColorPicker />
+      <AccordionWrapper label={COLOR_PICKER.TITLE}>
+        <ThemeColorPicker />
+      </AccordionWrapper>
     </>
   );
 };
