@@ -6,6 +6,10 @@ import { styled } from "@mui/system";
 
 export const StyledPicker = styled(FormControl)(({ theme }) => ({
   color: theme.palette.primary.main,
+  webkitHyphens: "auto",
+  mozHyphens: "auto",
+  msHyphens: "auto",
+  hyphens: "auto",
   margin: "0 1em 1em",
 
   "& > .MuiFormLabel-root": {

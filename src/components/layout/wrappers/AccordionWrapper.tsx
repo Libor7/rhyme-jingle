@@ -14,9 +14,10 @@ import { type FC, type PropsWithChildren, useState } from "react";
 export const StyledAccordion = styled(Accordion)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.light,
   color: theme.palette.primary.main,
+  margin: "0 1em",
 
   "&.Mui-expanded": {
-    marginTop: 0,
+    margin: "0 1em",
   },
 
   "&:last-of-type": {
