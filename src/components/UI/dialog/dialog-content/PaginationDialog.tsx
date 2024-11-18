@@ -10,12 +10,7 @@ import CheckIcon from "@mui/icons-material/Check";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import {
-  type ChangeEvent,
-  type FC,
-  useCallback,
-  useState,
-} from "react";
+import { type ChangeEvent, type FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
@@ -71,7 +66,7 @@ const PaginationDialog: FC<IPaginationDialogProps> = ({
   open,
 }) => {
   const { currentPage, pageCount } = useSelector(
-    (state: RootState) => state.searched
+    ({ searched }: RootState) => searched
   );
   const appDispatch = useAppDispatch();
   const [pageNum, setPageNum] = useState<number>(currentPage);

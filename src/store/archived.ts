@@ -7,7 +7,11 @@ import { INITIAL_PAGE } from "models/constants";
 import { type IArchiveState } from "models/store";
 
 /** OTHER */
-import { getLocalStorageValue, getReducedArray } from "helpers/utils";
+import {
+  getLocalStorageValue,
+  getReducedArray,
+  removeItemFromArray,
+} from "helpers/utils";
 
 const initialArchivedState: IArchiveState = {
   archived: getLocalStorageValue<string[]>("archived", []),
@@ -40,6 +44,16 @@ const archivedSlice = createSlice({
       return {
         ...state,
         archived,
+      };
+    },
+    removeArchived: (state, { payload }: PayloadAction<string>) => {
+      const newArchived = removeItemFromArray(state.archived, payload);
+
+      localStorage.setItem("archived", JSON.stringify(newArchived));
+
+      return {
+        ...state,
+        archived: newArchived,
       };
     },
     setArchivedAmount: (state, { payload }: PayloadAction<ArchivedAmount>) => {

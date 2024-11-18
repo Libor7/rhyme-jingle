@@ -55,8 +55,8 @@ const AdditionalControlsDialog: FC<IAdditionalControlsDialogProps> = ({
   open,
 }) => {
   const appDispatch = useAppDispatch();
-  const location = useLocation();
-  const isFavoritePage = location.pathname === "/favorite";
+  const { pathname } = useLocation();
+  const isFavoritePage = pathname === "/favorite";
 
   const deleteHandler = useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

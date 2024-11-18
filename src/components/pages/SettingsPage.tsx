@@ -28,13 +28,13 @@ const SELECT = APP_CONTENT.SELECTFIELD;
 const SettingsPage = () => {
   const appDispatch = useAppDispatch();
   const { recordsPerPage: archivedPerPage } = useSelector(
-    (state: RootState) => state.archived
+    ({ archived }: RootState) => archived
   );
   const { recordsPerPage: searchedPerPage } = useSelector(
-    (state: RootState) => state.searched
+    ({ searched }: RootState) => searched
   );
   const { recordsPerPage: favoritesPerPage } = useSelector(
-    (state: RootState) => state.favorite
+    ({ favorite }: RootState) => favorite
   );
 
   const searchedSelectChangeHandler = ({

@@ -24,7 +24,7 @@ import { StyledPicker } from "components/styled/StyledPicker";
 
 const ArchivedAmountPicker = () => {
   const appDispatch = useAppDispatch();
-  const { archivedAmount } = useSelector((state: RootState) => state.archived);
+  const { archivedAmount } = useSelector(({ archived }: RootState) => archived);
 
   const archivedAmountChangeHandler = ({
     target,

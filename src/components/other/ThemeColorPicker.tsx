@@ -25,10 +25,12 @@ const TEXT_CONTENT = APP_CONTENT.PICKER.THEME_COLOR;
 
 const ThemeColorPicker = () => {
   const appDispatch = useAppDispatch();
-  const { colorPalette } = useSelector((state: RootState) => state.settings);
+  const { colorPalette } = useSelector(({ settings }: RootState) => settings);
 
-  const colorPaletteChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    appDispatch(settingsActions.setColorPalette(event.target.value));
+  const colorPaletteChangeHandler = ({
+    target,
+  }: ChangeEvent<HTMLInputElement>) => {
+    appDispatch(settingsActions.setColorPalette(target.value));
   };
 
   const colorPaletteKeyHandler = (key: string, val: string) => {

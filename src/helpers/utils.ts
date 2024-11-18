@@ -32,6 +32,7 @@ export const filterByText = (words: string[], text: string) =>
     : words.filter(
         (word) =>
           word
+            .toLowerCase()
             .slice(-text.length)
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "") ===

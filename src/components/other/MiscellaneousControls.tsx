@@ -36,30 +36,30 @@ const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
   hasPagination,
   totalWordsFound,
 }) => {
-  const { candidates } = useSelector((state: RootState) => state.favorite);
+  const { candidates } = useSelector(({ favorite }: RootState) => favorite);
   const appDispatch = useAppDispatch();
   const [modalShown, setModalShown] = useState<boolean>(false);
 
   const hasCandidates = candidates.length > 0;
 
   const resetWordsFound = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    ({ currentTarget }: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       appDispatch(searchedActions.setPropertyToInitialValue("lengthFilters"));
       appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
       appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
-      event.currentTarget.blur();
+      currentTarget.blur();
     },
     [appDispatch]
   );
 
   const toggleModal = useCallback(
-    (
-      event:
-        | React.MouseEvent<HTMLButtonElement, MouseEvent>
-        | React.KeyboardEvent<HTMLButtonElement>
-    ) => {
+    ({
+      currentTarget,
+    }:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.KeyboardEvent<HTMLButtonElement>) => {
       setModalShown((prevState) => !prevState);
-      event.currentTarget.blur();
+      currentTarget.blur();
     },
     []
   );
@@ -70,9 +70,10 @@ const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
     [toggleModal]
   );
 
-  const addToFavoritesKeyHandler = (
-    event: React.KeyboardEvent<HTMLButtonElement>
-  ) => event.key === "Enter" && addToFavorites();
+  const addToFavoritesKeyHandler = ({
+    key,
+  }: React.KeyboardEvent<HTMLButtonElement>) =>
+    key === "Enter" && addToFavorites();
 
   const addToFavorites = () => {
     appDispatch(favoriteActions.addFavorites());

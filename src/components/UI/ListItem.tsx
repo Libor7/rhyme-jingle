@@ -9,11 +9,16 @@ import LinkItemActions from "./LinkItemActions";
 import { styled } from "@mui/system";
 import { type FC, useCallback } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+/** MODELS */
+import { Path } from "models/link";
 
 /** OTHER */
 import { hasArrayElement } from "helpers/utils";
 import { type RootState, useAppDispatch } from "store";
 import { favoriteActions } from "store/favorite";
+import { searchedActions } from "store/searched";
 
 const StyledMUIListItem = styled(MUIListItem)<IStyledMUIListItemProps>(
   ({ theme, favoritecandidate }) => ({
@@ -56,39 +61,47 @@ interface IListItemProps {
 }
 
 const ListItem: FC<IListItemProps> = ({ label }) => {
+  const { archived } = useSelector(({ archived }: RootState) => archived);
   const { candidates, favorites } = useSelector(
-    (state: RootState) => state.favorite
+    ({ favorite }: RootState) => favorite
   );
   const appDispatch = useAppDispatch();
+  const { push } = useHistory();
 
-  const isFavoriteCandidate = hasArrayElement(candidates, label);
+  const isArchived = hasArrayElement(archived, label);
+  const isCandidate = hasArrayElement(candidates, label);
   const isFavorite = hasArrayElement(favorites, label);
 
   const toggleCandidate = useCallback(() => {
     if (isFavorite) return;
 
-    isFavoriteCandidate
+    if (isArchived) {
+      appDispatch(searchedActions.setSearchedText(label));
+      return push({ pathname: Path.SEARCH, search: `?archived_text=${label}` });
+    }
+
+    isCandidate
       ? appDispatch(favoriteActions.removeCandidate(label))
       : appDispatch(favoriteActions.addCandidate(label));
-  }, [appDispatch, isFavorite, isFavoriteCandidate, label]);
+  }, [isFavorite, isArchived, isCandidate, appDispatch, label, push]);
 
   const itemClickHandler = useCallback(
-    (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-      event.currentTarget.blur();
+    ({ currentTarget }: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
+      currentTarget.blur();
       toggleCandidate();
     },
     [toggleCandidate]
   );
 
   const itemKeyHandler = useCallback(
-    (event: React.KeyboardEvent<HTMLLIElement>) =>
-      event.key === "Enter" && toggleCandidate(),
+    ({ key }: React.KeyboardEvent<HTMLLIElement>) =>
+      key === "Enter" && toggleCandidate(),
     [toggleCandidate]
   );
 
   return (
     <StyledMUIListItem
-      favoritecandidate={isFavoriteCandidate ? 1 : 0}
+      favoritecandidate={isCandidate ? 1 : 0}
       onClick={itemClickHandler}
       onKeyDown={itemKeyHandler}
       sx={{ boxShadow: 3 }}
@@ -97,7 +110,7 @@ const ListItem: FC<IListItemProps> = ({ label }) => {
       <StyledListItemText lang="sk">{label}</StyledListItemText>
       <LinkItemActions
         isFavorite={isFavorite}
-        isFavoriteCandidate={isFavoriteCandidate}
+        isCandidate={isCandidate}
         label={label}
       />
     </StyledMUIListItem>

@@ -12,7 +12,7 @@ import { favoriteActions } from "store/favorite";
 
 const useFavorite = () => {
   const { currentPage, favorites, recordsPerPage, searchedText } = useSelector(
-    (state: RootState) => state.favorite
+    ({ favorite }: RootState) => favorite
   );
   const appDispatch = useAppDispatch();
 

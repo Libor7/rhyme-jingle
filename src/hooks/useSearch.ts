@@ -1,6 +1,7 @@
 /** LIBRARIES */
 import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 /** MODELS */
 import { INITIAL_PAGE } from "models/constants";
@@ -26,8 +27,15 @@ const useSearch = () => {
     recordsPerPage,
     removedWords,
     searchedText,
-  } = useSelector((state: RootState) => state.searched);
+  } = useSelector(({ searched }: RootState) => searched);
   const appDispatch = useAppDispatch();
+  const { search } = useLocation();
+  const searchParams = useMemo(() => new URLSearchParams(search), [search]);
+  const archivedText = searchParams.get("archived_text");
+
+  useEffect(() => {
+    archivedText && appDispatch(searchedActions.setSearchedText(archivedText));
+  }, [appDispatch, archivedText]);
 
   useEffect(() => {
     currentPage > pageCount &&
@@ -39,7 +47,8 @@ const useSearch = () => {
     appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
     appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
     appDispatch(searchedActions.setCurrentPage(INITIAL_PAGE));
-    searchedText.length > 0 && appDispatch(archivedActions.setArchived([searchedText]));
+    searchedText.length > 0 &&
+      appDispatch(archivedActions.setArchived([searchedText]));
   }, [appDispatch, searchedText]);
 
   useEffect(() => {

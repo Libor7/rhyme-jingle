@@ -12,7 +12,7 @@ import { archivedActions } from "store/archived";
 
 const useArchive = () => {
   const { archived, currentPage, recordsPerPage, searchedText } = useSelector(
-    (state: RootState) => state.archived
+    ({ archived }: RootState) => archived
   );
   const appDispatch = useAppDispatch();
 

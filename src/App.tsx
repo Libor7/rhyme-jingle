@@ -59,9 +59,9 @@ const StyledDiv = styled("div")(({ theme }) => ({
 }));
 
 const App = () => {
-  const location = useLocation();
+  const { pathname } = useLocation();
   const { isExtraSmall, isSmall } = useWindowSize();
-  const { colorPalette } = useSelector((state: RootState) => state.settings);
+  const { colorPalette } = useSelector(({ settings }: RootState) => settings);
 
   const theme = createTheme({
     palette: palettes.get(colorPalette),
@@ -70,9 +70,7 @@ const App = () => {
     },
   });
 
-  const nonactiveLinks = links.filter(
-    (link) => link.path !== location.pathname
-  );
+  const nonactiveLinks = links.filter((link) => link.path !== pathname);
 
   return (
     <ThemeProvider theme={theme}>

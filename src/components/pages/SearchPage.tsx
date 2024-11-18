@@ -22,7 +22,7 @@ import { StyledPagination } from "components/styled/StyledPagination";
 
 const SearchPage = () => {
   const siblings = usePaginationSiblings();
-  const { candidates } = useSelector((state: RootState) => state.favorite);
+  const { candidates } = useSelector(({ favorite }: RootState) => favorite);
   const {
     currentPage,
     hasPagination,

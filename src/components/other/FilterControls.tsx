@@ -48,7 +48,7 @@ const FilterControls: FC<IFilterControlsProps> = ({
   disposableWords,
   lengths,
 }) => {
-  const { lengthFilters } = useSelector((state: RootState) => state.searched);
+  const { lengthFilters } = useSelector(({ searched }: RootState) => searched);
   const appDispatch = useAppDispatch();
   const { isExtraSmall, isSmall } = useWindowSize();
   const [allFiltersShown, setAllFiltersShown] = useState<boolean>(false);

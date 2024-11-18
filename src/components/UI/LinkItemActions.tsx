@@ -10,10 +10,15 @@ import { styled } from "@mui/system";
 import { type FC, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
+/** MODELS */
+import { Path } from "models/link";
+
 /** OTHER */
+import { hasArrayElement } from "helpers/utils";
 import { useAppDispatch } from "store";
 import { favoriteActions } from "store/favorite";
 import { searchedActions } from "store/searched";
+import { archivedActions } from "store/archived";
 
 const StyledDiv = styled("div")<IStyledDivProps>(
   ({ theme, isFavCandidate }) => ({
@@ -41,30 +46,34 @@ const StyledDiv = styled("div")<IStyledDivProps>(
   })
 );
 
+const removable = [Path.ARCHIVE, Path.SEARCH];
+
 interface IStyledDivProps {
   isFavCandidate: boolean;
 }
 
 interface ILinkItemActionsProps {
   isFavorite: boolean;
-  isFavoriteCandidate: boolean;
+  isCandidate: boolean;
   label: string;
 }
 
 const LinkItemActions: FC<ILinkItemActionsProps> = ({
   isFavorite,
-  isFavoriteCandidate,
+  isCandidate,
   label,
 }) => {
   const appDispatch = useAppDispatch();
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  const isSearchPage = location.pathname === "/search";
+  const isRemovable = hasArrayElement(removable, pathname);
 
   const removeItem = useCallback(() => {
-    appDispatch(searchedActions.removeListedWord(label));
+    pathname === Path.ARCHIVE
+      ? appDispatch(archivedActions.removeArchived(label))
+      : appDispatch(searchedActions.removeListedWord(label));
     appDispatch(favoriteActions.removeCandidate(label));
-  }, [appDispatch, label]);
+  }, [appDispatch, label, pathname]);
 
   const removeFavorite = useCallback(() => {
     appDispatch(favoriteActions.removeFavorite(label));
@@ -103,7 +112,7 @@ const LinkItemActions: FC<ILinkItemActionsProps> = ({
   );
 
   return (
-    <StyledDiv isFavCandidate={isFavoriteCandidate}>
+    <StyledDiv isFavCandidate={isCandidate}>
       {isFavorite && (
         <IconButton
           aria-label="favorite icon"
@@ -115,7 +124,7 @@ const LinkItemActions: FC<ILinkItemActionsProps> = ({
           <StarBorderIcon fontSize="inherit" />
         </IconButton>
       )}
-      {isSearchPage && (
+      {isRemovable && (
         <IconButton
           aria-label="delete icon"
           disableRipple
