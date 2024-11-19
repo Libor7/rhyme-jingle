@@ -1,10 +1,14 @@
 /** COMPONENTS */
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 
 /** CUSTOM COMPONENTS */
 import PickerItemWrapper from "components/layout/wrappers/PickerItemWrapper";
+
+/** HOOKS */
+import useWindowSize from "hooks/useWindowSize";
 
 /** LIBRARIES */
 import { type ChangeEvent } from "react";
@@ -24,7 +28,10 @@ const TEXT_CONTENT = APP_CONTENT.PICKER.THEME_COLOR;
 
 const ThemeColorPicker = () => {
   const appDispatch = useAppDispatch();
+  const { isExtraSmall, isSmall } = useWindowSize();
   const { colorPalette } = useSelector(({ settings }: RootState) => settings);
+
+  const isLargeDevice = !(isExtraSmall || isSmall);
 
   const colorPaletteChangeHandler = ({
     target,
@@ -38,7 +45,13 @@ const ThemeColorPicker = () => {
 
   return (
     <StyledPicker>
+      {isLargeDevice && (
+        <FormLabel id="color-palette-picker-label">
+          {TEXT_CONTENT.TITLE}
+        </FormLabel>
+      )}
       <RadioGroup
+        row={isLargeDevice}
         aria-labelledby="Color palette picker"
         value={colorPalette}
         onChange={colorPaletteChangeHandler}

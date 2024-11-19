@@ -36,6 +36,14 @@ const StyledMUIListItem = styled(MUIListItem)<IStyledMUIListItemProps>(
         : theme.palette.primary.dark,
       outline: "none",
     },
+
+    [theme.breakpoints.up("sm")]: {
+      width: "calc((100% - 0.5em) / 2)",
+    },
+
+    [theme.breakpoints.up("md")]: {
+      width: "calc((100% - 1em) / 3)",
+    },
   })
 );
 

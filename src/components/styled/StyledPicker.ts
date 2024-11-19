@@ -10,7 +10,7 @@ export const StyledPicker = styled(FormControl)(({ theme }) => ({
   mozHyphens: "auto",
   msHyphens: "auto",
   hyphens: "auto",
-  margin: "0 1em 1em",
+  padding: "0.75em",
 
   "& > .MuiFormLabel-root": {
     color: theme.palette.primary.main,

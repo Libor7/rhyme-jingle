@@ -13,7 +13,15 @@ import { WordsPerPage } from "models/common";
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
   margin: "1em 0.75em",
-  minWidth: "80%",
+  width: "80%",
+
+  [theme.breakpoints.up("sm")]: {
+    width: "calc((100% - 3em) / 2)",
+  },
+
+  [theme.breakpoints.up("md")]: {
+    width: "calc((100% - 4.5em) / 3)",
+  },
 
   "& > .MuiInputBase-root": {
     color: theme.palette.primary.main,

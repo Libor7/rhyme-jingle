@@ -18,6 +18,10 @@ const StyledMain = styled("main")(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
   flexGrow: 1,
   padding: "1em 0.75em",
+
+  [theme.breakpoints.up("sm")]: {
+    padding: "1em calc(0.75em + 10%)",
+  },
 }));
 
 const StyledCircularProgress = styled(CircularProgress)(({ theme }) => ({

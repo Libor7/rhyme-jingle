@@ -1,5 +1,6 @@
 /** CUSTOM COMPONENTS */
 import Buttons from "components/UI/Buttons";
+import FlexboxWrapper from "components/layout/wrappers/FlexboxWrapper";
 import List from "components/UI/List";
 import SearchField from "components/UI/SearchField";
 import WordCount from "components/UI/WordCount";
@@ -45,15 +46,17 @@ const SearchPage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
-      {searchedText.length >= MINIMAL_STRING_LENGTH && (
-        <WordCount adjectives={["nájdených", "nájdené"]} count={wordCount} />
-      )}
-      {!!candidates.length && (
-        <WordCount
-          adjectives={["obľúbených", "obľúbené"]}
-          count={candidates.length}
-        />
-      )}
+      <FlexboxWrapper>
+        {searchedText.length >= MINIMAL_STRING_LENGTH && (
+          <WordCount adjectives={["nájdených", "nájdené"]} count={wordCount} />
+        )}
+        {!!candidates.length && (
+          <WordCount
+            adjectives={["obľúbených", "obľúbené"]}
+            count={candidates.length}
+          />
+        )}
+      </FlexboxWrapper>
       <Buttons
         disposableWords={wordsFilteredByRemovedWords}
         hasPagination={hasPagination}

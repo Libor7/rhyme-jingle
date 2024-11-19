@@ -24,7 +24,7 @@ const StyledUl = styled("ul")<IStyledProps>(({ theme, row }) => ({
   padding: 0,
 
   [theme.breakpoints.up("md")]: {
-    margin: "1.5em 0",
+    margin: "1.5em 1.5em",
   },
 }));
 

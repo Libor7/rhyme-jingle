@@ -4,8 +4,12 @@ import { type SelectChangeEvent } from "@mui/material/Select";
 /** CUSTOM COMPONENTS */
 import AccordionWrapper from "components/layout/wrappers/AccordionWrapper";
 import ArchivedAmountPicker from "components/other/ArchivedAmountPicker";
+import FlexboxWrapper from "components/layout/wrappers/FlexboxWrapper";
 import ThemeColorPicker from "components/other/ThemeColorPicker";
 import SelectField from "components/UI/SelectField";
+
+/** HOOKS */
+import useWindowSize from "hooks/useWindowSize";
 
 /** LIBRARIES */
 import { useCallback, useMemo } from "react";
@@ -37,6 +41,7 @@ const COLOR_PICKER = APP_CONTENT.PICKER.THEME_COLOR;
 
 const SettingsPage = () => {
   const appDispatch = useAppDispatch();
+  const { isExtraSmall, isSmall } = useWindowSize();
   const { recordsPerPage: archivedPerPage } = useSelector(
     ({ archived }: RootState) => archived
   );
@@ -108,10 +113,16 @@ const SettingsPage = () => {
           value={value}
         />
       ))}
-      <ArchivedAmountPicker />
-      <AccordionWrapper label={COLOR_PICKER.TITLE}>
-        <ThemeColorPicker />
-      </AccordionWrapper>
+      <FlexboxWrapper column>
+        <ArchivedAmountPicker />
+        {isExtraSmall || isSmall ? (
+          <AccordionWrapper label={COLOR_PICKER.TITLE}>
+            <ThemeColorPicker />
+          </AccordionWrapper>
+        ) : (
+          <ThemeColorPicker />
+        )}
+      </FlexboxWrapper>
     </>
   );
 };

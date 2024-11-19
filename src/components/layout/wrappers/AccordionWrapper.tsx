@@ -16,10 +16,6 @@ export const StyledAccordion = styled(Accordion)(({ theme }) => ({
   color: theme.palette.primary.main,
   margin: "0 1em",
 
-  "&.Mui-expanded": {
-    margin: "0 1em",
-  },
-
   "&:last-of-type": {
     borderRadius: 0,
   },
@@ -48,6 +44,26 @@ export const StyledAccordion = styled(Accordion)(({ theme }) => ({
     {
       color: theme.palette.primary.contrastText,
     },
+
+  "& > .MuiCollapse-root:focus-visible": {
+    outline: "none",
+  },
+
+  "& > .MuiCollapse-root > .MuiCollapse-wrapper:focus-visible": {
+    outline: "none",
+  },
+
+  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner:focus-visible": {
+    outline: "none",
+  },
+
+  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner > .MuiAccordion-region:focus-visible": {
+    outline: "none",
+  },
+
+  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner > .MuiAccordion-region > .MuiAccordionDetails-root:focus-visible": {
+    outline: "none",
+  },
 }));
 
 interface AccordionWrapperProps {

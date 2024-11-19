@@ -18,6 +18,10 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   justifyContent: "center",
   outline: "unset",
 
+  [theme.breakpoints.up("lg")]: {
+    width: "60%",
+  },
+
   "& .MuiInputBase-root:focus, & .MuiInputBase-root:focus-visible, & .MuiInputBase-root:focus-within":
     {
       outline: "unset",

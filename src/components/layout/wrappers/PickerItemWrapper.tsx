@@ -9,22 +9,18 @@ const StyledSpan = styled("span")(() => ({
     },
 
   "& > .MuiFormControlLabel-root > span.MuiTypography-root:hover": {
-    fontSize: "1.5em",
     fontWeight: "600",
   },
 
   "& > .MuiFormControlLabel-root:focus > span.MuiTypography-root": {
-    fontSize: "1.5em",
     fontWeight: "600",
   },
 
   "& > .MuiFormControlLabel-root:focus-visible > span.MuiTypography-root": {
-    fontSize: "1.5em",
     fontWeight: "600",
   },
 
   "& > .MuiFormControlLabel-root:focus-within > span.MuiTypography-root": {
-    fontSize: "1.5em",
     fontWeight: "600",
   },
 }));
