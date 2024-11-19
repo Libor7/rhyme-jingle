@@ -13,17 +13,17 @@ const StyledSpan = styled("span")(() => ({
     fontWeight: "600",
   },
 
-  "& > .MuiFormControlLabel-root > span.MuiTypography-root:focus": {
+  "& > .MuiFormControlLabel-root:focus > span.MuiTypography-root": {
     fontSize: "1.5em",
     fontWeight: "600",
   },
 
-  "& > .MuiFormControlLabel-root > span.MuiTypography-root:focus-visible": {
+  "& > .MuiFormControlLabel-root:focus-visible > span.MuiTypography-root": {
     fontSize: "1.5em",
     fontWeight: "600",
   },
 
-  "& > .MuiFormControlLabel-root > span.MuiTypography-root:focus-within": {
+  "& > .MuiFormControlLabel-root:focus-within > span.MuiTypography-root": {
     fontSize: "1.5em",
     fontWeight: "600",
   },

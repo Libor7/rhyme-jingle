@@ -28,8 +28,8 @@ const StyledFormControl = styled(FormControl)(({ theme }) => ({
     border: `1px solid ${theme.palette.primary.main}`,
   },
 
-  "& > .MuiInputBase-root > fieldset:hover": {
-    border: `1px solid ${theme.palette.primary.dark}`,
+  "& > .MuiInputBase-root:hover > fieldset": {
+    border: `2px solid ${theme.palette.primary.main}`,
   },
 }));
 

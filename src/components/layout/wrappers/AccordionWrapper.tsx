@@ -23,6 +23,31 @@ export const StyledAccordion = styled(Accordion)(({ theme }) => ({
   "&:last-of-type": {
     borderRadius: 0,
   },
+
+  "& > .MuiAccordion-heading > .MuiButtonBase-root.MuiAccordionSummary-root:hover":
+    {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+    },
+
+  "& > .MuiAccordion-heading > .MuiButtonBase-root.MuiAccordionSummary-root.Mui-focusVisible":
+    {
+      backgroundColor: theme.palette.primary.main,
+      color: theme.palette.primary.contrastText,
+    },
+
+  "& .MuiAccordionSummary-expandIconWrapper": {
+    color: theme.palette.primary.main,
+  },
+
+  "& > .MuiAccordion-heading:hover .MuiAccordionSummary-expandIconWrapper": {
+    color: theme.palette.primary.contrastText,
+  },
+
+  "& > .MuiAccordion-heading > .MuiButtonBase-root.MuiAccordionSummary-root.Mui-focusVisible > .MuiAccordionSummary-expandIconWrapper":
+    {
+      color: theme.palette.primary.contrastText,
+    },
 }));
 
 interface AccordionWrapperProps {

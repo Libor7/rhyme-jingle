@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 /** MODELS */
-import { INITIAL_PAGE } from "models/constants";
+import { INITIAL_PAGE, MINIMAL_STRING_LENGTH } from "models/constants";
 
 /** OTHER */
 import { type RootState, useAppDispatch } from "store";
@@ -47,7 +47,7 @@ const useSearch = () => {
     appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
     appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
     appDispatch(searchedActions.setCurrentPage(INITIAL_PAGE));
-    searchedText.length > 0 &&
+    searchedText.length >= MINIMAL_STRING_LENGTH &&
       appDispatch(archivedActions.setArchived([searchedText]));
   }, [appDispatch, searchedText]);
 
