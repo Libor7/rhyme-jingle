@@ -53,17 +53,20 @@ export const StyledAccordion = styled(Accordion)(({ theme }) => ({
     outline: "none",
   },
 
-  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner:focus-visible": {
-    outline: "none",
-  },
+  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner:focus-visible":
+    {
+      outline: "none",
+    },
 
-  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner > .MuiAccordion-region:focus-visible": {
-    outline: "none",
-  },
+  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner > .MuiAccordion-region:focus-visible":
+    {
+      outline: "none",
+    },
 
-  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner > .MuiAccordion-region > .MuiAccordionDetails-root:focus-visible": {
-    outline: "none",
-  },
+  "& > .MuiCollapse-root > .MuiCollapse-wrapper > .MuiCollapse-wrapperInner > .MuiAccordion-region > .MuiAccordionDetails-root:focus-visible":
+    {
+      outline: "none",
+    },
 }));
 
 interface AccordionWrapperProps {
@@ -76,12 +79,10 @@ const AccordionWrapper: FC<PropsWithChildren<AccordionWrapperProps>> = ({
 }) => {
   const [open, setOpen] = useState<boolean>(false);
 
-  const toggleAccordion = () => setOpen((prevState) => !prevState);
-
   return (
     <StyledAccordion
       expanded={open}
-      onChange={toggleAccordion}
+      onChange={() => setOpen((prevState) => !prevState)}
       sx={{ boxShadow: 4 }}
     >
       <AccordionSummary

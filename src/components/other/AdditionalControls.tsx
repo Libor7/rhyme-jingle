@@ -96,9 +96,10 @@ const AdditionalControls: FC<IAdditionalControlsProps> = ({
     []
   );
 
-  const toggleModal = useCallback(() => {
-    setModalShown((prevState) => !prevState);
-  }, []);
+  const toggleModal = useCallback(
+    () => setModalShown((prevState) => !prevState),
+    []
+  );
 
   const confirmHandler = useCallback(() => {
     isFavoritePage
@@ -107,12 +108,6 @@ const AdditionalControls: FC<IAdditionalControlsProps> = ({
     checkboxChangeHandler();
     toggleModal();
   }, [appDispatch, checkboxChangeHandler, isFavoritePage, toggleModal]);
-
-  const toggleModalKeyHandler = useCallback(
-    (event: React.KeyboardEvent<HTMLButtonElement>) =>
-      event.key === "Enter" && toggleModal(),
-    [toggleModal]
-  );
 
   return (
     <>
@@ -131,7 +126,7 @@ const AdditionalControls: FC<IAdditionalControlsProps> = ({
             aria-label="remove all items"
             disableRipple
             onClick={toggleModal}
-            onKeyDown={toggleModalKeyHandler}
+            onKeyDown={({ key }) => key === "Enter" && toggleModal()}
           >
             <DeleteIcon fontSize="inherit" />
           </StyledIconButton>

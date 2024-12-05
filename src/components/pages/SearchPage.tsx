@@ -25,10 +25,7 @@ const SearchPage = () => {
   const siblings = usePaginationSiblings();
   const { candidates } = useSelector(({ favorite }: RootState) => favorite);
   const {
-    currentPage,
     hasPagination,
-    pageChangeHandler,
-    pageCount,
     searchedText,
     setSearchedText,
     wordCount,
@@ -36,6 +33,7 @@ const SearchPage = () => {
     wordsFilteredByRemovedWords,
     wordsFilteredByTextCount,
     wordsToShow,
+    ...other
   } = useSearch();
 
   return (
@@ -66,13 +64,11 @@ const SearchPage = () => {
       <List words={wordsToShow} />
       {hasPagination && (
         <StyledPagination
-          count={pageCount}
-          onChange={pageChangeHandler}
-          page={currentPage}
           showFirstButton
           showLastButton
           siblingCount={siblings}
           size="large"
+          {...other}
         />
       )}
     </>

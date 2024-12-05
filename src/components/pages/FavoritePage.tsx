@@ -16,14 +16,12 @@ import { StyledPagination } from "components/styled/StyledPagination";
 
 const FavoritePage = () => {
   const {
-    currentPage,
     hasPagination,
-    pageCount,
-    pageChangeHandler,
     searchedText,
     setSearchedText,
     wordCount,
     wordsToShow,
+    ...other
   } = useFavorite();
   const siblings = usePaginationSiblings();
 
@@ -47,13 +45,11 @@ const FavoritePage = () => {
       <List words={wordsToShow} />
       {hasPagination && (
         <StyledPagination
-          count={pageCount}
-          onChange={pageChangeHandler}
-          page={currentPage}
           showFirstButton
           showLastButton
           siblingCount={siblings}
           size="large"
+          {...other}
         />
       )}
     </>

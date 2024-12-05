@@ -85,14 +85,6 @@ const PaginationDialog: FC<IPaginationDialogProps> = ({
     [pageCount]
   );
 
-  const savePageHandler = useCallback(
-    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      appDispatch(searchedActions.setCurrentPage(pageNum));
-      onDialogClose(event);
-    },
-    [appDispatch, onDialogClose, pageNum]
-  );
-
   return (
     <Dialog
       open={open}
@@ -113,7 +105,7 @@ const PaginationDialog: FC<IPaginationDialogProps> = ({
       </StyledDialogContent>
       <StyledDialogActions>
         <IconButton
-          aria-label="reset"
+          aria-label="close"
           disableRipple
           onClick={onDialogClose}
           role="button"
@@ -122,9 +114,12 @@ const PaginationDialog: FC<IPaginationDialogProps> = ({
           <CloseIcon fontSize="inherit" />
         </IconButton>
         <IconButton
-          aria-label="reset"
+          aria-label="confirm"
           disableRipple
-          onClick={savePageHandler}
+          onClick={(event) => {
+            appDispatch(searchedActions.setCurrentPage(pageNum));
+            onDialogClose(event);
+          }}
           role="button"
           size="large"
         >

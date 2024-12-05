@@ -7,6 +7,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
+import { useTheme } from "@mui/material/styles";
 import { type ChangeEvent, type FC, useCallback, useState } from "react";
 
 /** MODELS */
@@ -71,6 +72,7 @@ interface ISearchFieldProps {
 }
 
 const SearchField: FC<ISearchFieldProps> = ({ setValue, ...restProps }) => {
+  const { palette } = useTheme();
   const [showClearIcon, setShowClearIcon] = useState<DisplayType>("none");
 
   const changeHandler = useCallback(
@@ -94,8 +96,9 @@ const SearchField: FC<ISearchFieldProps> = ({ setValue, ...restProps }) => {
           <InputAdornment
             position="end"
             sx={{
-              display: showClearIcon,
+              color: palette.primary.main,
               cursor: "pointer",
+              display: showClearIcon,
               marginRight: "0.5em",
             }}
             onClick={clearHandler}

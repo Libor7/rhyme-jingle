@@ -101,16 +101,15 @@ const SettingsPage = () => {
   return (
     <>
       <StyledTypography component="h2">{Label.SETTINGS}</StyledTypography>
-      {selectFields.map(({ changeHandler, id, label, value }) => (
+      {selectFields.map(({ changeHandler, id, ...rest }) => (
         <SelectField
-          id={id + "-per-page"}
+          id={id}
           key={id}
-          label={label}
-          labelId={id + "-per-page-label"}
+          labelId={id + "-label"}
           onChange={({ target }: SelectChangeEvent<WordsPerPage>) =>
             changeHandler(target.value as WordsPerPage)
           }
-          value={value}
+          {...rest}
         />
       ))}
       <FlexboxWrapper column>

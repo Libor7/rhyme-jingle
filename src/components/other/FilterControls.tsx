@@ -17,7 +17,7 @@ import { Operator } from "models/common";
 import { DEFAULT_FILTERS_QUANTITY } from "models/constants";
 
 /** OTHER */
-import { RootState, useAppDispatch } from "store";
+import { type RootState, useAppDispatch } from "store";
 import { searchedActions } from "store/searched";
 import {
   containsWordOfLength,
@@ -76,11 +76,6 @@ const FilterControls: FC<IFilterControlsProps> = ({
     [appDispatch]
   );
 
-  const toggleAllFilters = useCallback(
-    () => setAllFiltersShown((prevState) => !prevState),
-    []
-  );
-
   return (
     <StyledSection>
       {wordLengths.length > 1 &&
@@ -104,7 +99,7 @@ const FilterControls: FC<IFilterControlsProps> = ({
           toggleflag={allFiltersShown ? 1 : 0}
           aria-label="toggle filter buttons"
           disableRipple
-          onClick={toggleAllFilters}
+          onClick={() => setAllFiltersShown((prevState) => !prevState)}
         >
           <MoreHorizIcon fontSize="inherit" />
         </StyledIconButton>

@@ -16,14 +16,12 @@ import { StyledPagination } from "components/styled/StyledPagination";
 const ArchivePage = () => {
   const siblings = usePaginationSiblings();
   const {
-    currentPage,
     hasPagination,
-    pageCount,
-    pageChangeHandler,
     searchedText,
     setSearchedText,
     wordCount,
     wordsToShow,
+    ...other
   } = useArchive();
 
   return (
@@ -38,20 +36,17 @@ const ArchivePage = () => {
         count={wordCount}
         dialogContent={{
           title: APP_CONTENT.DIALOG.INFO.DELETE_ALL.TITLE("archivované"),
-          text:
-            APP_CONTENT.DIALOG.INFO.DELETE_ALL.DESCRIPTION("Archivované"),
+          text: APP_CONTENT.DIALOG.INFO.DELETE_ALL.DESCRIPTION("Archivované"),
         }}
       />
       <List words={wordsToShow} />
       {hasPagination && (
         <StyledPagination
-          count={pageCount}
-          onChange={pageChangeHandler}
-          page={currentPage}
           showFirstButton
           showLastButton
           siblingCount={siblings}
           size="large"
+          {...other}
         />
       )}
     </>

@@ -53,10 +53,10 @@ const useFavorite = () => {
   );
 
   return {
-    currentPage,
+    count: Math.ceil(wordCount / recordsPerPage),
     hasPagination,
-    pageCount: Math.ceil(wordCount / recordsPerPage),
-    pageChangeHandler,
+    onChange: pageChangeHandler,
+    page: currentPage,
     searchedText,
     setSearchedText,
     wordCount,

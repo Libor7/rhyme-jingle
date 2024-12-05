@@ -114,10 +114,10 @@ const useSearch = () => {
   );
 
   return {
-    currentPage,
+    count: pageCount,
     hasPagination,
-    pageChangeHandler,
-    pageCount,
+    onChange: pageChangeHandler,
+    page: currentPage,
     searchedText,
     setSearchedText,
     wordCount,
