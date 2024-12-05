@@ -79,46 +79,20 @@ const LinkItemActions: FC<ILinkItemActionsProps> = ({
     appDispatch(favoriteActions.removeFavorite(label));
   }, [appDispatch, label]);
 
-  const removeFavoriteHandler = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      removeFavorite();
-    },
-    [removeFavorite]
-  );
-
-  const removeFavoriteKeyHandler = useCallback(
-    (event: React.KeyboardEvent<HTMLElement>) => {
-      event.stopPropagation();
-      event.key === "Enter" && removeFavorite();
-    },
-    [removeFavorite]
-  );
-
-  const deleteHandler = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      removeItem();
-    },
-    [removeItem]
-  );
-
-  const deleteKeyHandler = useCallback(
-    (event: React.KeyboardEvent<HTMLElement>) => {
-      event.stopPropagation();
-      event.key === "Enter" && removeItem();
-    },
-    [removeItem]
-  );
-
   return (
     <StyledDiv isFavCandidate={isCandidate}>
       {isFavorite && (
         <IconButton
           aria-label="favorite icon"
           disableRipple
-          onClick={removeFavoriteHandler}
-          onKeyDown={removeFavoriteKeyHandler}
+          onClick={(event) => {
+            event.stopPropagation();
+            removeFavorite();
+          }}
+          onKeyDown={(event) => {
+            event.stopPropagation();
+            event.key === "Enter" && removeFavorite();
+          }}
           role="button"
         >
           <StarBorderIcon fontSize="inherit" />
@@ -128,8 +102,14 @@ const LinkItemActions: FC<ILinkItemActionsProps> = ({
         <IconButton
           aria-label="delete icon"
           disableRipple
-          onClick={deleteHandler}
-          onKeyDown={deleteKeyHandler}
+          onClick={(event) => {
+            event.stopPropagation();
+            removeItem();
+          }}
+          onKeyDown={(event) => {
+            event.stopPropagation();
+            event.key === "Enter" && removeItem();
+          }}
           role="button"
         >
           <DeleteIcon fontSize="inherit" />

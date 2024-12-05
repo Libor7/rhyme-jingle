@@ -11,7 +11,6 @@ import PickerItemWrapper from "components/layout/wrappers/PickerItemWrapper";
 import useWindowSize from "hooks/useWindowSize";
 
 /** LIBRARIES */
-import { type ChangeEvent } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
@@ -33,16 +32,6 @@ const ThemeColorPicker = () => {
 
   const isLargeDevice = !(isExtraSmall || isSmall);
 
-  const colorPaletteChangeHandler = ({
-    target,
-  }: ChangeEvent<HTMLInputElement>) => {
-    appDispatch(settingsActions.setColorPalette(target.value));
-  };
-
-  const colorPaletteKeyHandler = (key: string, val: string) => {
-    key === "Enter" && appDispatch(settingsActions.setColorPalette(val));
-  };
-
   return (
     <StyledPicker>
       {isLargeDevice && (
@@ -54,14 +43,19 @@ const ThemeColorPicker = () => {
         row={isLargeDevice}
         aria-labelledby="Color palette picker"
         value={colorPalette}
-        onChange={colorPaletteChangeHandler}
+        onChange={({ target }) =>
+          appDispatch(settingsActions.setColorPalette(target.value))
+        }
       >
         {Object.values(TEXT_CONTENT.CONTROLS).map(({ LABEL, VALUE }) => (
           <PickerItemWrapper key={VALUE}>
             <FormControlLabel
               control={<Radio />}
               label={LABEL}
-              onKeyDown={({ key }) => colorPaletteKeyHandler(key, VALUE)}
+              onKeyDown={({ key }) =>
+                key === "Enter" &&
+                appDispatch(settingsActions.setColorPalette(VALUE))
+              }
               tabIndex={VALUE !== colorPalette ? 0 : undefined}
               value={VALUE}
             />

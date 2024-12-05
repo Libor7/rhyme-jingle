@@ -36,9 +36,10 @@ const ArchivePage = () => {
       />
       <AdditionalControls
         count={wordCount}
-        dialogText={{
-          title: APP_CONTENT.DIALOG.ARCHIVED.TITLE,
-          description: APP_CONTENT.DIALOG.ARCHIVED.DESCRIPTION,
+        dialogContent={{
+          title: APP_CONTENT.DIALOG.INFO.DELETE_ALL.TITLE("archivované"),
+          text:
+            APP_CONTENT.DIALOG.INFO.DELETE_ALL.DESCRIPTION("Archivované"),
         }}
       />
       <List words={wordsToShow} />

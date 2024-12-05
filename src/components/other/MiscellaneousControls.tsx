@@ -64,21 +64,10 @@ const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
     []
   );
 
-  const toggleModalKeyHandler = useCallback(
-    (event: React.KeyboardEvent<HTMLButtonElement>) =>
-      event.key === "Enter" && toggleModal(event),
-    [toggleModal]
-  );
-
-  const addToFavoritesKeyHandler = ({
-    key,
-  }: React.KeyboardEvent<HTMLButtonElement>) =>
-    key === "Enter" && addToFavorites();
-
-  const addToFavorites = () => {
+  const addToFavorites = useCallback(() => {
     appDispatch(favoriteActions.addFavorites());
     appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
-  };
+  }, [appDispatch]);
 
   return (
     <StyledSection>
@@ -96,7 +85,7 @@ const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
           aria-label="add favorites"
           disableRipple
           onClick={addToFavorites}
-          onKeyDown={addToFavoritesKeyHandler}
+          onKeyDown={({ key }) => key === "Enter" && addToFavorites()}
         >
           <StarBorderIcon fontSize="inherit" />
         </StyledIconButton>
@@ -106,7 +95,7 @@ const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
           aria-label="switch pagination"
           disableRipple
           onClick={toggleModal}
-          onKeyDown={toggleModalKeyHandler}
+          onKeyDown={(event) => event.key === "Enter" && toggleModal(event)}
         >
           <AutoStoriesIcon fontSize="inherit" />
         </StyledIconButton>

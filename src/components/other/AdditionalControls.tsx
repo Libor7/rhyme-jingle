@@ -3,18 +3,24 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 
 /** CUSTOM COMPONENTS */
-import AdditionalControlsDialog from "components/UI/dialog/dialog-content/AdditionalControlsDialog";
+import InfoDialog from "components/UI/dialog/dialog-content/InfoDialog";
 import Modal from "components/UI/dialog/Modal";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { FC, useCallback, useState } from "react";
+import { type FC, useCallback, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 /** ICONS */
 import DeleteIcon from "@mui/icons-material/Delete";
 
 /** MODELS */
 import APP_CONTENT from "models/constants";
+
+/** OTHER */
+import { archivedActions } from "store/archived";
+import { favoriteActions } from "store/favorite";
+import { useAppDispatch } from "store";
 
 /** STYLED COMPONENTS */
 import { StyledIconButton } from "components/styled/StyledIconButton";
@@ -66,47 +72,45 @@ interface IStyledFormControlLabelProps {
 
 export interface IDialogContent {
   title: string;
-  description: string;
+  text: string;
 }
 
 interface IAdditionalControlsProps {
   count: number;
-  dialogText: IDialogContent;
+  dialogContent: IDialogContent;
 }
 
 const AdditionalControls: FC<IAdditionalControlsProps> = ({
   count,
-  dialogText,
+  dialogContent,
 }) => {
+  const appDispatch = useAppDispatch();
+  const { pathname } = useLocation();
   const [checked, setChecked] = useState<boolean>(false);
   const [modalShown, setModalShown] = useState<boolean>(false);
+
+  const isFavoritePage = pathname === "/favorite";
 
   const checkboxChangeHandler = useCallback(
     () => setChecked((prevState) => !prevState),
     []
   );
 
-  const checkboxKeyHandler = useCallback(
-    (event: React.KeyboardEvent<HTMLLabelElement>) =>
-      event.key === "Enter" && checkboxChangeHandler(),
-    [checkboxChangeHandler]
-  );
+  const toggleModal = useCallback(() => {
+    setModalShown((prevState) => !prevState);
+  }, []);
 
-  const toggleModal = useCallback(
-    (
-      event:
-        | React.MouseEvent<HTMLButtonElement, MouseEvent>
-        | React.KeyboardEvent<HTMLButtonElement>
-    ) => {
-      setModalShown((prevState) => !prevState);
-      event.currentTarget.blur();
-    },
-    []
-  );
+  const confirmHandler = useCallback(() => {
+    isFavoritePage
+      ? appDispatch(favoriteActions.setFavorites([]))
+      : appDispatch(archivedActions.setArchived([]));
+    checkboxChangeHandler();
+    toggleModal();
+  }, [appDispatch, checkboxChangeHandler, isFavoritePage, toggleModal]);
 
   const toggleModalKeyHandler = useCallback(
     (event: React.KeyboardEvent<HTMLButtonElement>) =>
-      event.key === "Enter" && toggleModal(event),
+      event.key === "Enter" && toggleModal(),
     [toggleModal]
   );
 
@@ -119,7 +123,7 @@ const AdditionalControls: FC<IAdditionalControlsProps> = ({
             control={<Checkbox size="large" />}
             label={APP_CONTENT.CHECKBOXFIELD.LABEL}
             onChange={checkboxChangeHandler}
-            onKeyDown={checkboxKeyHandler}
+            onKeyDown={({ key }) => key === "Enter" && checkboxChangeHandler()}
           />
         )}
         {count > 0 && checked && (
@@ -135,11 +139,12 @@ const AdditionalControls: FC<IAdditionalControlsProps> = ({
       </StyledSection>
       {modalShown && (
         <Modal>
-          <AdditionalControlsDialog
-            dialogText={dialogText}
+          <InfoDialog
+            onClose={toggleModal}
+            onConfirm={() => confirmHandler()}
             open={modalShown}
-            onCheckboxClose={checkboxChangeHandler}
-            onDialogClose={toggleModal}
+            text={dialogContent.text}
+            title={dialogContent.title}
           />
         </Modal>
       )}

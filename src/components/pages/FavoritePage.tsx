@@ -38,9 +38,10 @@ const FavoritePage = () => {
       <WordCount adjectives={["obľúbených", "obľúbené"]} count={wordCount} />
       <AdditionalControls
         count={wordCount}
-        dialogText={{
-          title: APP_CONTENT.DIALOG.FAVORITE.TITLE,
-          description: APP_CONTENT.DIALOG.FAVORITE.DESCRIPTION,
+        dialogContent={{
+          title: APP_CONTENT.DIALOG.INFO.DELETE_ALL.TITLE("obľúbené"),
+          text:
+            APP_CONTENT.DIALOG.INFO.DELETE_ALL.DESCRIPTION("Obľúbené"),
         }}
       />
       <List words={wordsToShow} />

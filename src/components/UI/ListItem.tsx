@@ -93,25 +93,14 @@ const ListItem: FC<IListItemProps> = ({ label }) => {
       : appDispatch(favoriteActions.addCandidate(label));
   }, [isFavorite, isArchived, isCandidate, appDispatch, label, push]);
 
-  const itemClickHandler = useCallback(
-    ({ currentTarget }: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-      currentTarget.blur();
-      toggleCandidate();
-    },
-    [toggleCandidate]
-  );
-
-  const itemKeyHandler = useCallback(
-    ({ key }: React.KeyboardEvent<HTMLLIElement>) =>
-      key === "Enter" && toggleCandidate(),
-    [toggleCandidate]
-  );
-
   return (
     <StyledMUIListItem
       favoritecandidate={isCandidate ? 1 : 0}
-      onClick={itemClickHandler}
-      onKeyDown={itemKeyHandler}
+      onClick={({ currentTarget }) => {
+        currentTarget.blur();
+        toggleCandidate();
+      }}
+      onKeyDown={({ key }) => key === "Enter" && toggleCandidate()}
       sx={{ boxShadow: 3 }}
       tabIndex={0}
     >

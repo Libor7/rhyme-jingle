@@ -100,7 +100,7 @@ const PaginationDialog: FC<IPaginationDialogProps> = ({
       aria-labelledby="searched-dialog-title"
     >
       <StyledDialogTitle id="searched-dialog-title">
-        {APP_CONTENT.DIALOG.SEARCHED.TITLE}
+        {APP_CONTENT.DIALOG.INFO.MOVE_TO_PAGE}
       </StyledDialogTitle>
       <StyledDialogContent>
         <StyledTextField
