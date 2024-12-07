@@ -23,8 +23,8 @@ const StyledHeader = styled("header")(({ theme }) => ({
 
   [theme.breakpoints.up("md")]: {
     flexDirection: "column",
-    textAlign: "center",
     minWidth: "200px",
+    textAlign: "center",
   },
 }));
 

@@ -16,12 +16,15 @@ const WordCount: FC<IWordCountProps> = ({ adjectives, count }) => {
   return (
     <StyledTypography component="h2">
       <motion.span
-        animate={{ fontSize: ["1em", "1.5em", "1em"] }}
+        animate={{
+          fontSize: ["1em", "1.5em", "1em"],
+          lineHeight: ["1.5em", "1em", "1.5em"],
+        }}
         transition={{ duration: 0.3 }}
       >
         {count}
-      </motion.span>{" "}
-      {text}
+      </motion.span>
+      {` ${text}`}
     </StyledTypography>
   );
 };

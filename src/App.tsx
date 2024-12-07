@@ -51,7 +51,7 @@ const links: ILink[] = [
 const StyledDiv = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  height: "100%",
+  minHeight: "100%",
 
   [theme.breakpoints.up("md")]: {
     flexDirection: "row",
