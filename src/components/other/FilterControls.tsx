@@ -8,6 +8,7 @@ import useWindowSize from "hooks/useWindowSize";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 /** LIBRARIES */
+import { AnimatePresence, motion } from "framer-motion";
 import { styled } from "@mui/system";
 import { type FC, useCallback, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
@@ -29,7 +30,7 @@ import {
 /** STYLED COMPONENTS */
 import { StyledIconButton } from "components/styled/StyledIconButton";
 
-const StyledSection = styled("section")(() => ({
+const StyledSection = styled(motion.section)(() => ({
   alignContent: "flex-start",
   display: "flex",
   flexDirection: "row",
@@ -77,34 +78,50 @@ const FilterControls: FC<IFilterControlsProps> = ({
   );
 
   return (
-    <StyledSection>
-      {wordLengths.length > 1 &&
-        wordLengths.map((length, index) => {
-          if (!allFiltersShown && hasMoreBtn && index > 1) return null;
-
-          const marked = hasArrayElement(lengthFilters, length);
-          const clickHandler = marked ? removeLengthFilter : addLengthFilter;
-
-          return (
-            <Button
-              isMarked={marked}
-              key={length}
-              length={length}
-              onClick={() => clickHandler(length)}
-            />
-          );
-        })}
-      {hasMoreBtn && (
-        <StyledIconButton
-          toggleflag={allFiltersShown ? 1 : 0}
-          aria-label="toggle filter buttons"
-          disableRipple
-          onClick={() => setAllFiltersShown((prevState) => !prevState)}
+    <>
+      {wordLengths.length > 1 && (
+        <StyledSection
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
+          }}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
         >
-          <MoreHorizIcon fontSize="inherit" />
-        </StyledIconButton>
+          <AnimatePresence>
+            {wordLengths.length > 1 &&
+              wordLengths.map((length, index) => {
+                if (!allFiltersShown && hasMoreBtn && index > 1) return null;
+
+                const marked = hasArrayElement(lengthFilters, length);
+                const clickHandler = marked
+                  ? removeLengthFilter
+                  : addLengthFilter;
+
+                return (
+                  <Button
+                    isMarked={marked}
+                    key={length}
+                    length={length}
+                    onClick={() => clickHandler(length)}
+                  />
+                );
+              })}
+          </AnimatePresence>
+          {hasMoreBtn && (
+            <StyledIconButton
+              toggleflag={allFiltersShown ? 1 : 0}
+              aria-label="toggle filter buttons"
+              disableRipple
+              onClick={() => setAllFiltersShown((prevState) => !prevState)}
+            >
+              <MoreHorizIcon fontSize="inherit" />
+            </StyledIconButton>
+          )}
+        </StyledSection>
       )}
-    </StyledSection>
+    </>
   );
 };
 

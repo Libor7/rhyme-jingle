@@ -26,7 +26,9 @@ const Buttons: FC<IButtonsProps> = ({
 }) => {
   return (
     <StyledSection>
-      <FilterControls disposableWords={disposableWords} lengths={lengths} />
+      {lengths.length > 0 && disposableWords.length > 0 && (
+        <FilterControls disposableWords={disposableWords} lengths={lengths} />
+      )}
       <MiscellaneousControls
         totalWordsFound={totalWordsFound}
         hasPagination={hasPagination}

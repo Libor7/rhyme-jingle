@@ -1,15 +1,16 @@
 /** COMPONENTS */
 import ListItemText from "@mui/material/ListItemText";
-import MUIListItem from "@mui/material/ListItem";
+import MUIListItem, { type ListItemProps } from "@mui/material/ListItem";
 
 /** CUSTOM COMPONENTS */
 import LinkItemActions from "./LinkItemActions";
 
 /** LIBRARIES */
+import { motion } from "framer-motion";
 import { styled } from "@mui/system";
 import { type FC, useCallback } from "react";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 /** MODELS */
 import { Path } from "models/link";
@@ -20,7 +21,19 @@ import { type RootState, useAppDispatch } from "store";
 import { favoriteActions } from "store/favorite";
 import { searchedActions } from "store/searched";
 
-const StyledMUIListItem = styled(MUIListItem)<IStyledMUIListItemProps>(
+const ListItemWithMotion: FC<ListItemProps<"li">> = (props) => (
+  <MUIListItem
+    layout
+    initial={{ opacity: 0, x: -50 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, y: 20 }}
+    transition={{ duration: 0.4 }}
+    component={motion.li}
+    {...props}
+  />
+);
+
+const StyledMUIListItem = styled(ListItemWithMotion)<IStyledMUIListItemProps>(
   ({ theme, favoritecandidate }) => ({
     backgroundColor: favoritecandidate
       ? theme.palette.primary.light
@@ -75,6 +88,7 @@ const ListItem: FC<IListItemProps> = ({ label }) => {
   );
   const appDispatch = useAppDispatch();
   const { push } = useHistory();
+  const { pathname } = useLocation();
 
   const isArchived = hasArrayElement(archived, label);
   const isCandidate = hasArrayElement(candidates, label);
@@ -83,7 +97,7 @@ const ListItem: FC<IListItemProps> = ({ label }) => {
   const toggleCandidate = useCallback(() => {
     if (isFavorite) return;
 
-    if (isArchived) {
+    if (isArchived && pathname === "/archive") {
       appDispatch(searchedActions.setSearchedText(label));
       return push({ pathname: Path.SEARCH, search: `?archived_text=${label}` });
     }
@@ -91,7 +105,7 @@ const ListItem: FC<IListItemProps> = ({ label }) => {
     isCandidate
       ? appDispatch(favoriteActions.removeCandidate(label))
       : appDispatch(favoriteActions.addCandidate(label));
-  }, [isFavorite, isArchived, isCandidate, appDispatch, label, push]);
+  }, [isFavorite, isArchived, pathname, isCandidate, appDispatch, label, push]);
 
   return (
     <StyledMUIListItem

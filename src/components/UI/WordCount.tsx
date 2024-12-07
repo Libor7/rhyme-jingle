@@ -1,4 +1,5 @@
 /** LIBRARIES */
+import { motion } from "framer-motion";
 import { type FC } from "react";
 
 /** STYLED COMPONENTS */
@@ -14,7 +15,13 @@ const WordCount: FC<IWordCountProps> = ({ adjectives, count }) => {
 
   return (
     <StyledTypography component="h2">
-      {count + " " + text}
+      <motion.span
+        animate={{ fontSize: ["1em", "1.5em", "1em"] }}
+        transition={{ duration: 0.3 }}
+      >
+        {count}
+      </motion.span>{" "}
+      {text}
     </StyledTypography>
   );
 };

@@ -44,24 +44,31 @@ const SearchPage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
-      <FlexboxWrapper>
-        {searchedText.length >= MINIMAL_STRING_LENGTH && (
-          <WordCount adjectives={["nájdených", "nájdené"]} count={wordCount} />
-        )}
-        {!!candidates.length && (
+      {searchedText.length >= MINIMAL_STRING_LENGTH && (
+        <FlexboxWrapper>
           <WordCount
-            adjectives={["obľúbených", "obľúbené"]}
-            count={candidates.length}
+            key={wordCount}
+            adjectives={["nájdených", "nájdené"]}
+            count={wordCount}
           />
-        )}
-      </FlexboxWrapper>
-      <Buttons
-        disposableWords={wordsFilteredByRemovedWords}
-        hasPagination={hasPagination}
-        lengths={wordLengths}
-        totalWordsFound={wordsFilteredByTextCount}
-      />
-      <List words={wordsToShow} />
+          {!!candidates.length && (
+            <WordCount
+              key={candidates.length + '-cand'}
+              adjectives={["obľúbených", "obľúbené"]}
+              count={candidates.length}
+            />
+          )}
+        </FlexboxWrapper>
+      )}
+      {wordsFilteredByTextCount > 0 && (
+        <Buttons
+          disposableWords={wordsFilteredByRemovedWords}
+          hasPagination={hasPagination}
+          lengths={wordLengths}
+          totalWordsFound={wordsFilteredByTextCount}
+        />
+      )}
+      {wordsToShow.length > 0 && <List words={wordsToShow} />}
       {hasPagination && (
         <StyledPagination
           showFirstButton

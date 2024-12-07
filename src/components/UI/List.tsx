@@ -5,6 +5,7 @@ import ListItem from "./ListItem";
 import MUIList from "@mui/material/List";
 
 /** LIBRARIES */
+import { AnimatePresence } from "framer-motion";
 import { styled } from "@mui/system";
 import { type FC } from "react";
 
@@ -29,9 +30,11 @@ interface IListProps {
 const List: FC<IListProps> = ({ words }) => {
   return (
     <StyledMUIList>
-      {words.map((word) => (
-        <ListItem key={word} label={word} />
-      ))}
+      <AnimatePresence>
+        {words.map((word) => (
+          <ListItem key={word} label={word} />
+        ))}
+      </AnimatePresence>
     </StyledMUIList>
   );
 };

@@ -33,16 +33,21 @@ const FavoritePage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
-      <WordCount adjectives={["obľúbených", "obľúbené"]} count={wordCount} />
-      <AdditionalControls
+      <WordCount
+        key={wordCount + "-fav"}
+        adjectives={["obľúbených", "obľúbené"]}
         count={wordCount}
-        dialogContent={{
-          title: APP_CONTENT.DIALOG.INFO.DELETE_ALL.TITLE("obľúbené"),
-          text:
-            APP_CONTENT.DIALOG.INFO.DELETE_ALL.DESCRIPTION("Obľúbené"),
-        }}
       />
-      <List words={wordsToShow} />
+      {wordCount > 0 && (
+        <AdditionalControls
+          count={wordCount}
+          dialogContent={{
+            title: APP_CONTENT.DIALOG.INFO.DELETE_ALL.TITLE("obľúbené"),
+            text: APP_CONTENT.DIALOG.INFO.DELETE_ALL.DESCRIPTION("Obľúbené"),
+          }}
+        />
+      )}
+      {wordsToShow.length > 0 && <List words={wordsToShow} />}
       {hasPagination && (
         <StyledPagination
           showFirstButton

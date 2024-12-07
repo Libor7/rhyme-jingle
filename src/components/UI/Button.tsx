@@ -1,7 +1,8 @@
 /** COMPONENTS */
-import MUIButton from "@mui/material/Button";
+import MUIButton, { ButtonProps } from "@mui/material/Button";
 
 /** LIBRARIES */
+import { motion } from "framer-motion";
 import { styled } from "@mui/system";
 import { type FC, type PropsWithChildren, useEffect } from "react";
 
@@ -9,7 +10,21 @@ import { type FC, type PropsWithChildren, useEffect } from "react";
 import { useAppDispatch } from "store";
 import { searchedActions } from "store/searched";
 
-const StyledButton = styled(MUIButton)<IStyledButtonProps>(
+const ButtonWithMotion: FC<ButtonProps<"button">> = (props) => (
+  <MUIButton
+    variants={{
+      hidden: { opacity: 0, scale: 0.5 },
+      visible: { opacity: 1, scale: 1 },
+    }}
+    exit={{ opacity: 0, scale: 0 }}
+    whileHover={{ y: -2 }}
+    transition={{ duration: 0.5 }}
+    component={motion.button}
+    {...props}
+  />
+);
+
+const StyledButton = styled(ButtonWithMotion)<IStyledButtonProps>(
   ({ theme, marked }) => ({
     backgroundColor: marked
       ? theme.palette.primary.light

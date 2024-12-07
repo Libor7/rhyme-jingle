@@ -1,4 +1,5 @@
 /** LIBRARIES */
+import { motion } from "framer-motion";
 import { styled } from "@mui/system";
 import { type FC, type PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
@@ -6,7 +7,7 @@ import { Link } from "react-router-dom";
 /** MODELS */
 import { type IPath } from "models/link";
 
-const StyledLi = styled("li")(({ theme }) => ({
+const StyledLi = styled(motion.li)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   borderRadius: "50%",
 
@@ -29,12 +30,13 @@ const StyledLink = styled(Link)(() => ({
   },
 }));
 
-const MobileLinks: FC<PropsWithChildren<IPath>> = ({
-  children,
-  path,
-}) => {
+const MobileLinks: FC<PropsWithChildren<IPath>> = ({ children, path }) => {
   return (
-    <StyledLi sx={{ boxShadow: 4, "&:active": { boxShadow: 2 } }}>
+    <StyledLi
+      whileHover={{ scale: 1.15 }}
+      transition={{ type: "spring", stiffness: 500 }}
+      sx={{ boxShadow: 4, "&:active": { boxShadow: 2 } }}
+    >
       <StyledLink to={path}>{children}</StyledLink>
     </StyledLi>
   );

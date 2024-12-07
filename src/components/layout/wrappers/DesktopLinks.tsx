@@ -1,4 +1,5 @@
 /** LIBRARIES */
+import { motion } from "framer-motion";
 import { styled } from "@mui/system";
 import { type FC, type PropsWithChildren } from "react";
 import { Link } from "react-router-dom";
@@ -6,7 +7,7 @@ import { Link } from "react-router-dom";
 /** MODELS */
 import { type IPath } from "models/link";
 
-const StyledMenuItem = styled("li")(() => ({
+const StyledMenuItem = styled(motion.li)(() => ({
   flexGrow: 1,
   textAlign: "center",
 
@@ -35,7 +36,10 @@ const StyledMenuItemLink = styled(Link)(({ theme }) => ({
 
 const DesktopLinks: FC<PropsWithChildren<IPath>> = ({ children, path }) => {
   return (
-    <StyledMenuItem>
+    <StyledMenuItem
+      whileHover={{ scale: 1.15 }}
+      transition={{ type: "spring", stiffness: 500 }}
+    >
       <StyledMenuItemLink to={path}>{children}</StyledMenuItemLink>
     </StyledMenuItem>
   );

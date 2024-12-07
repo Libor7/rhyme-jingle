@@ -32,14 +32,16 @@ const ArchivePage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
-      <AdditionalControls
-        count={wordCount}
-        dialogContent={{
-          title: APP_CONTENT.DIALOG.INFO.DELETE_ALL.TITLE("archivované"),
-          text: APP_CONTENT.DIALOG.INFO.DELETE_ALL.DESCRIPTION("Archivované"),
-        }}
-      />
-      <List words={wordsToShow} />
+      {wordCount > 0 && (
+        <AdditionalControls
+          count={wordCount}
+          dialogContent={{
+            title: APP_CONTENT.DIALOG.INFO.DELETE_ALL.TITLE("archivované"),
+            text: APP_CONTENT.DIALOG.INFO.DELETE_ALL.DESCRIPTION("Archivované"),
+          }}
+        />
+      )}
+      {wordsToShow.length > 0 && <List words={wordsToShow} />}
       {hasPagination && (
         <StyledPagination
           showFirstButton
