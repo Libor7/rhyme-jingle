@@ -6,6 +6,10 @@ import searchedReducer from "./searched";
 import settingsReducer from "./settings";
 
 const store = configureStore({
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    immutableCheck: { warnAfter: 128 },
+    serializableCheck: { warnAfter: 128 },
+  }),
   reducer: {
     archived: archivedReducer,
     favorite: favoriteReducer,

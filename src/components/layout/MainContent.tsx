@@ -16,6 +16,8 @@ const SettingsPage = lazy(() => import("components/pages/SettingsPage"));
 
 const StyledMain = styled("main")(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
+  display: "flex",
+  flexDirection: "column",
   flexGrow: 1,
   padding: "1em 0.75em",
 

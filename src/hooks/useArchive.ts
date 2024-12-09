@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { INITIAL_PAGE } from "models/constants";
+import { INITIAL_PAGE, MINIMAL_STRING_LENGTH_OTHER } from "models/constants";
 
 /** OTHER */
 import { filterByText } from "helpers/utils";
@@ -26,7 +26,7 @@ const useArchive = () => {
   );
 
   const archivedFilteredByText = useMemo(
-    () => filterByText(archived, searchedText),
+    () => filterByText(archived, searchedText, MINIMAL_STRING_LENGTH_OTHER),
     [archived, searchedText]
   );
 

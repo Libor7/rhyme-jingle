@@ -1,6 +1,7 @@
 /** CUSTOM COMPONENTS */
 import AdditionalControls from "components/other/AdditionalControls";
 import List from "components/UI/List";
+import NoResultsFound from "components/UI/NoResultsFound";
 import SearchField from "components/UI/SearchField";
 import WordCount from "components/UI/WordCount";
 
@@ -33,11 +34,19 @@ const FavoritePage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
-      <WordCount
-        key={wordCount + "-fav"}
-        adjectives={["obľúbených", "obľúbené"]}
-        count={wordCount}
-      />
+      {searchedText === "" && wordsToShow.length === 0 && (
+        <NoResultsFound
+          heading={APP_CONTENT.HEADINGS.FAVORITE_PAGE}
+          text={APP_CONTENT.TEXT_CONTENT.FAVORITE_PAGE}
+        />
+      )}
+      {(wordCount > 0 || searchedText.length > 0) && (
+        <WordCount
+          key={wordCount + "-fav"}
+          adjectives={["obľúbených", "obľúbené"]}
+          count={wordCount}
+        />
+      )}
       {wordCount > 0 && (
         <AdditionalControls
           count={wordCount}

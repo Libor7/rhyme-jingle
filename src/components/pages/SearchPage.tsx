@@ -2,6 +2,7 @@
 import Buttons from "components/UI/Buttons";
 import FlexboxWrapper from "components/layout/wrappers/FlexboxWrapper";
 import List from "components/UI/List";
+import NoResultsFound from "components/UI/NoResultsFound";
 import SearchField from "components/UI/SearchField";
 import WordCount from "components/UI/WordCount";
 
@@ -13,7 +14,7 @@ import usePaginationSiblings from "hooks/usePaginationSiblings";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import APP_CONTENT, { MINIMAL_STRING_LENGTH } from "models/constants";
+import APP_CONTENT, { MINIMAL_STRING_LENGTH_SEARCH } from "models/constants";
 
 /** OTHER */
 import { type RootState } from "store";
@@ -44,7 +45,13 @@ const SearchPage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
-      {searchedText.length >= MINIMAL_STRING_LENGTH && (
+      {searchedText === "" && (
+        <NoResultsFound
+          heading={APP_CONTENT.HEADINGS.SEARCH_PAGE}
+          text={APP_CONTENT.TEXT_CONTENT.SEARCH_PAGE}
+        />
+      )}
+      {searchedText.length >= MINIMAL_STRING_LENGTH_SEARCH && (
         <FlexboxWrapper>
           <WordCount
             key={wordCount}
@@ -53,7 +60,7 @@ const SearchPage = () => {
           />
           {!!candidates.length && (
             <WordCount
-              key={candidates.length + '-cand'}
+              key={candidates.length + "-cand"}
               adjectives={["obľúbených", "obľúbené"]}
               count={candidates.length}
             />

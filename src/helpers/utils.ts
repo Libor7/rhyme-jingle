@@ -1,6 +1,6 @@
 /** MODELS */
 import { Operator } from "models/common";
-import { MINIMAL_STRING_LENGTH } from "models/constants";
+import { MINIMAL_STRING_LENGTH_SEARCH } from "models/constants";
 
 export const containsWordOfLength = (
   words: string[],
@@ -26,8 +26,12 @@ export const compareWordLength = (
 export const convertWordsToTheirLengths = (words: string[]) =>
   words.map((word) => word.length);
 
-export const filterByText = (words: string[], text: string) =>
-  text.length < MINIMAL_STRING_LENGTH
+export const filterByText = (
+  words: string[],
+  text: string,
+  minLength: number = MINIMAL_STRING_LENGTH_SEARCH
+) =>
+  text.length < minLength
     ? []
     : words.filter(
         (word) =>

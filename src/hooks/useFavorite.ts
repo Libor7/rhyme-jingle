@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 /** MODELS */
-import { INITIAL_PAGE } from "models/constants";
+import { INITIAL_PAGE, MINIMAL_STRING_LENGTH_OTHER } from "models/constants";
 
 /** OTHER */
 import { type RootState, useAppDispatch } from "store";
@@ -26,7 +26,7 @@ const useFavorite = () => {
   );
 
   const favoritesFilteredByText = useMemo(
-    () => filterByText(favorites, searchedText),
+    () => filterByText(favorites, searchedText, MINIMAL_STRING_LENGTH_OTHER),
     [favorites, searchedText]
   );
 

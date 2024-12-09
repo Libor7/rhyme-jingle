@@ -9,7 +9,8 @@ import {
 } from "./color-palettes";
 
 export const INITIAL_PAGE = 1;
-export const MINIMAL_STRING_LENGTH = 2;
+export const MINIMAL_STRING_LENGTH_SEARCH = 2;
+export const MINIMAL_STRING_LENGTH_OTHER = 1;
 export const DEFAULT_FILTERS_QUANTITY = 2;
 
 const APP_CONTENT = {
@@ -32,6 +33,20 @@ const APP_CONTENT = {
   },
   HEADINGS: {
     APPLICATION_TITLE: "Rýmovačka",
+    ARCHIVE_PAGE: "Archív hľadaných výrazov",
+    FAVORITE_PAGE: "Slová označené ako obľúbené",
+    SEARCH_PAGE: "Rýmujúce sa slová",
+  },
+  TEXT_CONTENT: {
+    ARCHIVE_PAGE: "Archív slúži na ukladanie histórie vyhľadávaní",
+    FAVORITE_PAGE: "Úložisko slov pre neskoršie použitie",
+    SEARCH_PAGE: `Aplikácia slúži na vyhľadávanie slov, ktoré majú na konci rovnaký reťazec písmen, čím umožňuje jednoduchšie skladanie veršov. Reťazec "nie" nájde napríklad slová "nie", "znenie", "prekvapenie" atď. Je potrebné zadať aspoň ${MINIMAL_STRING_LENGTH_SEARCH} písmen${
+      MINIMAL_STRING_LENGTH_SEARCH < 2
+        ? "o"
+        : MINIMAL_STRING_LENGTH_SEARCH < 5
+        ? "á"
+        : ""
+    }.`,
   },
   CHECKBOXFIELD: {
     LABEL: "Označ všetky",

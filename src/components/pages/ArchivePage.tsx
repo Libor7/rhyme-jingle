@@ -1,6 +1,7 @@
 /** CUSTOM COMPONENTS */
 import AdditionalControls from "components/other/AdditionalControls";
 import List from "components/UI/List";
+import NoResultsFound from "components/UI/NoResultsFound";
 import SearchField from "components/UI/SearchField";
 
 /** HOOKS */
@@ -32,6 +33,12 @@ const ArchivePage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
+      {searchedText === "" && wordsToShow.length === 0 && (
+        <NoResultsFound
+          heading={APP_CONTENT.HEADINGS.ARCHIVE_PAGE}
+          text={APP_CONTENT.TEXT_CONTENT.ARCHIVE_PAGE}
+        />
+      )}
       {wordCount > 0 && (
         <AdditionalControls
           count={wordCount}
