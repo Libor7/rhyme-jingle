@@ -39,7 +39,8 @@ const APP_CONTENT = {
   },
   TEXT_CONTENT: {
     ARCHIVE_PAGE: "Archív slúži na ukladanie histórie vyhľadávaní",
-    FAVORITE_PAGE: "Úložisko slov pre neskoršie použitie",
+    FAVORITE_PAGE:
+      "Úložisko slov pre neskoršie použitie. Kliknutím nájdené slová označí a kliknutím na tlačídlo s hviezdičkou slová pridá medzi obľúbené.",
     SEARCH_PAGE: `Aplikácia slúži na vyhľadávanie slov, ktoré majú na konci rovnaký reťazec písmen, čím umožňuje jednoduchšie skladanie veršov. Reťazec "nie" nájde napríklad slová "nie", "znenie", "prekvapenie" atď. Je potrebné zadať aspoň ${MINIMAL_STRING_LENGTH_SEARCH} písmen${
       MINIMAL_STRING_LENGTH_SEARCH < 2
         ? "o"
