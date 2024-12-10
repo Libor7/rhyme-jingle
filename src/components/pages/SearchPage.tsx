@@ -26,6 +26,7 @@ const SearchPage = () => {
   const siblings = usePaginationSiblings();
   const { candidates } = useSelector(({ favorite }: RootState) => favorite);
   const {
+    debouncedValue,
     hasPagination,
     searchedText,
     setSearchedText,
@@ -45,13 +46,13 @@ const SearchPage = () => {
         setValue={setSearchedText}
         value={searchedText}
       />
-      {searchedText === "" && (
+      {debouncedValue === "" && (
         <NoResultsFound
           heading={APP_CONTENT.HEADINGS.SEARCH_PAGE}
           text={APP_CONTENT.TEXT_CONTENT.SEARCH_PAGE}
         />
       )}
-      {searchedText.length >= MINIMAL_STRING_LENGTH_SEARCH && (
+      {debouncedValue.length >= MINIMAL_STRING_LENGTH_SEARCH && (
         <FlexboxWrapper>
           <WordCount
             key={wordCount}

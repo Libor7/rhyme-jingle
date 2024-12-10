@@ -8,11 +8,21 @@ import ClearIcon from "@mui/icons-material/Clear";
 /** LIBRARIES */
 import { styled } from "@mui/system";
 import { useTheme } from "@mui/material/styles";
-import { type ChangeEvent, type FC, useCallback, useState } from "react";
+import {
+  type ChangeEvent,
+  type FC,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useSelector } from "react-redux";
 
 /** MODELS */
 import { type DisplayType } from "models/common";
 import { Input } from "models/input";
+
+/** OTHER */
+import { type RootState } from "store/index";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   display: "flex",
@@ -72,8 +82,13 @@ interface ISearchFieldProps {
 }
 
 const SearchField: FC<ISearchFieldProps> = ({ setValue, ...restProps }) => {
+  const { searchedText } = useSelector(({ searched }: RootState) => searched);
   const { palette } = useTheme();
   const [showClearIcon, setShowClearIcon] = useState<DisplayType>("none");
+
+  useEffect(() => {
+    searchedText.length > 0 && setShowClearIcon("flex");
+  }, [searchedText.length]);
 
   const changeHandler = useCallback(
     ({ currentTarget }: ChangeEvent<HTMLInputElement>) => {

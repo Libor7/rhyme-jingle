@@ -1,3 +1,6 @@
+/** HOOKS */
+import useDebounce from "./useDebounce";
+
 /** LIBRARIES */
 import { useCallback, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
@@ -32,6 +35,7 @@ const useSearch = () => {
   const { search } = useLocation();
   const searchParams = useMemo(() => new URLSearchParams(search), [search]);
   const archivedText = searchParams.get("archived_text");
+  const debouncedValue = useDebounce<string>(searchedText, 750);
 
   useEffect(() => {
     archivedText && appDispatch(searchedActions.setSearchedText(archivedText));
@@ -47,9 +51,12 @@ const useSearch = () => {
     appDispatch(searchedActions.setPropertyToInitialValue("removedWords"));
     appDispatch(favoriteActions.setPropertyToInitialValue("candidates"));
     appDispatch(searchedActions.setCurrentPage(INITIAL_PAGE));
-    searchedText.length >= MINIMAL_STRING_LENGTH_SEARCH &&
-      appDispatch(archivedActions.setArchived([searchedText]));
   }, [appDispatch, searchedText]);
+
+  useEffect(() => {
+    debouncedValue.length >= MINIMAL_STRING_LENGTH_SEARCH &&
+      appDispatch(archivedActions.setArchived([debouncedValue]));
+  }, [appDispatch, debouncedValue]);
 
   useEffect(() => {
     return () => {
@@ -63,8 +70,8 @@ const useSearch = () => {
   );
 
   const wordsFilteredByText = useMemo(
-    () => filterByText(lexicon, searchedText),
-    [lexicon, searchedText]
+    () => filterByText(lexicon, debouncedValue),
+    [lexicon, debouncedValue]
   );
 
   const wordLengths = useMemo(
@@ -96,7 +103,7 @@ const useSearch = () => {
     );
   }, [appDispatch, recordsPerPage, wordCount]);
 
-  const fromIndex = recordsPerPage * currentPage - recordsPerPage;
+  const fromIndex = Math.max(recordsPerPage * currentPage - recordsPerPage, 0);
   const getCurrentPageWords = useCallback(
     (words: string[]) => words.slice(fromIndex, recordsPerPage + fromIndex),
     [fromIndex, recordsPerPage]
@@ -115,6 +122,7 @@ const useSearch = () => {
 
   return {
     count: pageCount,
+    debouncedValue,
     hasPagination,
     onChange: pageChangeHandler,
     page: currentPage,
