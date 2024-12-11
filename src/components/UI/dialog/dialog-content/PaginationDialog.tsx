@@ -58,18 +58,12 @@ interface IPaginationDialogProps {
   onDialogClose: (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => void;
-  open: boolean;
 }
 
-const PaginationDialog: FC<IPaginationDialogProps> = ({
-  onDialogClose,
-  open,
-}) => {
-  const { currentPage, pageCount } = useSelector(
-    ({ searched }: RootState) => searched
-  );
+const PaginationDialog: FC<IPaginationDialogProps> = ({ onDialogClose }) => {
+  const { pageCount } = useSelector(({ searched }: RootState) => searched);
   const appDispatch = useAppDispatch();
-  const [pageNum, setPageNum] = useState<number>(currentPage);
+  const [pageNum, setPageNum] = useState<number>(INITIAL_PAGE);
 
   const currentPageChangeHandler = useCallback(
     ({ currentTarget }: ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +81,7 @@ const PaginationDialog: FC<IPaginationDialogProps> = ({
 
   return (
     <Dialog
-      open={open}
+      open
       PaperComponent={PaperComponent}
       aria-labelledby="searched-dialog-title"
     >

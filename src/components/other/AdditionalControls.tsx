@@ -137,7 +137,6 @@ const AdditionalControls: FC<IAdditionalControlsProps> = ({
           <InfoDialog
             onClose={toggleModal}
             onConfirm={() => confirmHandler()}
-            open={modalShown}
             text={dialogContent.text}
             title={dialogContent.title}
           />

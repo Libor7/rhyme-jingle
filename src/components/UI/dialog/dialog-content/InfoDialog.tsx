@@ -23,7 +23,6 @@ const PaperComponent = (props: PaperProps) => {
 interface IInfoDialogProps {
   onClose: () => void;
   onConfirm: () => void;
-  open: boolean;
   text: string;
   title: string;
 }
@@ -31,16 +30,11 @@ interface IInfoDialogProps {
 const InfoDialog: FC<IInfoDialogProps> = ({
   onClose,
   onConfirm,
-  open,
   text,
   title,
 }) => {
   return (
-    <Dialog
-      open={open}
-      PaperComponent={PaperComponent}
-      aria-labelledby="dialog-title"
-    >
+    <Dialog open PaperComponent={PaperComponent} aria-labelledby="dialog-title">
       <StyledDialogTitle id="dialog-title">{title}</StyledDialogTitle>
       <StyledDialogContent>
         <StyledParagraph>{text}</StyledParagraph>

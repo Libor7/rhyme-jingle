@@ -93,7 +93,7 @@ const MiscellaneousControls = () => {
       )}
       {modalShown && (
         <Modal>
-          <PaginationDialog open={modalShown} onDialogClose={toggleModal} />
+          <PaginationDialog onDialogClose={toggleModal} />
         </Modal>
       )}
     </StyledSection>

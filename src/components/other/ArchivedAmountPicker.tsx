@@ -97,7 +97,6 @@ const ArchivedAmountPicker = () => {
           <InfoDialog
             onClose={closeModal}
             onConfirm={() => setArchivedAmount(modal.newArchivedAmount!)}
-            open={modal.isShown}
             text={DIALOG_CONTENT.DESCRIPTION(
               modal.newArchivedAmount!,
               +archivedAmount

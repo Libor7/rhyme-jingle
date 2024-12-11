@@ -1,10 +1,10 @@
 /** COMPONENTS */
-import MUIButton, { ButtonProps } from "@mui/material/Button";
+import MUIButton, { type ButtonProps } from "@mui/material/Button";
 
 /** LIBRARIES */
 import { motion } from "framer-motion";
 import { styled } from "@mui/system";
-import { type FC, type PropsWithChildren, useEffect } from "react";
+import { type FC, useEffect } from "react";
 
 /** OTHER */
 import { useAppDispatch } from "store";
@@ -53,11 +53,7 @@ interface IStyledButtonProps {
   marked: number;
 }
 
-const Button: FC<PropsWithChildren<IButtonProps>> = ({
-  isMarked,
-  length,
-  onClick,
-}) => {
+const Button: FC<IButtonProps> = ({ isMarked, length, onClick }) => {
   const appDispatch = useAppDispatch();
 
   useEffect(() => {
