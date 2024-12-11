@@ -17,25 +17,27 @@ import { useSelector } from "react-redux";
 import APP_CONTENT, { MINIMAL_STRING_LENGTH_SEARCH } from "models/constants";
 
 /** OTHER */
-import { type RootState } from "store";
+import { useAppDispatch, type RootState } from "store";
+import { searchedActions } from "store/searched";
 
 /** STYLED COMPONENTS */
 import { StyledPagination } from "components/styled/StyledPagination";
 
 const SearchPage = () => {
+  const appDispatch = useAppDispatch();
   const siblings = usePaginationSiblings();
   const { candidates } = useSelector(({ favorite }: RootState) => favorite);
+  const { currentPage, pageCount, recordsPerPage, searchedText } = useSelector(
+    ({ searched }: RootState) => searched
+  );
   const {
     debouncedValue,
-    hasPagination,
-    searchedText,
-    setSearchedText,
+    pageChangeHandler,
     wordCount,
     wordLengths,
     wordsFilteredByRemovedWords,
     wordsFilteredByTextCount,
     wordsToShow,
-    ...other
   } = useSearch();
 
   return (
@@ -43,7 +45,9 @@ const SearchPage = () => {
       <SearchField
         id="search-all"
         placeholder={APP_CONTENT.SEARCHFIELD.PLACEHOLDER.SEARCHED}
-        setValue={setSearchedText}
+        setValue={(value: string) =>
+          appDispatch(searchedActions.setSearchedText(value))
+        }
         value={searchedText}
       />
       {debouncedValue === "" && (
@@ -71,19 +75,19 @@ const SearchPage = () => {
       {wordsFilteredByTextCount > 0 && (
         <Buttons
           disposableWords={wordsFilteredByRemovedWords}
-          hasPagination={hasPagination}
           lengths={wordLengths}
-          totalWordsFound={wordsFilteredByTextCount}
         />
       )}
       {wordsToShow.length > 0 && <List words={wordsToShow} />}
-      {hasPagination && (
+      {wordCount > recordsPerPage && (
         <StyledPagination
+          count={pageCount}
+          onChange={pageChangeHandler}
+          page={currentPage}
           showFirstButton
           showLastButton
           siblingCount={siblings}
           size="large"
-          {...other}
         />
       )}
     </>

@@ -9,21 +9,25 @@ import WordCount from "components/UI/WordCount";
 import useFavorite from "hooks/useFavorite";
 import usePaginationSiblings from "hooks/usePaginationSiblings";
 
+/** LIBRARIES */
+import { useSelector } from "react-redux";
+
 /** MODELS */
 import APP_CONTENT from "models/constants";
+
+/** OTHER */
+import { RootState, useAppDispatch } from "store/index";
+import { favoriteActions } from "store/favorite";
 
 /** STYLED COMPONENTS */
 import { StyledPagination } from "components/styled/StyledPagination";
 
 const FavoritePage = () => {
-  const {
-    hasPagination,
-    searchedText,
-    setSearchedText,
-    wordCount,
-    wordsToShow,
-    ...other
-  } = useFavorite();
+  const appDispatch = useAppDispatch();
+  const { currentPage, recordsPerPage, searchedText } = useSelector(
+    ({ favorite }: RootState) => favorite
+  );
+  const { pageChangeHandler, wordCount, wordsToShow } = useFavorite();
   const siblings = usePaginationSiblings();
 
   return (
@@ -31,7 +35,9 @@ const FavoritePage = () => {
       <SearchField
         id="search-fav"
         placeholder={APP_CONTENT.SEARCHFIELD.PLACEHOLDER.FAVORITE}
-        setValue={setSearchedText}
+        setValue={(value: string) =>
+          appDispatch(favoriteActions.setSearchedText(value))
+        }
         value={searchedText}
       />
       {searchedText === "" && wordsToShow.length === 0 && (
@@ -57,13 +63,15 @@ const FavoritePage = () => {
         />
       )}
       {wordsToShow.length > 0 && <List words={wordsToShow} />}
-      {hasPagination && (
+      {wordCount > recordsPerPage && (
         <StyledPagination
+          count={Math.ceil(wordCount / recordsPerPage)}
+          onChange={pageChangeHandler}
+          page={currentPage}
           showFirstButton
           showLastButton
           siblingCount={siblings}
           size="large"
-          {...other}
         />
       )}
     </>

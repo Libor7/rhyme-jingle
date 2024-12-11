@@ -7,23 +7,18 @@ import { INITIAL_PAGE, MINIMAL_STRING_LENGTH_OTHER } from "models/constants";
 
 /** OTHER */
 import { type RootState, useAppDispatch } from "store";
-import { filterByText } from "helpers/utils";
+import { filterByText, getCurrentPageWords } from "helpers/utils";
 import { favoriteActions } from "store/favorite";
 
 const useFavorite = () => {
+  const appDispatch = useAppDispatch();
   const { currentPage, favorites, recordsPerPage, searchedText } = useSelector(
     ({ favorite }: RootState) => favorite
   );
-  const appDispatch = useAppDispatch();
 
   useEffect(() => {
     appDispatch(favoriteActions.setCurrentPage(INITIAL_PAGE));
   }, [appDispatch, searchedText]);
-
-  const setSearchedText = useCallback(
-    (value: string) => appDispatch(favoriteActions.setSearchedText(value)),
-    [appDispatch]
-  );
 
   const favoritesFilteredByText = useMemo(
     () => filterByText(favorites, searchedText, MINIMAL_STRING_LENGTH_OTHER),
@@ -33,17 +28,22 @@ const useFavorite = () => {
   const favoriteWords =
     searchedText.length > 0 ? favoritesFilteredByText : favorites;
   const wordCount = favoriteWords.length;
-  const hasPagination = wordCount > recordsPerPage;
 
-  const fromIndex = recordsPerPage * currentPage - recordsPerPage;
-  const getCurrentPageWords = useCallback(
-    (words: string[]) => words.slice(fromIndex, recordsPerPage + fromIndex),
-    [fromIndex, recordsPerPage]
+  const fromIndex = useMemo(
+    () => recordsPerPage * currentPage - recordsPerPage,
+    [currentPage, recordsPerPage]
   );
 
   const wordsToShow = useMemo(
-    () => (hasPagination ? getCurrentPageWords(favoriteWords) : favoriteWords),
-    [favoriteWords, getCurrentPageWords, hasPagination]
+    () =>
+      wordCount > recordsPerPage
+        ? getCurrentPageWords(
+            favoriteWords,
+            fromIndex,
+            recordsPerPage + fromIndex
+          )
+        : favoriteWords,
+    [favoriteWords, fromIndex, recordsPerPage, wordCount]
   );
 
   const pageChangeHandler = useCallback(
@@ -53,12 +53,7 @@ const useFavorite = () => {
   );
 
   return {
-    count: Math.ceil(wordCount / recordsPerPage),
-    hasPagination,
-    onChange: pageChangeHandler,
-    page: currentPage,
-    searchedText,
-    setSearchedText,
+    pageChangeHandler,
     wordCount,
     wordsToShow,
   };

@@ -9,7 +9,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 /** LIBRARIES */
 import { styled } from "@mui/system";
-import { type FC, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 
 /** OTHER */
@@ -27,16 +27,9 @@ const StyledSection = styled("section")(() => ({
   gap: "0.25em",
 }));
 
-interface IMiscellaneousControlsProps {
-  hasPagination: boolean;
-  totalWordsFound: number;
-}
-
-const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
-  hasPagination,
-  totalWordsFound,
-}) => {
+const MiscellaneousControls = () => {
   const { candidates } = useSelector(({ favorite }: RootState) => favorite);
+  const { pageCount } = useSelector(({ searched }: RootState) => searched);
   const appDispatch = useAppDispatch();
   const [modalShown, setModalShown] = useState<boolean>(false);
 
@@ -71,15 +64,13 @@ const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
 
   return (
     <StyledSection>
-      {totalWordsFound > 0 && (
-        <StyledIconButton
-          aria-label="reset"
-          disableRipple
-          onClick={resetWordsFound}
-        >
-          <ReplayIcon fontSize="inherit" />
-        </StyledIconButton>
-      )}
+      <StyledIconButton
+        aria-label="reset"
+        disableRipple
+        onClick={resetWordsFound}
+      >
+        <ReplayIcon fontSize="inherit" />
+      </StyledIconButton>
       {hasCandidates && (
         <StyledIconButton
           aria-label="add favorites"
@@ -90,7 +81,7 @@ const MiscellaneousControls: FC<IMiscellaneousControlsProps> = ({
           <StarBorderIcon fontSize="inherit" />
         </StyledIconButton>
       )}
-      {hasPagination && (
+      {pageCount > 1 && (
         <StyledIconButton
           aria-label="switch pagination"
           disableRipple

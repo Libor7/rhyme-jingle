@@ -52,6 +52,12 @@ export const filterByTextLength = (words: string[], lengths: number[]) =>
 export const filterOutSubset = (words: string[], subset: string[]) =>
   words.filter((word) => subset.indexOf(word) === -1);
 
+export const getCurrentPageWords = (
+  words: string[],
+  from: number,
+  to: number
+) => words.slice(from, to);
+
 export const getLocalStorageValue = <T>(key: string, initialValue: T): T =>
   JSON.parse(localStorage.getItem(key) || JSON.stringify(initialValue));
 

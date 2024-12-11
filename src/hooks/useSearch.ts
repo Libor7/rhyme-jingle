@@ -19,9 +19,11 @@ import {
   filterByText,
   filterByTextLength,
   filterOutSubset,
+  getCurrentPageWords,
 } from "helpers/utils";
 
 const useSearch = () => {
+  const appDispatch = useAppDispatch();
   const {
     currentPage,
     lengthFilters,
@@ -31,7 +33,6 @@ const useSearch = () => {
     removedWords,
     searchedText,
   } = useSelector(({ searched }: RootState) => searched);
-  const appDispatch = useAppDispatch();
   const { search } = useLocation();
   const searchParams = useMemo(() => new URLSearchParams(search), [search]);
   const archivedText = searchParams.get("archived_text");
@@ -64,11 +65,6 @@ const useSearch = () => {
     };
   }, [appDispatch]);
 
-  const setSearchedText = useCallback(
-    (value: string) => appDispatch(searchedActions.setSearchedText(value)),
-    [appDispatch]
-  );
-
   const wordsFilteredByText = useMemo(
     () => filterByText(lexicon, debouncedValue),
     [lexicon, debouncedValue]
@@ -89,13 +85,12 @@ const useSearch = () => {
     [lengthFilters, wordsFilteredByRemovedWords]
   );
 
-  const isLengthFilterApplied = lengthFilters.length > 0;
-  const listedWords = isLengthFilterApplied
-    ? wordsFilteredByLength
-    : wordsFilteredByRemovedWords;
+  const listedWords =
+    lengthFilters.length > 0
+      ? wordsFilteredByLength
+      : wordsFilteredByRemovedWords;
 
   const wordCount = listedWords.length;
-  const hasPagination = wordCount > recordsPerPage;
 
   useEffect(() => {
     appDispatch(
@@ -103,15 +98,21 @@ const useSearch = () => {
     );
   }, [appDispatch, recordsPerPage, wordCount]);
 
-  const fromIndex = Math.max(recordsPerPage * currentPage - recordsPerPage, 0);
-  const getCurrentPageWords = useCallback(
-    (words: string[]) => words.slice(fromIndex, recordsPerPage + fromIndex),
-    [fromIndex, recordsPerPage]
+  const fromIndex = useMemo(
+    () => Math.max(recordsPerPage * currentPage - recordsPerPage, 0),
+    [currentPage, recordsPerPage]
   );
 
   const wordsToShow = useMemo(
-    () => (hasPagination ? getCurrentPageWords(listedWords) : listedWords),
-    [getCurrentPageWords, hasPagination, listedWords]
+    () =>
+      wordCount > recordsPerPage
+        ? getCurrentPageWords(
+            listedWords,
+            fromIndex,
+            recordsPerPage + fromIndex
+          )
+        : listedWords,
+    [fromIndex, listedWords, recordsPerPage, wordCount]
   );
 
   const pageChangeHandler = useCallback(
@@ -121,13 +122,8 @@ const useSearch = () => {
   );
 
   return {
-    count: pageCount,
     debouncedValue,
-    hasPagination,
-    onChange: pageChangeHandler,
-    page: currentPage,
-    searchedText,
-    setSearchedText,
+    pageChangeHandler,
     wordCount,
     wordLengths,
     wordsFilteredByRemovedWords,

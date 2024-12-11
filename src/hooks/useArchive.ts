@@ -6,24 +6,19 @@ import { useSelector } from "react-redux";
 import { INITIAL_PAGE, MINIMAL_STRING_LENGTH_OTHER } from "models/constants";
 
 /** OTHER */
-import { filterByText } from "helpers/utils";
+import { filterByText, getCurrentPageWords } from "helpers/utils";
 import { type RootState, useAppDispatch } from "store";
 import { archivedActions } from "store/archived";
 
 const useArchive = () => {
+  const appDispatch = useAppDispatch();
   const { archived, currentPage, recordsPerPage, searchedText } = useSelector(
     ({ archived }: RootState) => archived
   );
-  const appDispatch = useAppDispatch();
 
   useEffect(() => {
     appDispatch(archivedActions.setCurrentPage(INITIAL_PAGE));
   }, [appDispatch, searchedText]);
-
-  const setSearchedText = useCallback(
-    (value: string) => appDispatch(archivedActions.setSearchedText(value)),
-    [appDispatch]
-  );
 
   const archivedFilteredByText = useMemo(
     () => filterByText(archived, searchedText, MINIMAL_STRING_LENGTH_OTHER),
@@ -33,17 +28,22 @@ const useArchive = () => {
   const archivedWords =
     searchedText.length > 0 ? archivedFilteredByText : archived;
   const wordCount = archivedWords.length;
-  const hasPagination = wordCount > recordsPerPage;
 
-  const fromIndex = recordsPerPage * currentPage - recordsPerPage;
-  const getCurrentPageWords = useCallback(
-    (words: string[]) => words.slice(fromIndex, recordsPerPage + fromIndex),
-    [fromIndex, recordsPerPage]
+  const fromIndex = useMemo(
+    () => recordsPerPage * currentPage - recordsPerPage,
+    [currentPage, recordsPerPage]
   );
 
   const wordsToShow = useMemo(
-    () => (hasPagination ? getCurrentPageWords(archivedWords) : archivedWords),
-    [archivedWords, getCurrentPageWords, hasPagination]
+    () =>
+      wordCount > recordsPerPage
+        ? getCurrentPageWords(
+            archivedWords,
+            fromIndex,
+            recordsPerPage + fromIndex
+          )
+        : archivedWords,
+    [archivedWords, fromIndex, recordsPerPage, wordCount]
   );
 
   const pageChangeHandler = useCallback(
@@ -53,12 +53,8 @@ const useArchive = () => {
   );
 
   return {
-    count: Math.ceil(wordCount / recordsPerPage),
-    hasPagination,
-    onChange: pageChangeHandler,
-    page: currentPage,
+    pageChangeHandler,
     searchedText,
-    setSearchedText,
     wordCount,
     wordsToShow,
   };

@@ -13,26 +13,16 @@ const StyledSection = styled("section")(() => ({
 
 interface IButtonsProps {
   disposableWords: string[];
-  hasPagination: boolean;
   lengths: number[];
-  totalWordsFound: number;
 }
 
-const Buttons: FC<IButtonsProps> = ({
-  disposableWords,
-  hasPagination,
-  lengths,
-  totalWordsFound,
-}) => {
+const Buttons: FC<IButtonsProps> = ({ disposableWords, lengths }) => {
   return (
     <StyledSection>
       {lengths.length > 0 && disposableWords.length > 0 && (
         <FilterControls disposableWords={disposableWords} lengths={lengths} />
       )}
-      <MiscellaneousControls
-        totalWordsFound={totalWordsFound}
-        hasPagination={hasPagination}
-      />
+      <MiscellaneousControls />
     </StyledSection>
   );
 };
