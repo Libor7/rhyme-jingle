@@ -1,11 +1,14 @@
 /** MODELS */
 import {
+  blackAndYellow,
   cherryAndWhite,
   coffeeAndBeige,
   darkGreenAndWhite,
+  green,
   islandGreenAndWhite,
   midnightblueAndWater,
   orangeAndWhite,
+  purple,
 } from "./color-palettes";
 
 export const INITIAL_PAGE = 1;
@@ -80,6 +83,10 @@ const APP_CONTENT = {
     THEME_COLOR: {
       TITLE: "Farby aplikácie",
       CONTROLS: {
+        YELLOW: {
+          LABEL: "Banánová",
+          VALUE: "blackYellow",
+        },
         CHERRY: {
           LABEL: "Čerešňová",
           VALUE: "cherryWhite",
@@ -91,6 +98,10 @@ const APP_CONTENT = {
         DARKGREEN: {
           LABEL: "Tmavozelená",
           VALUE: "darkGreenWhite",
+        },
+        GREEN: {
+          LABEL: "Zelená",
+          VALUE: "green",
         },
         ISLANDGREEN: {
           LABEL: "Svetlozelená",
@@ -104,6 +115,10 @@ const APP_CONTENT = {
           LABEL: "Oranžová",
           VALUE: "orangeWhite",
         },
+        PURPLE: {
+          LABEL: "Purpurová",
+          VALUE: "purple",
+        },
       },
     },
   },
@@ -112,12 +127,15 @@ const APP_CONTENT = {
 Object.freeze(APP_CONTENT);
 
 export const palettes = new Map([
+  ["blackYellow", blackAndYellow],
   ["cherryWhite", cherryAndWhite],
   ["coffeeBeige", coffeeAndBeige],
   ["darkGreenWhite", darkGreenAndWhite],
+  ["green", green],
   ["islandGreenWhite", islandGreenAndWhite],
   ["midnightblueWater", midnightblueAndWater],
   ["orangeWhite", orangeAndWhite],
+  ["purple", purple],
 ]);
 
 export default APP_CONTENT;
