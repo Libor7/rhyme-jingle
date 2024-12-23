@@ -37,14 +37,14 @@ const APP_CONTENT = {
   HEADINGS: {
     APPLICATION_TITLE: "Rýmovačka",
     ARCHIVE_PAGE: "Archív hľadaných výrazov",
-    FAVORITE_PAGE: "Slová označené ako obľúbené",
+    FAVORITE_PAGE: "Obľúbené rýmy",
     SEARCH_PAGE: "Rýmujúce sa slová",
   },
   TEXT_CONTENT: {
     ARCHIVE_PAGE: "Archív slúži na ukladanie histórie vyhľadávania rýmov",
     FAVORITE_PAGE:
-      "Úložisko slov pre neskoršie použitie. Kliknutím nájdené slová označí a kliknutím na tlačídlo s hviezdičkou slová pridá medzi obľúbené.",
-    SEARCH_PAGE: `Aplikácia slúži na vyhľadávanie slov, ktoré majú na konci rovnaký reťazec písmen, čím umožňuje jednoduchšie skladanie veršov. Reťazec "nie" nájde napríklad slová "nie", "znenie", "prekvapenie" atď. Je potrebné zadať aspoň ${MINIMAL_STRING_LENGTH_SEARCH} písmen${
+      "Rýmujúce sa výrazy označené pri vyhľadávaní ako obľúbené. Kliknutím nájdené slovo označí a tlačídlo s hviezdičkou ho pridá medzi obľúbené.",
+    SEARCH_PAGE: `Veršovacia aplikácia slúži ako pomôcka básnikom pre vyhľadávanie rýmujúcich sa slov, čím uľahčuje skladanie veršov. Hľadaný výraz "nie" nájde napríklad slová "nie", "znenie", "prekvapenie" atď. Je potrebné zadať aspoň ${MINIMAL_STRING_LENGTH_SEARCH} písmen${
       MINIMAL_STRING_LENGTH_SEARCH < 2
         ? "o"
         : MINIMAL_STRING_LENGTH_SEARCH < 5
